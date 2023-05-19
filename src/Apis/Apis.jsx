@@ -9,11 +9,9 @@ let token = localStorage.getItem("token");
 export const TodoGetApis = {
   SingUp: async (data, code) =>
     await axios.post(`${urlServer}/signUpAdmin/${code}`, { data }),
+    
   // CreateProduct: async(data) => await axios.post(`${urlServer}/CreateProduct`,{data})
   SingIn: async (data) => await axios.post(`${urlServer}/signInUser`, { data }),
-
-  SindIntA: async (data, token) =>
-    await axios.post(`${urlServer}/signUpSuperAdmin/${token}`),
 
   RecoverPasword: async (data) =>
     await axios.put(`${urlServer}/recoverPassword`, { data }),

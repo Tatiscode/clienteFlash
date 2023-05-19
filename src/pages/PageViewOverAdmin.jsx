@@ -33,17 +33,52 @@ function PageViewOverAdmin() {
                         html: `
                         <input id="name" type="text" placeholder="Nombre" />
                         <input id="address" type="text" placeholder="Dirección" />
-                        <input id="emial" type="text" placeholder="Correo eletronico" />
-                        `
+                        <input id="email" type="text" placeholder="Correo eletronico" />
+                        `,
+                        focusConfirm: false,
+                        focusCancel: false,
+                        showCancelButton: true,
+                        showConfirmButton: true,
+                        confirmButtonText: "Enviar",
+                        cancelButtonText: "Cancelar",
+                        preConfirm: async () => {
+                          try {
+                            let name = document.getElementById("name").value;
+                            let address =document.getElementById("address").value;
+                            let email = document.getElementById("email").value;
+                            let data = {
+                              nameUser: name,
+                              email,
+                              direccion: address,
+                            };
+                            const response = await TodoGetApis.SingUp(
+                              data,
+                              token
+                            );
+                            if (response.status === 200) {
+                              swal.fire({
+                                title: "Centro comercial registrado",
+                                text: "Se ha registrado el centro comercial",
+                                icon: "success",
+                              });
+                            }
+                          } catch (error) {
+                            swal.fire({
+                              title: "Error",
+                              text: "Ingrese los datos correctamente",
+                              icon: "error",
+                            });
+                          }
+                        },
                       });
                     }
-                    return response
+                    return response;
                   } catch (error) {
                     swal.fire({
                       title: "Token incorrecto",
-                    })
+                    });
                   }
-                }
+                },
               });
             }}
           >
