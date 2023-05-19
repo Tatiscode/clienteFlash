@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./user.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -56,7 +56,7 @@ export default function User() {
                 window.location.href = "/overAdmin";
               }
             } else{
-              toast.error("El correo o contraseña no es valido", {
+              toast.error("Correo o contraseña invalido", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -69,7 +69,7 @@ export default function User() {
             }
           } catch (error) {
             setLoading(false);
-            toast.error("ERROR: El correo o contraseña no es valido", {
+            toast.error("Correo o contraseña invalido", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: true,
@@ -87,6 +87,7 @@ export default function User() {
       >
         <Form>
           <div className="container-flecha">
+            <Link to="/">
             <svg
               className="flecha"
               xmlns="http://www.w3.org/2000/svg"
@@ -99,6 +100,7 @@ export default function User() {
                 d="m10.875 19.3l-6.6-6.6q-.15-.15-.213-.325T4 12q0-.2.063-.375t.212-.325l6.6-6.6q.275-.275.688-.287t.712.287q.3.275.313.688T12.3 6.1L7.4 11h11.175q.425 0 .713.288t.287.712q0 .425-.287.713t-.713.287H7.4l4.9 4.9q.275.275.288.7t-.288.7q-.275.3-.7.3t-.725-.3Z"
               />
             </svg>
+            </Link>
           </div>
           <h1>Inicio de Sesión</h1>
           <div className="campus">
@@ -119,7 +121,7 @@ export default function User() {
               className="input_forms"
               type="text"
               name="email"
-              placeholder="E-mail"
+              placeholder="Email"
             />
           </div>
           <ErrorMessage component="p" name="email" className="error" />

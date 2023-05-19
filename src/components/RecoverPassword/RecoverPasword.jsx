@@ -28,7 +28,7 @@ function RecoverPasword() {
 
             if (response.status === 200) {
               setLoading(false);
-              toast.success("Email valido", {
+              toast.success("Codigo enviado", {
                 position: "top-right",
                 autoClose: 4000,
                 hideProgressBar: false,
@@ -71,6 +71,7 @@ function RecoverPasword() {
       >
         <Form className="form-horizontal"> 
           <div className="container-flecha">
+            <Link to="/Login">
             <svg
               className="flecha"
               xmlns="http://www.w3.org/2000/svg"
@@ -83,9 +84,10 @@ function RecoverPasword() {
                 d="m10.875 19.3l-6.6-6.6q-.15-.15-.213-.325T4 12q0-.2.063-.375t.212-.325l6.6-6.6q.275-.275.688-.287t.712.287q.3.275.313.688T12.3 6.1L7.4 11h11.175q.425 0 .713.288t.287.712q0 .425-.287.713t-.713.287H7.4l4.9 4.9q.275.275.288.7t-.288.7q-.275.3-.7.3t-.725-.3Z"
               />
             </svg>
+            </Link>
           </div>
           <h1>Recuperar Contraseña</h1>
-         
+          <p className="m-2 text-center">Ingrese la dirección de correo electrónico verificada de su cuenta de usuario y le enviaremos un enlace para restablecer la contraseña.</p>
           <ErrorMessage component="p" name="email" className="error" />
           <div className="campus">
             <span className="icons-from">

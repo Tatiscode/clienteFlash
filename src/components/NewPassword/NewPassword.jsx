@@ -10,6 +10,7 @@ function NewPassword() {
   const [status, setStatus] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   console.log(id);
 
   return (
@@ -25,18 +26,21 @@ function NewPassword() {
           newPassword: Yup.string().required("Campo obligatorio"),
         })}
         onSubmit={async (values) => {
+          setLoading(true);
           try {
+          
             let data = {
               email: id,
               password: values.password,
             };
             const response = await TodoGetApis.NewPassword(data);
             console.log(response);
+            setLoading(false);
 
             console.log(data);
 
             if (response.status === 200) {
-              toast.success("Codigo valido", {
+              toast.success("Contraseña actualizada", {
                 position: "top-right",
                 autoClose: 4000,
                 hideProgressBar: false,
@@ -48,7 +52,7 @@ function NewPassword() {
               });
               navigate("/Login");
             } else {
-              toast.error("Codigo invalido", {
+              toast.error("Contraseña no actualizada", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -60,6 +64,7 @@ function NewPassword() {
               });
             }
           } catch (error) {
+            setLoading(false);
             toast.error("Error", {
               position: "top-right",
               autoClose: 5000,
@@ -75,6 +80,7 @@ function NewPassword() {
       >
         <Form>
           <div className="container-flecha">
+            <Link to="/CodeRecoverPassword/:id">
             <svg
               className="flecha"
               xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +93,7 @@ function NewPassword() {
                 d="m10.875 19.3l-6.6-6.6q-.15-.15-.213-.325T4 12q0-.2.063-.375t.212-.325l6.6-6.6q.275-.275.688-.287t.712.287q.3.275.313.688T12.3 6.1L7.4 11h11.175q.425 0 .713.288t.287.712q0 .425-.287.713t-.713.287H7.4l4.9 4.9q.275.275.288.7t-.288.7q-.275.3-.7.3t-.725-.3Z"
               />
             </svg>
+            </Link>
           </div>
           <h1>Crear una nueva contraseña para:</h1>
           <p style={{ color: "blue", fontSize: "15px" }}> {id}</p>
@@ -199,6 +206,7 @@ function NewPassword() {
           <span style={{ color: "red", fontSize: "18px" }}>
             <ErrorMessage component="p" name="code" className="error" />
           </span>
+
           <ul className="li-password">
             <li>Al menos un carácter en minúscula</li>
             <li>Al menos un carácter en mayúscula</li>
@@ -208,9 +216,21 @@ function NewPassword() {
               utilizados
             </li>
           </ul>
-          <button className="pink" type="submit">
+
+          {
+            loading === true ? (
+              <div className="pink flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g stroke="white"><circle cx="12" cy="12" r="9.5" fill="none" stroke-linecap="round" stroke-width="3"><animate attributeName="stroke-dasharray" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0 150;42 150;42 150;42 150"/><animate attributeName="stroke-dashoffset" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0;-16;-59;-59"/></circle><animateTransform attributeName="transform" dur="2s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></g></svg>
+            </div>
+
+            ):(
+              <button className="pink" type="submit">
             Actualizar
           </button>
+
+            )
+          }
+          
         </Form>
       </Formik>
     </div>
