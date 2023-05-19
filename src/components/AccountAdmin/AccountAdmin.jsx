@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form} from "formik";
 import * as Yup from "yup";
-import {useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
 import swal from "sweetalert2";
 
@@ -48,16 +48,14 @@ function AccountAdmin() {
           {account.length > 0 ? (
             account.map((data) => (
               <div className="boxAccount1">
-                <div className="containerBox">
+                <div className="containerBox flex items-center">
                   <div className="name">
-                    <label>Nombre de Usuario:</label>
+                    <label>Nombre:</label>
+                    <span className="mx-2 ">{data.name_admin}</span>
                   </div>
                   <div className="containerName">
-                    <span>{data.name_admin}</span>
-                    <button
-                      style={{
-                        border: "#000 2px solid",
-                      }}
+                   
+                    <button className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
                       onClick={() => {
                         swal.fire({
                           title: "cambiar nombre",
@@ -89,20 +87,21 @@ function AccountAdmin() {
                               navigate("/AccountAdmin");
                       }}
                     >
-                      editar
+                      <div className="flex p-1 ">
+                     <span className="ml-4">Editar</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                      </div>
                     </button>
                   </div>
                 </div>
-                <div className="containerBox">
+                <div className="containerBox flex items-center">
                   <div className="name">
-                    <label>Correo electrónico:</label>
+                    <label>Email:</label>
+                    <span className="ml-2 w-36 truncate">{data.email_admin}</span>
                   </div>
                   <div className="containerName">
-                    <span>{data.email_admin}</span>
-                    <button
-                      style={{
-                        border: "#000 2px solid",
-                      }}
+                    <button className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
+                     
                       onClick={() => {
                         swal.fire({
                           title: "Cambiar correo",
@@ -132,20 +131,21 @@ function AccountAdmin() {
                         });
                       }}
                     >
-                      Editar
+                      <div className="flex p-1 ">
+                     <span className="ml-4">Editar</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                      </div>
                     </button>
                   </div>
                 </div>
-                <div className="containerBox">
+                <div className="containerBox flex items-center">
                   <div className="name">
                     <label>Dirección:</label>
+                    <span className="mx-2">{data.dirrecion_administrator}</span>
                   </div>
                   <div className="containerName">
-                    <span>{data.dirrecion_administrator}</span>
-                    <button
-                      style={{
-                        border: "#000 2px solid",
-                      }}
+                    <button className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
+                      
                       onClick={() => {
                         swal.fire({
                           tittle: "Editar Direccion",
@@ -177,11 +177,15 @@ function AccountAdmin() {
                         });
                       }}
                     >
-                      Editar
+                      <div className="flex p-1 ">
+                     <span className="ml-4">Editar</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                      </div>
                     </button>
                   </div>
                 </div>
-                <button className="buttonAccount">Guardar</button>
+                
+                <a href="/AccountAdmin"  className="pink mx-auto w-full block text-center">Guardar</a>
               </div>
             ))
           ) : (

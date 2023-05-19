@@ -11,6 +11,7 @@ function CreateProduct() {
   const [category, setCategory] = useState([]);
   const [id, setId] = useState("");
   const [image, setImage] = useState([]);
+  const [loading, setLoading]= useState(false);
 
   useEffect(() => {
     (async () => {
@@ -23,6 +24,7 @@ function CreateProduct() {
 
   return (
     <>
+    <ToastContainer/>
       <MenuEmployed />
       <div className="form-register ml-[15%] absolute inset-0 ">
         <Formik
@@ -46,6 +48,7 @@ function CreateProduct() {
           // })}
 
           onSubmit={async (values) => {
+            setLoading(true);
             console.log(values);
             const data = {
               name: values.nameProduct,
@@ -54,12 +57,14 @@ function CreateProduct() {
               amount: values.amountProduct,
               price: values.priceProduct,
               image,
-              category: id,
+              category: values.category,
+              
             };
 
             try {
               const response = await TodoGetApis.CreateProduct(data);
               console.log(response.data);
+              setLoading(false);
               if (response.status === 200) {
                 toast.success("Producto creado con exito", {
                   position: "top-right",
@@ -84,6 +89,7 @@ function CreateProduct() {
                 });
               }
             } catch (error) {
+              setLoading(false);
               toast.error("Error en el sistema", {
                 position: "top-right",
                 autoClose: 5000,
@@ -333,22 +339,28 @@ function CreateProduct() {
                 {category.length > 0 ? (
                   <>
                     {
-                      <div
-                        name="categoryProduct overflow-x-auto"
+                      <Field
+                        name="categoryProduct"
                         id="categoryId"
+                        className="input_forms outline-none"
+                        type="text"
+                        placeholder="Categorias"
+                        as="select"
                       >
                         {category.map((i) => (
-                          <span
+                          <option
                             value={i.id_category}
                             className="bg-gray-200 p-2 m-1 cursor-pointer"
                             onClick={() => setId(i.id_category)}
                           >
                             {i.name_category}
-                          </span>
+                          </option>
                         ))}
-                      </div>
+                      </Field>
                     }
                   </>
+
+
                 ) : (
                   <h6
                     className="pl-1 truncate whitespaces-nowrap "
@@ -365,7 +377,16 @@ function CreateProduct() {
                 className="error"
               />
             </div>
-            <button className="pink">Crear</button>
+            {
+              loading === true ? (
+                <div className="pink flex justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g stroke="white"><circle cx="12" cy="12" r="9.5" fill="none" stroke-linecap="round" stroke-width="3"><animate attributeName="stroke-dasharray" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0 150;42 150;42 150;42 150"/><animate attributeName="stroke-dashoffset" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0;-16;-59;-59"/></circle><animateTransform attributeName="transform" dur="2s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></g></svg>
+              </div>
+              ):(
+                
+                <button className="pink">Registrar</button>
+              )
+            }
           </Form>
         </Formik>
       </div>

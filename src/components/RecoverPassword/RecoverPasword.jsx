@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Login/user.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 function RecoverPasword() {
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false);
   return (
     <div className="form-register1">
       <ToastContainer />
@@ -21,10 +22,12 @@ function RecoverPasword() {
             .required("Campo obligatorio"),
         })}
         onSubmit={async (values) => {
+          setLoading(true);
           try {
             const response = await TodoGetApis.RecoverPasword(values);
 
             if (response.status === 200) {
+              setLoading(false);
               toast.success("Email valido", {
                 position: "top-right",
                 autoClose: 4000,
@@ -49,6 +52,7 @@ function RecoverPasword() {
               });
             }
           } catch (error) {
+            setLoading(false);
             toast.error("Correo invalido", {
               position: "top-right",
               autoClose: 5000,
@@ -104,10 +108,20 @@ function RecoverPasword() {
               placeholder="E-mail"
             />
           </div>
+
+          {
+            loading === true ? (
+              <div className="pink flex justify-center">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g stroke="white"><circle cx="12" cy="12" r="9.5" fill="none" stroke-linecap="round" stroke-width="3"><animate attributeName="stroke-dasharray" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0 150;42 150;42 150;42 150"/><animate attributeName="stroke-dashoffset" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0;-16;-59;-59"/></circle><animateTransform attributeName="transform" dur="2s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></g></svg>
+             </div>
+            ):(
+              
+              <button className="pink" style={{ color: "white" }}>
+                Enviar
+              </button>
+              )
+          }
           
-          <button className="pink" style={{ color: "white" }}>
-            Enviar
-          </button>
         </Form>
       </Formik>
     </div>

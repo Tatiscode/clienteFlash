@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../../components/Login/user.css"
 
 function MenuEmployed() {
   const navigate = useNavigate();
@@ -14,11 +15,11 @@ function MenuEmployed() {
         <aside
           id="sidebar"
           class="fixed hidden z-20 h-full top-0 left-0 pt-1 flex lg:flex
-             flex-shrink-0 flex-col w-64 transition-width duration-75"
+             flex-shrink-0 flex-col w-64 transition-width duration-75 "
           aria-label="Sidebar"
         >
           <div class="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white pt-0">
-            <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+            <div class=" scroll-beheavior flex-1 flex flex-col pt-5 pb-4 ">
               <div class="flex-1 px-3 bg-white divide-y space-y-1">
                 <div class="space-y-2 pb-2">
                   <div class="mt-8 text-center">
@@ -28,15 +29,16 @@ function MenuEmployed() {
                       class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
                     />
                     <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">
-                      Zharick Bautista
+                      Fallabella
                     </h5>
-                    <span class="hidden text-gray-400 lg:block">Empleado</span>
+                    <span class="hidden text-gray-400 lg:block">Tatiana Barrera</span>
                   </div>
                   <li>
                     <Link
                       className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                        hover:text-white
-                        px-4 my-2 flex bg-gray-100 rounded-full block p-2"
+                      hover:text-white 
+                      hover:rounded-full duration-300
+                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
                       to="/EditPorfileEmployed"
                     >
                       <svg
@@ -50,54 +52,7 @@ function MenuEmployed() {
                           d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 2a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2m0 7c2.67 0 8 1.33 8 4v3H4v-3c0-2.67 5.33-4 8-4m0 1.9c-2.97 0-6.1 1.46-6.1 2.1v1.1h12.2V17c0-.64-3.13-2.1-6.1-2.1Z"
                         />
                       </svg>
-                      <span class="pl-4">Editar Perfil</span>
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                        hover:text-white
-                        px-4 my-2 flex bg-gray-100 rounded-full block p-2"
-                      to="/Products"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 2048 2048"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="m1344 2l704 352v785l-128-64V497l-512 256v258l-128 64V753L768 497v227l-128-64V354L1344 2zm0 640l177-89l-463-265l-211 106l497 248zm315-157l182-91l-497-249l-149 75l464 265zm-507 654l-128 64v-1l-384 192v455l384-193v144l-448 224L0 1735v-676l576-288l576 288v80zm-640 710v-455l-384-192v454l384 193zm64-566l369-184l-369-185l-369 185l369 184zm576-1l448-224l448 224v527l-448 224l-448-224v-527zm384 576v-305l-256-128v305l256 128zm384-128v-305l-256 128v305l256-128zm-320-288l241-121l-241-120l-241 120l241 121z"
-                        />
-                      </svg>
-                      <span class="pl-4">Productos</span>
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      to="/CreateProduct"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                        hover:text-white
-                        my-2 px-4 flex bg-gray-100 rounded-full block p-2"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 14 14"
-                      >
-                        <path
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M7 .54v13M.5 7h13"
-                        />
-                      </svg>
-                      <span className="pl-4">Crear Producto</span>
+                      <span class="pl-4">Perfil</span>
                     </Link>
                   </li>
 
@@ -105,8 +60,9 @@ function MenuEmployed() {
                     <Link
                       to="/MyStore"
                       className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                        hover:text-white
-                        my-2 px-4 flex bg-gray-100 rounded-full block p-2"
+                      hover:text-white 
+                      hover:rounded-full duration-300
+                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -130,56 +86,20 @@ function MenuEmployed() {
                     </Link>
                   </li>
 
-                  <li>
-                    <Link
-                      to="/EditStore"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                        hover:text-white
-                        my-2 px-4 flex bg-gray-100 rounded-full block p-2"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M20 6H4V4h16v2m-6 10.13l-3 3V20H4v-6H3v-2l1-5h16l.61 3.07c-.45.1-.88.33-1.22.67L16.13 14H14v2.13M12 14H6v4h6v-4m10.85-.53l-1.32-1.32c-.2-.2-.53-.2-.72 0l-.98.98l2.04 2.04l.98-.98c.2-.19.2-.52 0-.72M13 19.96V22h2.04l6.13-6.12l-2.04-2.05L13 19.96Z"
-                        />
-                      </svg>
-                      <span className="pl-4">Editar Tienda</span>
-                    </Link>
-                  </li>
+                 
 
-                  <li>
-                    <Link
-                      to="/Estaditicas"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                        hover:text-white
-                        my-2 px-4 flex bg-gray-100 rounded-full block p-2"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="26"
-                        height="26"
-                        viewBox="0 0 26 26"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M12.906-.031a1 1 0 0 0-.125.031A1 1 0 0 0 12 1v1H3a3 3 0 0 0-3 3v13c0 1.656 1.344 3 3 3h9v.375l-5.438 2.719a1.006 1.006 0 0 0 .875 1.812L12 23.625V24a1 1 0 1 0 2 0v-.375l4.563 2.281a1.006 1.006 0 0 0 .875-1.812L14 21.375V21h9c1.656 0 3-1.344 3-3V5a3 3 0 0 0-3-3h-9V1a1 1 0 0 0-1.094-1.031zM2 5h22v13H2V5zm18.875 1a1 1 0 0 0-.594.281L17 9.563L14.719 7.28a1 1 0 0 0-1.594.219l-2.969 5.188l-1.219-3.063a1 1 0 0 0-1.656-.344l-3 3a1.016 1.016 0 1 0 1.439 1.44l1.906-1.906l1.438 3.562a1 1 0 0 0 1.812.125l3.344-5.844l2.062 2.063a1 1 0 0 0 1.438 0l4-4A1 1 0 0 0 20.875 6z"
-                        />
-                      </svg>
-                      <span class="pl-4">Estadisticas</span>
-                    </Link>
-                  </li>
+                 
 
+                
+
+                 
                   <li>
                     <Link
                       to="/Categorys"
                       className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                        hover:text-white
-                        my-2 px-4 flex bg-gray-100 rounded-full block p-2"
+                      hover:text-white 
+                      hover:rounded-full duration-300
+                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -200,8 +120,9 @@ function MenuEmployed() {
                     <Link
                       to="/CreateSubcategory"
                       className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-              hover:text-white
-              my-2 px-4 flex bg-gray-100 rounded-full block p-2
+                      hover:text-white 
+                      hover:rounded-full duration-300
+                       px-4 my-2 flex bg-gray-100 rounded-md block p-2
               "
                     >
                       <svg
@@ -221,6 +142,80 @@ function MenuEmployed() {
                       <span className="pl-4">Crear Categoria</span>
                     </Link>
                   </li>
+
+
+                  <li>
+                    <Link
+                      className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
+                      hover:text-white 
+                      hover:rounded-full duration-300
+                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+                      to="/Products"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 2048 2048"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="m1344 2l704 352v785l-128-64V497l-512 256v258l-128 64V753L768 497v227l-128-64V354L1344 2zm0 640l177-89l-463-265l-211 106l497 248zm315-157l182-91l-497-249l-149 75l464 265zm-507 654l-128 64v-1l-384 192v455l384-193v144l-448 224L0 1735v-676l576-288l576 288v80zm-640 710v-455l-384-192v454l384 193zm64-566l369-184l-369-185l-369 185l369 184zm576-1l448-224l448 224v527l-448 224l-448-224v-527zm384 576v-305l-256-128v305l256 128zm384-128v-305l-256 128v305l256-128zm-320-288l241-121l-241-120l-241 120l241 121z"
+                        />
+                      </svg>
+                      <span class="pl-4">Productos</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      to="/CreateProduct"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
+                      hover:text-white 
+                      hover:rounded-full duration-300
+                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 14 14"
+                      >
+                        <path
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M7 .54v13M.5 7h13"
+                        />
+                      </svg>
+                      <span className="pl-4">Crear Producto</span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      to="/Estaditicas"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
+                      hover:text-white 
+                      hover:rounded-full duration-300
+                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="26"
+                        height="26"
+                        viewBox="0 0 26 26"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12.906-.031a1 1 0 0 0-.125.031A1 1 0 0 0 12 1v1H3a3 3 0 0 0-3 3v13c0 1.656 1.344 3 3 3h9v.375l-5.438 2.719a1.006 1.006 0 0 0 .875 1.812L12 23.625V24a1 1 0 1 0 2 0v-.375l4.563 2.281a1.006 1.006 0 0 0 .875-1.812L14 21.375V21h9c1.656 0 3-1.344 3-3V5a3 3 0 0 0-3-3h-9V1a1 1 0 0 0-1.094-1.031zM2 5h22v13H2V5zm18.875 1a1 1 0 0 0-.594.281L17 9.563L14.719 7.28a1 1 0 0 0-1.594.219l-2.969 5.188l-1.219-3.063a1 1 0 0 0-1.656-.344l-3 3a1.016 1.016 0 1 0 1.439 1.44l1.906-1.906l1.438 3.562a1 1 0 0 0 1.812.125l3.344-5.844l2.062 2.063a1 1 0 0 0 1.438 0l4-4A1 1 0 0 0 20.875 6z"
+                        />
+                      </svg>
+                      <span class="pl-4">Estadisticas</span>
+                    </Link>
+                  </li>
+
 
                   <div class="space-y-2 pt-2">
                     <button class="px-4 py-3 flex items-center space-x-4 rounded-md text-white-600 group">

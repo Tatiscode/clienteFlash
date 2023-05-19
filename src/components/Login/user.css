@@ -1,3 +1,5 @@
+
+
 Form{
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   width: 500px;
@@ -14,7 +16,7 @@ Form{
   margin: auto;
   border: 1px solid #eee;
 
-  
+
 
 }
 .input_forms{
@@ -99,3 +101,18 @@ p{
  
   width: 100%;
 }
+.scroll-beheavior{
+
+}
+.scroll-beheavior::-webkit-scrollbar-thumb
+{
+  height: 10px;
+  width: 4px;
+  background-color: #09C;
+  border-radius: 6px;
+  box-shadow: 0 3px 6px -2px rgba(51,0,51,0.5);
+}
+.scroll-beheavior::-webkit-scrollbar-track{
+  width: 2px;
+}
+

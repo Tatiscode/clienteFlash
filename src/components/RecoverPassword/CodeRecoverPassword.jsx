@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Login/user.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -9,6 +9,7 @@ import { TodoGetApis } from "../../Apis/Apis";
 function CodeRecoverPassword() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading]=useState(false);
   console.log(id);
 
   return (
@@ -22,6 +23,7 @@ function CodeRecoverPassword() {
           code: Yup.number("Codigo incorrecto").required("Campo obligatorio"),
         })}
         onSubmit={async (values) => {
+          setLoading(true);
           try {
             const data = {
               email: id,
@@ -30,10 +32,12 @@ function CodeRecoverPassword() {
 
             console.log(data);
             const response = await TodoGetApis.CodeRecoverPassword(data);
-            console.log(response);
+            
+            setLoading(false);
 
             if (response.status === 200) {
               toast.success("Codigo valido", {
+               
                 position: "top-right",
                 autoClose: 4000,
                 hideProgressBar: false,
@@ -57,6 +61,7 @@ function CodeRecoverPassword() {
               });
             }
           } catch (error) {
+            setLoading(false);
             toast.error("Codigo invalido", {
               position: "top-right",
               autoClose: 5000,
@@ -132,7 +137,19 @@ function CodeRecoverPassword() {
             <ErrorMessage component="p" name="code" className="error" />
           </span>
 
-          <button className="pink">Enviar Codigo</button>
+          {
+            loading === true ? (
+
+              <div className="pink flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g stroke="white"><circle cx="12" cy="12" r="9.5" fill="none" stroke-linecap="round" stroke-width="3"><animate attributeName="stroke-dasharray" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0 150;42 150;42 150;42 150"/><animate attributeName="stroke-dashoffset" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0;-16;-59;-59"/></circle><animateTransform attributeName="transform" dur="2s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></g></svg>
+            </div>
+
+            ): (
+              
+              <button className="pink">Enviar Codigo</button>
+            )
+          }
+
         </Form>
       </Formik>
     </div>

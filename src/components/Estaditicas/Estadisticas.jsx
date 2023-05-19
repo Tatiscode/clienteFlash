@@ -21,7 +21,7 @@ function Estadisticas() {
       <h1>Mis Categorias</h1>
       <MenuEmployed />
       <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-        <h1>Categorias</h1>
+      
         
       <DataTableCategory data={categorys} />
       </div>

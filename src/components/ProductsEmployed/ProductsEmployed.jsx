@@ -20,7 +20,7 @@ function ProductsEmployed() {
       <MenuEmployed />
   
       <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-        <h1>Productos</h1>
+     
         <DataTableProducts data={product}/>
        
       </div>

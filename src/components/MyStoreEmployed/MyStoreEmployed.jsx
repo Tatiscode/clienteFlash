@@ -7,16 +7,25 @@ import CartProducts from '../ProductsEmployed/CartProducts'
 function MyStoreEmployed() {
   return (
     <>
-      <div className="flash">
+        <MenuEmployed  />
+      
+      <div class="ml-auto mb-6 lg:w-[100%] xl:w-[80%] 2xl:w-[85%]">
+        <br />
+        <SingleShop />
+        <div className="container-page-offers static inset-x-0 w-full">
+        
+          </div>
+      </div>
+      {/* <div className="flash">
         <MenuEmployed />
 
-        <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+        <div class="ml-auto mb-6 lg:w-[75%] xl:w-[100%] 2xl:w-[100%]">
           <SingleShop />
         <div className="container-page-offers static inset-x-0 w-9/12">
           <CartProducts  />
         </div>
       </div>
-      </div>
+      </div> */}
       {/* <MenuEmployed />
       <div className="flash">
         <SingleShop />

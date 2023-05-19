@@ -28,7 +28,6 @@ function PageStoreInfo() {
         <MenuAdmin />
       </aside>
       <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-        <h1>Tiendas</h1>
         <DataTableStore data={store} />
       </div>
     </>
