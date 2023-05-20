@@ -4,7 +4,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link, json } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
-import AccountAdmin from "./../AccountAdmin/AccountAdmin";
 import PageNotFound from "../../pages/PageNotFound";
 function Account() {
   const [stop, setStop] = useState(true);
