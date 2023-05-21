@@ -30,28 +30,13 @@ const Categories = () => {
     {
       cateImg: "./images/category/cat7.png",
       cateName: "Belleza",
-    },
-    {
-      cateImg: "./images/category/cat8.png",
-      cateName: "Mascotas",
-    },
-    {
-      cateImg: "./images/category/cat9.png",
-      cateName: "Juguetes",
-    },
-    {
-      cateImg: "./images/category/cat10.png",
-      cateName: "Supermercados",
-    },
-    {
-      cateImg: "./images/category/cat11.png",
-      cateName: "Libros",
-    },
+    }
   ]
 
   return (
     <>
-      <div className='category'>
+    <div className="boxBigCategory">
+      <div className='category flex'>
         {data.map((value, index) => {
           return (
             <NavLink to='/SingleCategory'>
@@ -62,6 +47,7 @@ const Categories = () => {
             </NavLink>
           )
         })}
+      </div>
       </div>
     </>
   )

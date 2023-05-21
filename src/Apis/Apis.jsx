@@ -9,7 +9,7 @@ let token = localStorage.getItem("token");
 export const TodoGetApis = {
   SingUp: async (data, code) =>
     await axios.post(`${urlServer}/signUpAdmin/${code}`, { data }),
-    
+
   // CreateProduct: async(data) => await axios.post(`${urlServer}/CreateProduct`,{data})
   SingIn: async (data) => await axios.post(`${urlServer}/signInUser`, { data }),
 
@@ -87,6 +87,9 @@ export const TodoGetApis = {
         },
       }
     ),
+
+  GetStores: async () =>
+    await axios.get(`${urlServerStores}/consultationStore`),
 
   getStoresAdmin: async () =>
     await axios.get(`${urlServerStores}/getStoreAdmin`, {
@@ -188,6 +191,9 @@ export const TodoGetApis = {
       }
     ),
 
+  GetProductDate: async () => 
+    await axios.get(`${urlProducts}/getProductDate`),
+
   UpdateProduct: async (data, id) =>
     await axios.put(
       `${urlProducts}/updateProducts/${id}`,
@@ -205,6 +211,9 @@ export const TodoGetApis = {
         token: `${token}`,
       },
     }),
+
+  GetProduct: async () =>
+    await axios.get(`${urlProducts}/productsConsultation`),
 
   GetProductsStore: async (data) =>
     await axios.get(`${urlProducts}/getProductsStore`, {

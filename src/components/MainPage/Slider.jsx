@@ -5,8 +5,8 @@ const Slider = () => {
   
   return (
     <>
-      <section className='homeSlide contentWidth'>
-        <div className='container'>
+      <section className=''>
+        <div className=''>
           <SlideCard />
         </div>
       </section>

@@ -88,14 +88,23 @@ button {
 .contentWidth {
   width: 77%;
 }
+.boxBigCategory{
+  background: #f6f9fc;
+  padding:4px 0;
+
+}
 .category {
-  box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
-  background-color: #fff;
-  width: 23%;
-  height: 510px;
+ 
+  background-color: white;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  width: 80%;
+  margin:auto;
   padding: 15px 0;
   border-radius: 5px;
-  margin-top: 5px;
+  margin-top: -2rem;
+  z-index: 1000;
+  position: relative;
+  
 }
 .category img {
   width: 30px;
@@ -112,7 +121,8 @@ button {
   padding: 0 20px;
 }
 .category .box:hover {
-  background-color: #ffe1e6;
+  background-color: #f1f1f1;
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -162,13 +172,12 @@ button {
 
 /*---------product-----------*/
 .product {
-  width: 80%;
-  background: #fff;
-  padding: 20px;
+  width: 300px;
+  padding: 5px;
   position: relative;
   border-radius: 8px;
+  gap: 1rem;
   box-shadow: rgb(3 0 71 / 9%) 0px 1px 3px;
-  margin: 10px;
 }
 
 .product1 {
@@ -196,12 +205,13 @@ button {
 }
 .price button {
   background: none;
-  background: linear-gradient(to right, #F6761A, #ff13cb);
+ 
   font-size: 20px;
   transition: 0.5s;
   border: 1px solid rgb(3 0 71 / 9%);
   width: 35px;
   color:white;
+padding: .1px;
   height: 35px;
   display: flex;
   align-items: center;
@@ -235,7 +245,7 @@ button {
 /*----- control btn -------*/
 .control-btn .next,
 .control-btn .prev {
-  position: absolute;
+ 
   top: 40%;
   display: flex;
   align-items: center;

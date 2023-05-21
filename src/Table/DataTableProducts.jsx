@@ -161,13 +161,18 @@ function DataTableProducts({ data }) {
 
     },
     {
-      headerName: "Precio",
+      headerName: "Precio Unitario",
       field: "price_product",
 
     },
     {
       headerName: "Cantidad",
       field: "amount_poduct",
+
+    },
+    {
+      headerName: "Total",
+      field: "total",
 
     },
     {
@@ -228,6 +233,7 @@ function DataTableProducts({ data }) {
         ref={gridRef}
           columnDefs={column}
           rowData={data.map((item) => {
+            let total = item.amount_poduct* item.price_product;
             return {
               id_product: item.id_product,
               name_product: item.name_product,
@@ -243,6 +249,9 @@ function DataTableProducts({ data }) {
               ),
               availability_product: item.availability_product,
               data_product:  moment(item.data_product).format('D MMMM YYYY, h:mm:ss a'),
+              total: ("$ " + total).replace(  /(\d)(?=(\d\d\d)+(?!\d))/g,
+              "$1,")
+
             };
           })}
           pagination={true}

@@ -21,15 +21,16 @@ const Search = ({ CartItem }) => {
   return (
     <>
       <section className='search'>
+        
         <div className='container c_flex'>
           <div className='logo width '>
-            {/* <img src={logo} alt='' /> */}
+           <img src="https://res.cloudinary.com/dgpikgt5t/image/upload/v1684617706/logo-flash_mfb6x7.png" alt="" />
           </div>
 
-          <div className='search-box f_flex'>
-            <i className='fa fa-search'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"><path fill="currentColor" d="m29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9a9.01 9.01 0 0 1-9-9Z"/></svg>
-            </i>
+          <div className='search-box'>
+            <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"><path fill="gray" d="m29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9a9.01 9.01 0 0 1-9-9Z"/></svg>
+            </span>
             <input type='text' placeholder='Buscar' />
             
           </div>
