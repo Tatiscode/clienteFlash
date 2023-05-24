@@ -1,5 +1,5 @@
 .container-page-offers{
-
+    padding: auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     
