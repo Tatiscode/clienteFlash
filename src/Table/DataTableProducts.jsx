@@ -171,6 +171,10 @@ function DataTableProducts({ data }) {
 
     },
     {
+      headerName:"Descuento",
+      field:"dicount"
+    },
+    {
       headerName: "Total",
       field: "total",
 

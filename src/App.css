@@ -83,13 +83,20 @@ button {
 .boxShadow {
   box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
 }
+.imgMalls img{
+  border-radius: 100%;
+  
+}
+.imgMalls{
+width: 140px;
+}
 
 /*---------category----------*/
 .contentWidth {
   width: 77%;
 }
 .boxBigCategory{
-  background: #f6f9fc;
+  background: white;
   padding:4px 0;
 
 }
@@ -101,7 +108,7 @@ button {
   margin:auto;
   padding: 15px 0;
   border-radius: 5px;
-  margin-top: -2rem;
+  margin-top: -3rem;
   z-index: 1000;
   position: relative;
   

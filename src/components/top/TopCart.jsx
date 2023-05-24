@@ -19,27 +19,29 @@ const TopCart = () => {
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 4,
+    slidesToShow: 8,
     slidesToScroll: 1,
     autoplay: true,
   };
   return (
     <>
-      <Slider {...settings}>
+      {/* <Slider {...settings}> */}
         {store.map((value) => {
           return (
             <>
-              <div className="box product h-[300px] border relative">
+              <div className="box product h-[250px] border relative b-red-500">
                 <div className="h-full flex flex-col ">
                   <div className="nametop d_flex">
                     <span className="tleft">{value.name_store}</span>
-                    <div className="bg-gray-100 text-black absolute  m-auto right-0 m-3 rounded-md p-1 z-50 top-[14rem]">{value.location_store}</div>
+                    <div className="bg-gray-100 text-black absolute  m-auto right-0 m-3 rounded-md p-1 z-50 top-[14rem]">
+                      {value.location_store}
+                    </div>
                   </div>
                   <div className="img bg-red-400">
                     <img
+                      className=" rounded-full w-full h-full object-cover"
                       src={value.img_store}
                       alt=""
-                      className="w-full h-full object-cover"
                     />
                   </div>
                 </div>
@@ -47,7 +49,7 @@ const TopCart = () => {
             </>
           );
         })}
-      </Slider>
+      {/* </Slider> */}
     </>
   );
 };

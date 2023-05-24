@@ -11,11 +11,7 @@ let token = localStorage.getItem("token");
 
 export const TodoGetApis = {
   SingUp: async (data, code) =>
-<<<<<<< HEAD
-    await axios.post(`${urlServer}/signUpAdmin/${code}`, { data }),
-=======
     await axios.post(`${urlServerAuth}/signUpAdmin/${code}`, { data }),
->>>>>>> 1f8fb57188c8237f1103b5e0a602271ed1bd7cb7
 
   // CreateProduct: async(data) => await axios.post(`${urlServer}/CreateProduct`,{data})
   SingIn: async (data) =>
@@ -48,8 +44,6 @@ export const TodoGetApis = {
         },
       }
     ),
-
-
 
   GetAccountAdmin: async () =>
     await axios.get(`${urlServerUser}/gatDataAccount`, {
@@ -94,6 +88,8 @@ export const TodoGetApis = {
 
   GetStores: async () =>
     await axios.get(`${urlServerStores}/consultationStore`),
+    
+  GetMalls: async () => await axios.get(`${urlServerUser}/getSmall`),
 
   getStoresAdmin: async () =>
     await axios.get(`${urlServerStores}/getStoreAdmin`, {
@@ -195,8 +191,8 @@ export const TodoGetApis = {
       }
     ),
 
-  GetProductDate: async () => 
-    await axios.get(`${urlProducts}/getProductDate`),
+  GetProductDate: async () =>
+    await axios.get(`${urlServerProducts}/getProductDate`),
 
   UpdateProduct: async (data, id) =>
     await axios.put(
@@ -217,7 +213,7 @@ export const TodoGetApis = {
     }),
 
   GetProduct: async () =>
-    await axios.get(`${urlProducts}/productsConsultation`),
+    await axios.get(`${urlServerProducts}/productsConsultation`),
 
   GetProductsStore: async (data) =>
     await axios.get(`${urlServerProducts}/getProductsStore`, {

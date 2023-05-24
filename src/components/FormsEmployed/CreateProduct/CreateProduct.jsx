@@ -11,11 +11,11 @@ function CreateProduct() {
   const [category, setCategory] = useState([]);
   const [id, setId] = useState("");
   const [image, setImage] = useState([]);
-  const [loading, setLoading]= useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const response = await TodoGetApis.getCategoryStore();
+      const response =  await TodoGetApis.getCategoryStore();
       setCategory(response.data.data);
     })();
   }, []);
@@ -24,7 +24,7 @@ function CreateProduct() {
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <MenuEmployed />
       <div className="form-register ml-[15%] absolute inset-0 ">
         <Formik
@@ -36,6 +36,7 @@ function CreateProduct() {
             priceProduct: "",
             imgProduct: "",
             categoryProduct: "",
+            discount:""
           }}
           // validationSchema={Yup.object({
           //   nameProduct: Yup.string().required("Campo Obligatorio"),
@@ -58,7 +59,7 @@ function CreateProduct() {
               price: values.priceProduct,
               image,
               category: values.category,
-              
+              discount:values.discount
             };
 
             try {
@@ -239,6 +240,71 @@ function CreateProduct() {
                 name="priceProduct"
                 className="error"
               />
+              <div className="campus">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="gray"
+                    d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2M8.83 7.05c.98 0 1.77.79 1.77 1.78c0 .98-.79 1.77-1.77 1.77c-.99 0-1.78-.79-1.78-1.77c0-.99.79-1.78 1.78-1.78M15.22 17c-.98 0-1.77-.8-1.77-1.78s.79-1.77 1.77-1.77s1.78.79 1.78 1.77S16.2 17 15.22 17m-6.72.03L7 15.53L15.53 7l1.5 1.5l-8.53 8.53Z"
+                  />
+                </svg>
+                <Field
+                  className="input_forms"
+                  type="number"
+                  name="discount"
+                  placeholder="Descuento"
+                />
+              </div>
+
+              <div className="campus overflow-x-auto">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="gray"
+                    d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 6h-4V5h4v4zm-9 4H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6H5v-4h4v4zm8-6c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2s2 .897 2 2s-.897 2-2 2z"
+                  />
+                </svg>
+                {category.length > 0 ? (
+                  <>
+                    {
+                      <Field
+                        name="categoryProduct"
+                        id="categoryId"
+                        className="input_forms outline-none"
+                        type="text"
+                        placeholder="Categorias"
+                        as="select"
+                      >
+                        {category.map((i) => (
+                          <option
+                            value={i.id_category}
+                            className="bg-gray-200 p-2 m-1 cursor-pointer"
+                            onClick={() => setId(i.id_category)}
+                          >
+                            {i.name_category}
+                          </option>
+                        ))}
+                      </Field>
+                    }
+                  </>
+                ) : (
+                  <h6
+                    className="pl-1 truncate whitespaces-nowrap "
+                    title="No se encotraron categoria."
+                  >
+                    No se encotraron categoria.
+                  </h6>
+                )}
+              </div>
+
               <div
                 className="campus bg-gray-100
             cursor-pointer"
@@ -324,52 +390,6 @@ function CreateProduct() {
                 </div>
               </div>
               <ErrorMessage component="p" name="imgProduct" className="error" />
-              <div className="campus overflow-x-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="gray"
-                    d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 6h-4V5h4v4zm-9 4H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6H5v-4h4v4zm8-6c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2s2 .897 2 2s-.897 2-2 2z"
-                  />
-                </svg>
-                {category.length > 0 ? (
-                  <>
-                    {
-                      <Field
-                        name="categoryProduct"
-                        id="categoryId"
-                        className="input_forms outline-none"
-                        type="text"
-                        placeholder="Categorias"
-                        as="select"
-                      >
-                        {category.map((i) => (
-                          <option
-                            value={i.id_category}
-                            className="bg-gray-200 p-2 m-1 cursor-pointer"
-                            onClick={() => setId(i.id_category)}
-                          >
-                            {i.name_category}
-                          </option>
-                        ))}
-                      </Field>
-                    }
-                  </>
-
-
-                ) : (
-                  <h6
-                    className="pl-1 truncate whitespaces-nowrap "
-                    title="No se encotraron categoria."
-                  >
-                    No se encotraron categoria.
-                  </h6>
-                )}
-              </div>
 
               <ErrorMessage
                 component="p"
@@ -377,16 +397,55 @@ function CreateProduct() {
                 className="error"
               />
             </div>
-            {
-              loading === true ? (
-                <div className="pink flex justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g stroke="white"><circle cx="12" cy="12" r="9.5" fill="none" stroke-linecap="round" stroke-width="3"><animate attributeName="stroke-dasharray" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0 150;42 150;42 150;42 150"/><animate attributeName="stroke-dashoffset" calcMode="spline" dur="1.5s" keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1" keyTimes="0;0.475;0.95;1" repeatCount="indefinite" values="0;-16;-59;-59"/></circle><animateTransform attributeName="transform" dur="2s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></g></svg>
+            {loading === true ? (
+              <div className="pink flex justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <g stroke="white">
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9.5"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-width="3"
+                    >
+                      <animate
+                        attributeName="stroke-dasharray"
+                        calcMode="spline"
+                        dur="1.5s"
+                        keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                        keyTimes="0;0.475;0.95;1"
+                        repeatCount="indefinite"
+                        values="0 150;42 150;42 150;42 150"
+                      />
+                      <animate
+                        attributeName="stroke-dashoffset"
+                        calcMode="spline"
+                        dur="1.5s"
+                        keySplines="0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1"
+                        keyTimes="0;0.475;0.95;1"
+                        repeatCount="indefinite"
+                        values="0;-16;-59;-59"
+                      />
+                    </circle>
+                    <animateTransform
+                      attributeName="transform"
+                      dur="2s"
+                      repeatCount="indefinite"
+                      type="rotate"
+                      values="0 12 12;360 12 12"
+                    />
+                  </g>
+                </svg>
               </div>
-              ):(
-                
-                <button className="pink">Registrar</button>
-              )
-            }
+            ) : (
+              <button className="pink">Registrar</button>
+            )}
           </Form>
         </Formik>
       </div>

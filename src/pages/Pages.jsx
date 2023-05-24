@@ -9,16 +9,18 @@ import NewArrivals from "../components/newarrivals/NewArrivals"
  import Wrapper from "../components/wrapper/Wrapper"
  import Header from "../common/header/Header"
 import Footer from "../common/footer/Footer"
+import Malls from "../components/Malls/Malls"
 
 const Pages = ({ productItems, addToCart, CartItem, shopItems }) => {
   return (
     <>
      <Header CartItem={CartItem} /> 
       <Home CartItem={CartItem} />
-     <FlashDeals productItems={productItems} addToCart={addToCart} />
-     <TopCate />
-     <NewArrivals />
+      <Malls/>
      <Discount />
+     <TopCate />
+     <FlashDeals productItems={productItems} addToCart={addToCart} />
+     <NewArrivals />
      {/* <Shop shopItems={shopItems} addToCart={addToCart} /> */}
      {/* <Annocument /> */}
      <Wrapper /> 
