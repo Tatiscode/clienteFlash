@@ -1,36 +1,45 @@
 import axios from "axios";
 
-let urlServer = "http://localhost:3105/authUser";
+let urlServerAuth = "http://localhost:3105/authUser";
 let urlServerStores = "http://localhost:3105/stores";
 let urlServerCategory = "http://localhost:3105/category";
-let urlProducts = "http://localhost:3105/products";
+let urlServerProducts = "http://localhost:3105/products";
+let urlServerCard = "http://localhost:3105/card";
+let urlServerUser = "http://localhost:3105/user";
+
 let token = localStorage.getItem("token");
 
 export const TodoGetApis = {
   SingUp: async (data, code) =>
+<<<<<<< HEAD
     await axios.post(`${urlServer}/signUpAdmin/${code}`, { data }),
+=======
+    await axios.post(`${urlServerAuth}/signUpAdmin/${code}`, { data }),
+>>>>>>> 1f8fb57188c8237f1103b5e0a602271ed1bd7cb7
 
   // CreateProduct: async(data) => await axios.post(`${urlServer}/CreateProduct`,{data})
-  SingIn: async (data) => await axios.post(`${urlServer}/signInUser`, { data }),
+  SingIn: async (data) =>
+    await axios.post(`${urlServerAuth}/signInUser`, { data }),
 
   RecoverPasword: async (data) =>
-    await axios.put(`${urlServer}/recoverPassword`, { data }),
+    await axios.put(`${urlServerAuth}/recoverPassword`, { data }),
 
   NewPassword: async (data) =>
-    await axios.put(`${urlServer}/updatePassword`, { data }),
+    await axios.put(`${urlServerAuth}/updatePassword`, { data }),
 
   CodeRecoverPassword: async (data) =>
-    await axios.put(`${urlServer}/newPassword`, { data }),
+    await axios.put(`${urlServerAuth}/newPassword`, { data }),
 
   GetAccountCustomer: async () =>
-    await axios.get(`${urlServer}/gatDataCustomer`, {
+    await axios.get(`${urlServerUser}/gatDataCustomer`, {
       headers: {
         token,
       },
     }),
+
   UpdateCustomer: async (data) =>
     await axios.put(
-      `${urlServer}/updateCustomer`,
+      `${urlServerUser}/updateCustomer`,
       { data },
       {
         headers: {
@@ -40,23 +49,18 @@ export const TodoGetApis = {
       }
     ),
 
+
+
   GetAccountAdmin: async () =>
-    await axios.get(`${urlServer}/gatDataAccount`, {
+    await axios.get(`${urlServerUser}/gatDataAccount`, {
       headers: {
         token: `${token}`,
       },
     }),
 
-  GetDataCustomer: async () =>
-    await axios.get(`${urlServer}/gatDataCustomer`, {
-      headers: {
-        token,
-      },
-    }),
-
   UpdateAdmin: async (data) =>
     await axios.put(
-      `${urlServer}/updateData`,
+      `${urlServerUser}/updateData`,
       { data },
       {
         headers: {
@@ -67,7 +71,7 @@ export const TodoGetApis = {
 
   ValidateToken: async (data) =>
     await axios.post(
-      `${urlServer}/validateToken`,
+      `${urlServerAuth}/validateToken`,
       { data },
       {
         headers: {
@@ -126,7 +130,7 @@ export const TodoGetApis = {
     }),
 
   CreateCustomer: async (data) =>
-    await axios.post(`${urlServer}/signUpCustomer`, { data }),
+    await axios.post(`${urlServerAuth}/signUpCustomer`, { data }),
 
   CreateCategory: async (data) =>
     await axios.post(
@@ -179,7 +183,7 @@ export const TodoGetApis = {
 
   CreateProduct: async (data) =>
     await axios.post(
-      `${urlProducts}/addProducts`,
+      `${urlServerProducts}/addProducts`,
       { data },
       {
         headers: {
@@ -196,7 +200,7 @@ export const TodoGetApis = {
 
   UpdateProduct: async (data, id) =>
     await axios.put(
-      `${urlProducts}/updateProducts/${id}`,
+      `${urlServerProducts}/updateProducts/${id}`,
       { data },
       {
         headers: {
@@ -206,7 +210,7 @@ export const TodoGetApis = {
     ),
 
   DeleteProduct: async (code) =>
-    await axios.delete(`${urlProducts}/deleteProducts/${code}`, {
+    await axios.delete(`${urlServerProducts}/deleteProducts/${code}`, {
       headers: {
         token: `${token}`,
       },
@@ -216,7 +220,7 @@ export const TodoGetApis = {
     await axios.get(`${urlProducts}/productsConsultation`),
 
   GetProductsStore: async (data) =>
-    await axios.get(`${urlProducts}/getProductsStore`, {
+    await axios.get(`${urlServerProducts}/getProductsStore`, {
       headers: {
         token: `${token}`,
       },

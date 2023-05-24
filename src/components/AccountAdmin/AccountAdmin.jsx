@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form} from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
 import swal from "sweetalert2";
 
@@ -54,8 +54,8 @@ function AccountAdmin() {
                     <span className="mx-2 ">{data.name_admin}</span>
                   </div>
                   <div className="containerName">
-                   
-                    <button className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
+                    <button
+                      className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
                       onClick={() => {
                         swal.fire({
                           title: "cambiar nombre",
@@ -84,12 +84,22 @@ function AccountAdmin() {
                             }
                           },
                         });
-                              navigate("/AccountAdmin");
+                        navigate("/AccountAdmin");
                       }}
                     >
                       <div className="flex p-1 ">
-                     <span className="ml-4">Editar</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                        <span className="ml-4">Editar</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="gray"
+                            d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"
+                          />
+                        </svg>
                       </div>
                     </button>
                   </div>
@@ -97,11 +107,13 @@ function AccountAdmin() {
                 <div className="containerBox flex items-center">
                   <div className="name">
                     <label>Email:</label>
-                    <span className="ml-2 w-36 truncate">{data.email_admin}</span>
+                    <span className="ml-2 w-36 truncate">
+                      {data.email_admin}
+                    </span>
                   </div>
                   <div className="containerName">
-                    <button className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
-                     
+                    <button
+                      className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
                       onClick={() => {
                         swal.fire({
                           title: "Cambiar correo",
@@ -132,8 +144,83 @@ function AccountAdmin() {
                       }}
                     >
                       <div className="flex p-1 ">
-                     <span className="ml-4">Editar</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                        <span className="ml-4">Editar</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="gray"
+                            d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div className="containerBox flex items-center">
+                  <div className="name">
+                    <label>Contraseña:</label>
+                    <span className="ml-2 w-36 truncate">*****</span>
+                  </div>
+                  <div className="containerName">
+                    <button
+                      className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
+                      onClick={() => {
+                        swal.fire({
+                          title: "Cambiar contraseña",
+                          height: '1000px',
+                          html: `
+                          <input id="passwordBefore" type="password" placeholder="Contraseña Actual" />                        
+                          <input id="passwordAfertOne" type="password" placeholder="Nueva contraseña " />
+                          <div id="menssage"></div>
+                          <input id="passwordAfertTwo" type="password" placeholder="Confirmar contraseña " />
+                          `,
+                          focusConfirm: false,
+                          focusCancel: false,
+                          showCancelButton: true,
+                          showConfirmButton: true,
+                          confirmButtonText: "Atucalizar",
+                          cancelButtonText: "Cancelar",
+                          preConfirm: async () => {
+                            let passworBefore =
+                              document.getElementById("passwordBefore").value;
+                          },
+                        });
+                        //   preConfirm: async () => {
+                        //     let password =
+                        //       document.getElementById("password").value;
+                        //     let data = {
+                        //       email: password,
+                        //     };
+                        //     const response = await TodoGetApis.UpdateAdmin(
+                        //       data
+                        //     );
+                        //     if (response === 200) {
+                        //       swal.fire("Contraseña atualizada", {
+                        //         icon: "success",
+                        //       });
+                        //       navigate("/AccountAdmin");
+                        //     }
+                        //   },
+                        // });
+                      }}
+                    >
+                      <div className="flex p-1 ">
+                        <span className="ml-4">Editar</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="gray"
+                            d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"
+                          />
+                        </svg>
                       </div>
                     </button>
                   </div>
@@ -144,8 +231,8 @@ function AccountAdmin() {
                     <span className="mx-2">{data.dirrecion_administrator}</span>
                   </div>
                   <div className="containerName">
-                    <button className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
-                      
+                    <button
+                      className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
                       onClick={() => {
                         swal.fire({
                           tittle: "Editar Direccion",
@@ -178,14 +265,29 @@ function AccountAdmin() {
                       }}
                     >
                       <div className="flex p-1 ">
-                     <span className="ml-4">Editar</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                        <span className="ml-4">Editar</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="gray"
+                            d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"
+                          />
+                        </svg>
                       </div>
                     </button>
                   </div>
                 </div>
-                
-                <a href="/AccountAdmin"  className="pink mx-auto w-full block text-center">Guardar</a>
+
+                <a
+                  href="/AccountAdmin"
+                  className="pink mx-auto w-full block text-center"
+                >
+                  Guardar
+                </a>
               </div>
             ))
           ) : (
