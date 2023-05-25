@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState  } from "react";
 //  import logo from "../../components/assets/images/logo.svg"
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import UserAfter from "./UserAfter";
 // import {useState} from "react";
 import UserBefore from "./UserBefore";
+import {useContextShopCar} from "../../Hook/UseContextShop"
+import { TodoGetApis } from "../../Apis/Apis";
 
 const Search = ({ CartItem }) => {
   // fixed Header
@@ -14,6 +16,19 @@ const Search = ({ CartItem }) => {
   // })
 
   // }, []);
+
+  const [productShop, setproductShop]= useState([]);
+
+  const {getProductCar,addCard} = useContextShopCar()
+
+  console.log(addCard);
+
+  useEffect(()=>{
+    (async ()=>{
+      const response = await getProductCar();
+      console.log(response);
+    })()
+  },[])
 
   let getRol = localStorage.getItem("rol");
 
