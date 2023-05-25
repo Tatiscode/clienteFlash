@@ -26,6 +26,39 @@ export const TodoGetApis = {
   CodeRecoverPassword: async (data) =>
     await axios.put(`${urlServerAuth}/newPassword`, { data }),
 
+  AddCarShop : async (data) =>
+   await axios.post(`${urlServerCard}/addCard`,
+   {data},
+   {
+    headers:{
+      token,
+    }
+   }),
+
+   Updatecar : async (data, id) => {
+    await axios.put(`${urlServerCard}/updateCard/${id}`, {data}, {
+      headers:{
+        token
+      }
+    })
+   },
+
+   DeleteCar : async (id) => {
+    await axios.delete(`${urlServerCard}/deleteCard/${id}`, {
+      headers: {
+        token
+      }
+    })
+   },
+
+   GetCar : async () => {
+    await axios.get(`${urlServerCard}/getCard`, {
+      headers: {
+        token
+      }
+    })
+   },
+
   GetAccountCustomer: async () =>
     await axios.get(`${urlServerUser}/gatDataCustomer`, {
       headers: {

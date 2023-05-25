@@ -4,11 +4,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../flashDeals/style.css";
 import { TodoGetApis } from "../../Apis/Apis";
-
+import {ToastContainer, toast} from "react-toastify"
+import {useContextShopCar} from "../../Hook/UseContextShop"
 
 const DCard = () => {
   const [count, setCount] = useState(0);
   const [product, setProduct] = useState([]);
+  const [productShop, setproductShop]= useState([]);
+
+  const {postProductCar,
+    addCard} = useContextShopCar()
+
+    console.log(addCard);
+  let token= localStorage.getItem("token")
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetProduct();
@@ -32,8 +40,46 @@ const DCard = () => {
     minimumFractionDigits: 2,
   });
 
+ const handdleCarShop = async (data)=>{
+ 
+  console.log(data);
+ if (token === null) {
+ toast.warn('Inicia sesión, para agregar al carrito!', {
+  position: "top-right",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+  });
+}else{
+  console.log("id_tienda   ",data.id_store_product);
+  let carrito = {
+    idProduct: data.id_product,
+    nameProduct: data.name_product,
+    code: data.id_store_product,     
+    price: data.price_product ,
+    amount: 1,
+ 
+  }
+
+  const response = await postProductCar(carrito);
+  console.log(response);
+
+
+ }
+ }
+
+ 
+
   return (
+
+
+  
     <>
+    <ToastContainer/>
       <div className="">
         <Slider {...settings}>
           {product.map((productItems) => {
@@ -89,7 +135,9 @@ const DCard = () => {
                         </a>
                       </div>
                       <div className="">
-                        <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md">
+                        <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md"
+                         onClick={()=>handdleCarShop(productItems)}>
+                  
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="30"

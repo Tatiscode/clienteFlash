@@ -59,8 +59,14 @@ import Products from "./components/SubCategorys/Products"
 // import EditCategory from "./components/FormsEmployed/EditCategory/EditCategory"
 import PageEmployed from "./components/MenuEmployed/PageEmployed"
 import CardProductBig from "./components/CardProductBig/CardProductBig"
-import NewPassword from "./components/NewPassword/NewPassword.jsx"
+// import NewPassword from "./components/NewPassword/NewPassword.jsx"
 import PageViewOverAdmin from "./pages/PageViewOverAdmin"
+import FormPorfileUser from "./components/MenuUser/FormPorfileUser"
+import DataTableBuysUser from "./components/MenuUser/DataTableBuysUser"
+import DasboharUser from "./components/MenuUser/DasboharUser"
+import Table from "./components/MenuUser/Table"
+import { UseContextShop } from "./Hook/UseContextShop" 
+
 
 function App() {
 
@@ -99,7 +105,9 @@ function App() {
 
   return (
     <>
-      <Routes>
+
+    <UseContextShop>
+    <Routes>
         <Route path="/" element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
         <Route path='/Login' element={<PageLogin />} />
         <Route path='/Register' element={<PageRegister />} />
@@ -158,10 +166,16 @@ function App() {
         <Route path='/DeleteSubcategory' element={<DeleteSubcategory />} />
         <Route path='/SubCategorys' element={<PageSubcategorys />} />
         <Route path='/ProductsCategorys' element={<Products productItems={productItems} addToCart={addToCart} />} />
-        <Route path="/NewPassword/:id" element={<NewPassword />} />
-
+        {/* <Route path="/NewPassword/:id" element={<NewPassword />} /> */}
         <Route path="/overAdmin" element={<PageViewOverAdmin/>} />
+
+        <Route path="/PageUser" element={<DasboharUser/>}/>
+       <Route path="/FormProfileUser" element={<FormPorfileUser/>}/>
+       <Route path="/DataTableBuysUser" element={<Table/>}/>
       </Routes>
+
+    </UseContextShop>
+      
       {/* <Footer />  */}
     </>
   )

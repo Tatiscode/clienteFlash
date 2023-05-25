@@ -7,7 +7,7 @@ function UserAfter() {
     let handdleCloseAccount=() =>{
         localStorage.removeItem("token")
         localStorage.removeItem("rol")
-        navigate("/")
+        window.location.reload()
     }
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -25,10 +25,10 @@ function UserAfter() {
 
             <div className="buttonsAfter">
                 <div className="superior">
-                <p onClick={ () => setIsOpen(!isOpen)}><Link to='/Account'>Mi cuenta</Link></p>
-                <p  onClick={ () => setIsOpen(!isOpen)}><Link to='/Shopping'>Mis compras</Link></p>
+                <p onClick={ () => setIsOpen(!isOpen)}><Link to='/PageUser'>Mi cuenta</Link></p>
+                <p  onClick={ () => setIsOpen(!isOpen)}><Link to='/DataTableBuysUser'>Mis compra</Link></p>
                 </div>
-                <button className='closeSection'  onClick={ () => setIsOpen(!isOpen)}><Link to='/SingOff'  onClick={handdleCloseAccount}>Cerrar Sesion</Link></button>
+                <button className='closeSection'  onClick={ () => setIsOpen(!isOpen)}><span  onClick={handdleCloseAccount}>Cerrar Sesion</span></button>
             </div> 
             </div>
                 
