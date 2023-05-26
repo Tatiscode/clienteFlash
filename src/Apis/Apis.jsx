@@ -245,8 +245,8 @@ export const TodoGetApis = {
       },
     }),
 
-  GetProduct: async () =>
-    await axios.get(`${urlServerProducts}/productsConsultation`),
+  GetProduct: async (data) =>
+    await axios.get(`${urlServerProducts}/productsConsultation/${data}`),
 
   GetProductsStore: async (data) =>
     await axios.get(`${urlServerProducts}/getProductsStore`, {

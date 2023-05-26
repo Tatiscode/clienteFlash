@@ -66,6 +66,8 @@ import DataTableBuysUser from "./components/MenuUser/DataTableBuysUser"
 import DasboharUser from "./components/MenuUser/DasboharUser"
 import Table from "./components/MenuUser/Table"
 import { UseContextShop } from "./Hook/UseContextShop" 
+import CreateMalls from "./CreateMalls/CreateMalls"
+import DataTableMalls from "./Table/DataTableMalls"
 
 
 function App() {
@@ -172,6 +174,8 @@ function App() {
         <Route path="/PageUser" element={<DasboharUser/>}/>
        <Route path="/FormProfileUser" element={<FormPorfileUser/>}/>
        <Route path="/DataTableBuysUser" element={<Table/>}/>
+       <Route path="/CreateMalls" element={<CreateMalls/>}/>
+       <Route path="/Malls" element={<DataTableMalls/>}/>
       </Routes>
 
     </UseContextShop>

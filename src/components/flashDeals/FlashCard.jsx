@@ -5,33 +5,34 @@ import Slider from "react-slick"
  import './style.css'
  import { TodoGetApis } from "../../Apis/Apis"
 
-const SampleNextArrow = (props) => {
-  const { onClick } = props
-  return (
-    <div className='control-btn' onClick={onClick}>
-      <button className='next'>
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="white" d="M11.3 19.3q-.275-.275-.288-.7t.263-.7l4.9-4.9H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.175l-4.9-4.9q-.275-.275-.263-.7t.288-.7q.275-.275.7-.275t.7.275l6.6 6.6q.15.125.213.313t.062.387q0 .2-.062.375t-.213.325l-6.6 6.6q-.275.275-.7.275t-.7-.275Z"/></svg>
-      </button>
-    </div>
-  )
-}
+// const SampleNextArrow = (props) => {
+//   const { onClick } = props
+//   return (
+//     <div className='control-btn' onClick={onClick}>
+//       <button className='next'>
+//       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="white" d="M11.3 19.3q-.275-.275-.288-.7t.263-.7l4.9-4.9H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.175l-4.9-4.9q-.275-.275-.263-.7t.288-.7q.275-.275.7-.275t.7.275l6.6 6.6q.15.125.213.313t.062.387q0 .2-.062.375t-.213.325l-6.6 6.6q-.275.275-.7.275t-.7-.275Z"/></svg>
+//       </button>
+//     </div>
+//   )
+// }
 
-const SamplePrevArrow = (props) => {
-  const { onClick } = props
-  return (
-    <div className='control-btn' onClick={onClick}>
-      <button className='prev'>
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="white" d="m10.875 19.3l-6.6-6.6q-.15-.15-.213-.325T4 12q0-.2.063-.375t.212-.325l6.6-6.6q.275-.275.688-.287t.712.287q.3.275.313.688T12.3 6.1L7.4 11h11.175q.425 0 .713.288t.287.712q0 .425-.287.713t-.713.287H7.4l4.9 4.9q.275.275.288.7t-.288.7q-.275.3-.7.3t-.725-.3Z"/></svg>
-      </button>
-    </div>
-  )
-}
+// const SamplePrevArrow = (props) => {
+//   const { onClick } = props
+//   return (
+//     <div className='control-btn' onClick={onClick}>
+//       <button className='prev'>
+//       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="white" d="m10.875 19.3l-6.6-6.6q-.15-.15-.213-.325T4 12q0-.2.063-.375t.212-.325l6.6-6.6q.275-.275.688-.287t.712.287q.3.275.313.688T12.3 6.1L7.4 11h11.175q.425 0 .713.288t.287.712q0 .425-.287.713t-.713.287H7.4l4.9 4.9q.275.275.288.7t-.288.7q-.275.3-.7.3t-.725-.3Z"/></svg>
+//       </button>
+//     </div>
+//   )
+// }
 const FlashCard = () => {
   const [count, setCount] = useState(0)
   const [product, setProduct ] = useState([])
+  let limite = 12
   useEffect (()=>{
     (async()=>{
-      const response = await TodoGetApis.GetProduct();
+      const response = await TodoGetApis.GetProduct(limite);
       console.log(response);
       setProduct(response.data.rows);
     }
@@ -47,8 +48,8 @@ const FlashCard = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    // nextArrow: <SampleNextArrow />,
+    // prevArrow: <SamplePrevArrow />,
   }
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
@@ -59,11 +60,11 @@ const FlashCard = () => {
  
   return (
     <>
-     <div className="">
-     <Slider {...settings}>
+     <div className=" grid gap-4 grid-cols-4 grid-rows-3">
+     {/* <Slider {...settings}> */}
      {product.map((productItems) => {
           return (
-            <div className="  ">
+            <div className=" ">
               <div className="product border m-1 ">
                 <div className="">
                   <p className="disponible">
@@ -136,7 +137,7 @@ const FlashCard = () => {
             </div>
           );
         })}
-      </Slider>
+      {/* </Slider> */}
      </div>
     </>
   )

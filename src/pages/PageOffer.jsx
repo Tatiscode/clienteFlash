@@ -11,15 +11,14 @@ function PageOffer({ productItems, addToCart }) {
 <Header/>
     <div className="flash1">
       <div className="tittleOffers">
-    <h1>OFERTAS</h1>
-    <p>Bienvenido a las mejores ofertas de Exito.</p>
+    <h1>Nuestros Productos</h1>
     </div>
-    <div className="pageOffersWith">
-   <div className="container-page-offers">
+    <div className="pageOffersWith1">
+   
      <CardOffer productItems={productItems} addToCart={addToCart} /> 
+   
    </div>
-   </div>
-   <Pagination/>
+   {/* <Pagination/> */}
     </div>
     <Footer/>
     </>

@@ -1,11 +1,14 @@
 import React from "react";
 import { TodoGetApis } from "../Apis/Apis";
 import swal from "sweetalert2";
+import MenuSuperAdmin from "../MenuSuperAmin/MenuSuperAdmin";
 
 function PageViewOverAdmin() {
   return (
+    <>
+    <MenuSuperAdmin/>
     <div className="flex">
-      <div className="flex-none w-[25%]">ffffff</div>
+      
       <div className="flex-wrap w-[75%]">
         <div></div>
         <div className="w-64 h-72 bg-slate-100 flex items-center justify-center shadow-indigo-200">
@@ -97,6 +100,7 @@ function PageViewOverAdmin() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
