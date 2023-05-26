@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert2";
+import { TodoGetApis } from '../Apis/Apis';
 
 function MenuSuperAdmin() {
     const navigate = useNavigate();
@@ -32,6 +34,30 @@ function MenuSuperAdmin() {
                     
   
   
+                    
+  
+                    <li>
+                      <Link
+                        className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
+                        hover:text-white 
+                        hover:rounded-full duration-300
+                         px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+                        to="/Malls"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 2048 2048"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="m1344 2l704 352v785l-128-64V497l-512 256v258l-128 64V753L768 497v227l-128-64V354L1344 2zm0 640l177-89l-463-265l-211 106l497 248zm315-157l182-91l-497-249l-149 75l464 265zm-507 654l-128 64v-1l-384 192v455l384-193v144l-448 224L0 1735v-676l576-288l576 288v80zm-640 710v-455l-384-192v454l384 193zm64-566l369-184l-369-185l-369 185l369 184zm576-1l448-224l448 224v527l-448 224l-448-224v-527zm384 576v-305l-256-128v305l256 128zm384-128v-305l-256 128v305l256-128zm-320-288l241-121l-241-120l-241 120l241 121z"
+                          />
+                        </svg>
+                        <span class="pl-4">Centros comerciales</span>
+                      </Link>
+                    </li>
                     <li>
                       <Link
                         to="/CreateMalls"
@@ -55,31 +81,77 @@ function MenuSuperAdmin() {
                             d="M7 .54v13M.5 7h13"
                           />
                         </svg>
-                        <span className="pl-4">Crear centro comercial</span>
-                      </Link>
-                    </li>
-  
-  
-                    <li>
-                      <Link
-                        className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                        hover:text-white 
-                        hover:rounded-full duration-300
-                         px-4 my-2 flex bg-gray-100 rounded-md block p-2"
-                        to="/Malls"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 2048 2048"
-                        >
-                          <path
-                            fill="currentColor"
-                            d="m1344 2l704 352v785l-128-64V497l-512 256v258l-128 64V753L768 497v227l-128-64V354L1344 2zm0 640l177-89l-463-265l-211 106l497 248zm315-157l182-91l-497-249l-149 75l464 265zm-507 654l-128 64v-1l-384 192v455l384-193v144l-448 224L0 1735v-676l576-288l576 288v80zm-640 710v-455l-384-192v454l384 193zm64-566l369-184l-369-185l-369 185l369 184zm576-1l448-224l448 224v527l-448 224l-448-224v-527zm384 576v-305l-256-128v305l256 128zm384-128v-305l-256 128v305l256-128zm-320-288l241-121l-241-120l-241 120l241 121z"
-                          />
-                        </svg>
-                        <span class="pl-4">Centros comerciales</span>
+                        <span className="pl-4" onClick={() => {
+              swal.fire({
+                title: "Ingrese el token:",
+                html: `
+              <input id="token" type="password" placeholder="Ingrese el token" />
+              `,
+                focusConfirm: false,
+                focusCancel: false,
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonText: "Enviar",
+                cancelButtonText: "Cancelar",
+                preConfirm: async () => {
+                  try {
+                    let token = document.getElementById("token").value;
+                    const response = await TodoGetApis.ValidateToken(token);
+                    if (response.status === 200) {
+                      swal.fire({
+                        title: "Token correcto",
+                        text: "Registrar centro comercial",
+                        html: `
+                        <input id="name" type="text" placeholder="Nombre" />
+                        <input id="address" type="text" placeholder="Dirección" />
+                        <input id="email" type="text" placeholder="Correo eletronico" />
+                        `,
+                        focusConfirm: false,
+                        focusCancel: false,
+                        showCancelButton: true,
+                        showConfirmButton: true,
+                        confirmButtonText: "Enviar",
+                        cancelButtonText: "Cancelar",
+                        preConfirm: async () => {
+                          try {
+                            let name = document.getElementById("name").value;
+                            let address =document.getElementById("address").value;
+                            let email = document.getElementById("email").value;
+                            let data = {
+                              nameUser: name,
+                              email,
+                              direccion: address,
+                            };
+                            const response = await TodoGetApis.SingUp(
+                              data,
+                              token
+                            );
+                            if (response.status === 200) {
+                              swal.fire({
+                                title: "Centro comercial registrado",
+                                text: "Se ha registrado el centro comercial",
+                                icon: "success",
+                              });
+                            }
+                          } catch (error) {
+                            swal.fire({
+                              title: "Error",
+                              text: "Ingrese los datos correctamente",
+                              icon: "error",
+                            });
+                          }
+                        },
+                      });
+                    }
+                    return response;
+                  } catch (error) {
+                    swal.fire({
+                      title: "Token incorrecto",
+                    });
+                  }
+                },
+              });
+            }}>Crear centro comercial</span>
                       </Link>
                     </li>
   

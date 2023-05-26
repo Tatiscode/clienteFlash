@@ -2,12 +2,13 @@ import React from "react";
 import { TodoGetApis } from "../Apis/Apis";
 import swal from "sweetalert2";
 import MenuSuperAdmin from "../MenuSuperAmin/MenuSuperAdmin";
+import DataTableMalls from "../Table/DataTableMalls";
 
 function PageViewOverAdmin() {
   return (
     <>
     <MenuSuperAdmin/>
-    <div className="flex">
+    {/* <div className="flex">
       
       <div className="flex-wrap w-[75%]">
         <div></div>
@@ -99,7 +100,8 @@ function PageViewOverAdmin() {
           </button>
         </div>
       </div>
-    </div>
+    </div> */}
+    <DataTableMalls/>
     </>
   );
 }
