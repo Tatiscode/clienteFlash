@@ -101,7 +101,7 @@ function DiscountCard() {
                       </p>
                       <div className="price flex flex-col">
                         <div>
-                          <h4 className="text-black font-bold line-through text-red-600">
+                          <h4 className="font-bold line-through text-red-600">
                             {money.format(productItems.price_product)}
                           </h4>
                         </div>

@@ -115,7 +115,7 @@ function App() {
         <Route path='/Login' element={<PageLogin />} />
         <Route path='/Register' element={<PageRegister />} />
         <Route path='/Offers' element={<PageOffer productItems={productItems} addToCart={addToCart} />} />
-        <Route path='/OfficialStores/:code/:idStore' element={<PageStores  />}>
+        <Route path='/OfficialStores/:code' element={<PageStores  />}>
           <Route path="tienda" element={<PageStores addToCart={addToCart} shopItems={shopItems} />} />
         </Route>
         <Route path='/NewProducts' element={<PageNewProduct productItems={productItems} addToCart={addToCart} />} />
@@ -135,7 +135,7 @@ function App() {
         <Route path='/DeleteCategory' element={<PageDeleteCategory />} />
         <Route path='/UpdateCategory' element={<PageUpdateCategory />} />
         <Route path='/AccountAdmin' element={<PageAccountAdmin />} />
-        <Route path='/cart' element={<Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='/SingleShop' element={<PageSingleShop productItems={productItems} addToCart={addToCart} />} />
         <Route path='/SingleCategory' element={<CategoryUnitarie productItems={productItems} addToCart={addToCart} />} />
         <Route path='/Employed' element={<PageEmployed />} />

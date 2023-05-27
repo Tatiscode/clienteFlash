@@ -6,19 +6,23 @@ export const useContextShopCar = () => useContext(shopCreateContext);
 
 export const UseContextShop = ({ children }) => {
   const [addCard, setAddCard] = useState([]);
+  
 
   const getProductCar = async () => {
-    // try {
-    //     const  response = await TodoGetApis.GetCar();
-    //     return response
-    // } catch (error) {
-    //     return error
-    // }
+    try {
+        const  response = await TodoGetApis.GetCar();
+        console.log("jjjj",response);
+        setAddCard(response.data.data)
+        return response
+    } catch (error) {
+        return error
+    }
   };
 
   const postProductCar = async (data) => {
     try {
       const response = await TodoGetApis.AddCarShop(data);
+      setAddCard( response.data.data);
 
       return response;
     } catch (error) {
@@ -26,12 +30,36 @@ export const UseContextShop = ({ children }) => {
     }
   };
 
+  const deleteProductCar = async (id) =>{
+    try {
+      const response= await TodoGetApis.DeleteProductCar(id);
+      setAddCard(addCard.filter(i=>i.id_product !== id))
+      return response;
+      
+    } catch (error) {
+      return error;
+    }
+  }
+
+  const updateProductCar = async (id, data,datas) =>{
+    try {
+      const response=await TodoGetApis.UpdatePraductCar(id, data);
+      return response;
+      
+    } catch (error) {
+      return error;
+      
+    }
+  }
+
   return (
     <shopCreateContext.Provider
       value={{
         postProductCar,
         addCard,
         getProductCar,
+        deleteProductCar,
+        updateProductCar
       }}
     >
       {children}

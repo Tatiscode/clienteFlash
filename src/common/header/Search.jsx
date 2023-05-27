@@ -19,19 +19,24 @@ const Search = ({ CartItem }) => {
         setStop(false);
       }
     })();
-  }, [stop]);
-
+  }, []);
+  
+  console.log("-----",addCard);
   let getRol = localStorage.getItem("rol");
   return (
     <>
       <section className="search">
         <div className="container c_flex">
+         
           <div className="logo width ">
+          <Link to="/">
             <img
               src="https://res.cloudinary.com/dgpikgt5t/image/upload/v1684857250/Frame_1_2_shoktn.png"
               alt=""
             />
+             </Link>
           </div>
+         
 
           <div className="search-box">
             <span>
@@ -49,15 +54,22 @@ const Search = ({ CartItem }) => {
             </span>
             <input type="text" placeholder="Buscar" />
           </div>
+          
 
           <div className="icon f_flex width">
             {getRol === null ? <UserBefore /> : <UserAfter />}
 
             {/* <UserAfter/> */}
             {/* </Link> */}
-            <div className="cart">
-              <Link to="/cart">
-                <span className=" icon-circle2">
+            <div className="cart relative">
+              <Link to="/cart" className="relative">
+                <span className=" icon-circle2 relative">
+              <div className="absolute top-0 right-0 text-white bg-green-400 px-2 rounded-full">
+                {
+                  addCard.length
+                }
+                
+              </div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="29"
@@ -70,8 +82,8 @@ const Search = ({ CartItem }) => {
                     />
                   </svg>
                 </span>
-
                 {/* <span>{CartItem.length === 0 ? "" : CartItem.length}</span> */}
+                
               </Link>
             </div>
           </div>

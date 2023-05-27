@@ -62,6 +62,8 @@ function CreateProduct() {
               discount:values.discount
             };
 
+            alert(values);
+
             try {
               const response = await TodoGetApis.CreateProduct(data);
               

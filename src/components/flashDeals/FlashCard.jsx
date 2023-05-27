@@ -4,6 +4,8 @@ import Slider from "react-slick"
  import "slick-carousel/slick/slick-theme.css"
  import './style.css'
  import { TodoGetApis } from "../../Apis/Apis"
+ import { ToastContainer, toast } from "react-toastify";
+ import { useContextShopCar } from "../../Hook/UseContextShop";
 import { useNavigate } from "react-router-dom"
 
 // const SampleNextArrow = (props) => {
@@ -30,15 +32,18 @@ import { useNavigate } from "react-router-dom"
 const FlashCard = () => {
   const [count, setCount] = useState(0)
   const [product, setProduct ] = useState([])
-  const navigate = useNavigate();
+  const [productShop, setProductShop] =useState([])
+  const {postProductCar, addCard, getProductCar}=useContextShopCar();
+  const navigate = useNavigate()
+
   let limite = 12
+  let token =localStorage.getItem("token")
   useEffect (()=>{
     (async()=>{
       const response = await TodoGetApis.GetProduct(limite);
       
       setProduct(response.data.rows);
     }
-
     )()
   },[])
   const increment = () => {
@@ -59,9 +64,39 @@ const FlashCard = () => {
     minimumFractionDigits: 2,
   });
 
+  const handdleCarShop = async (data) => {
+    if (token === null) {
+      toast.warn("Inicia sesión, para agregar al carrito!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      let carrito = {
+        idProduct: data.id_product,
+        nameProduct: data.name_product,
+        code: data.id_store_product,
+        price: data.price_product,
+        amount: 1,
+        img: data.img_product,
+        description:data.description_product
+      };
+      console.log(carrito);
+
+      const response = await postProductCar(carrito);
+      console.log(response);
+    }
+  };
+
  
   return (
     <>
+     <ToastContainer />
       <div className=" grid gap-4 grid-cols-4 grid-rows-3">
         {/* <Slider {...settings}> */}
         {
@@ -123,7 +158,8 @@ const FlashCard = () => {
                         </span>
                       </div>
                       <div className="">
-                        <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md">
+                        <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md"
+                        onClick={()=> handdleCarShop(productItems) }>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="30"

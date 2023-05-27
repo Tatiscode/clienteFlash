@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
 
 const Catg = () => {
   const { code } = useParams();
   const [stores, setStores] = useState([]);
+  const [bann, setBann] = useState(false)
   const [idStore, setIdStore] = useState(0);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     (async () => {
       let response = await TodoGetApis.GetStoresMall(code, idStore);
       setStores(response.data.data);
     })();
-  }, []);
+  }, [code]);
 
   alert(idStore);
 

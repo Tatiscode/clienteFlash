@@ -35,7 +35,7 @@ function Malls() {
             {malls.map((x) => (
               <div className="boxMalls flex flex-col items-center">
                 <div className="imgMalls" onClick={()=> {
-                  navigate(`/OfficialStores/${x.id_admin}/0`);
+                  navigate(`/OfficialStores/${x.id_admin}`);
                 }}>
                   <img src={x.img_admin} alt="" />
                 </div>
