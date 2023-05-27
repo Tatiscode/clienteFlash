@@ -4,6 +4,7 @@ import Slider from "react-slick"
  import "slick-carousel/slick/slick-theme.css"
  import './style.css'
  import { TodoGetApis } from "../../Apis/Apis"
+import { useNavigate } from "react-router-dom"
 
 // const SampleNextArrow = (props) => {
 //   const { onClick } = props
@@ -29,6 +30,7 @@ import Slider from "react-slick"
 const FlashCard = () => {
   const [count, setCount] = useState(0)
   const [product, setProduct ] = useState([])
+  const navigate = useNavigate();
   let limite = 12
   useEffect (()=>{
     (async()=>{
@@ -109,12 +111,16 @@ const FlashCard = () => {
 
                     <div className="flex justify-between item-center mt-4">
                       <div className="truncate ">
-                        <a
-                          href="/"
+                        <span
                           className="text-white compra pink text-white rounded-md inline-block truncate i"
+                          onClick={() => {
+                            navigate(
+                              `/CardProducts/${productItems.id_product}`
+                            );
+                          }}
                         >
                           Comprar Ahora
-                        </a>
+                        </span>
                       </div>
                       <div className="">
                         <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md">

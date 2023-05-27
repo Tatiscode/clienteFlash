@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 import "../flashDeals/style.css";
 import { TodoGetApis } from "../../Apis/Apis";
 import { ToastContainer, toast } from "react-toastify";
 import { useContextShopCar } from "../../Hook/UseContextShop";
 import { NavLink, useNavigate } from "react-router-dom";
 
-
-const DCard = () => {
+function DiscountCard() {
   const [count, setCount] = useState(0);
   const [product, setProduct] = useState([]);
   const [productShop, setproductShop] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { postProductCar, addCard } = useContextShopCar();
 
   let token = localStorage.getItem("token");
-  let limit = 0;
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetProductDiscount();
@@ -26,16 +22,11 @@ const DCard = () => {
       console.log(response);
     })();
   }, []);
+
   const increment = () => {
     setCount(count + 1);
   };
-  const settings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-  };
+
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
     currency: "COP",
@@ -71,7 +62,7 @@ const DCard = () => {
     <>
       <ToastContainer />
       <div className="">
-        <Slider {...settings}>
+        <div className="  grid gap-4 grid-cols-4 grid-rows-3">
           {product.length > 0 ? (
             product.map((productItems) => {
               return (
@@ -108,10 +99,22 @@ const DCard = () => {
                       <p className="truncate">
                         {productItems.description_product}
                       </p>
-                      <div className="price">
-                        <h4 className="text-black font-bold">
-                          {money.format(productItems.price_product)}{" "}
-                        </h4>
+                      <div className="price flex flex-col">
+                        <div>
+                          <h4 className="text-black font-bold line-through text-red-600">
+                            {money.format(productItems.price_product)}
+                          </h4>
+                        </div>
+                        <div className="flex justify-end">
+                          <h3 className="text-black font-bold">
+                            {money.format(
+                              (productItems.price_product *
+                                productItems.dicount) /
+                                100 -
+                                productItems.price_product
+                            )}
+                          </h3>
+                        </div>
 
                         {/* step : 3  
                      if hami le button ma click garryo bahne 
@@ -121,15 +124,16 @@ const DCard = () => {
                       <div className="flex justify-between item-center mt-4">
                         <div className="truncate ">
                           {/* <NavLink to="/CardProducts"  > */}
-                            <span className="text-white compra pink text-white rounded-md inline-block truncate i" onClick={
-                              ()=>{
-                                navigate(
-                                  `/CardProducts/${productItems.id_product}`
-                                );
-                              }
-                            }>
-                              Comprar Ahora
-                            </span>
+                          <span
+                            className="text-white compra pink text-white rounded-md inline-block truncate i"
+                            onClick={() => {
+                              navigate(
+                                `/CardProducts/${productItems.id_product}`
+                              );
+                            }}
+                          >
+                            Comprar Ahora
+                          </span>
                           {/* </NavLink> */}
                         </div>
                         <div className="">
@@ -164,18 +168,10 @@ const DCard = () => {
           ) : (
             <h1>no hay data</h1>
           )}
-        </Slider>
+        </div>
       </div>
     </>
   );
-};
+}
 
-export default DCard;
-
-// const settings = {
-//   dots: false,
-//   infinite: true,
-//   slidesToShow: 6,
-//   slidesToScroll: 1,
-//   autoplay: true,
-// }
+export default DiscountCard;

@@ -172,6 +172,9 @@ export const TodoGetApis = {
       },
     }),
 
+  GetStoresMall: async (code, idStore) =>
+    await axios.get(`${urlServerStores}/consultationStore/${code}/${idStore}`),
+
   CreateCustomer: async (data) =>
     await axios.post(`${urlServerAuth}/signUpCustomer`, { data }),
 
@@ -262,10 +265,19 @@ export const TodoGetApis = {
   GetProduct: async (data) =>
     await axios.get(`${urlServerProducts}/productsConsultation/${data}`),
 
-  GetProductsStore: async (data) =>
+  GetProductsStore: async () =>
     await axios.get(`${urlServerProducts}/getProductsStore`, {
       headers: {
         token: `${token}`,
       },
     }),
+
+  GetProductBig: async (code) =>
+    await axios.get(`${urlServerProducts}/getProductOne/${code}`),
+
+  GetProductDiscount: async () =>
+    await axios.get(`${urlServerProducts}/getProductDiscount`),
+
+  GetProductsStoresMall: async (code) =>
+    await axios.get(`${urlServerProducts}/getProductMall/${code}`),
 };
