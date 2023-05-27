@@ -35,7 +35,7 @@ function AccountAdmin() {
       })}
       onSubmit={async (values) => {}}
     >
-      <Form className="formRegister">
+      <Form className=" ml-[41%] absolute inset-0">
         <div className="tittleAccount">
           <h1>Mi Perfil</h1>
           <p>Administra tu cuenta</p>

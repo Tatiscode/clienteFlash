@@ -14,7 +14,7 @@ function MenuEmployed() {
       <div class="">
         <aside
           id="sidebar"
-          class="fixed hidden z-20 h-full top-0 left-0 pt-1 flex lg:flex
+          class="fixed overflow-y-auto z-20 h-full top-0 left-0 pt-1 flex lg:flex
              flex-shrink-0 flex-col w-64 transition-width duration-75 "
           aria-label="Sidebar"
         >
@@ -22,7 +22,7 @@ function MenuEmployed() {
             <div class=" scroll-beheavior flex-1 flex flex-col pt-5 pb-4 ">
               <div class="flex-1 px-3 bg-white divide-y space-y-1">
                 <div class="space-y-2 pb-2">
-                  <div class="mt-8 text-center">
+                  <div class="mt-1 text-center">
                     <img
                       src="https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp"
                       alt=""
@@ -83,6 +83,18 @@ function MenuEmployed() {
                         <path fill="none" d="M0 0h36v36H0z" />
                       </svg>
                       <span className="pl-4">Tienda</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/FormVentasPres"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
+                      hover:text-white 
+                      hover:rounded-full duration-300
+                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m2 11l2.807-3.157A4 4 0 0 1 7.797 6.5H8m-6 13h5.5l4-3s.81-.547 2-1.5c2.5-2 0-5.166-2.5-3.5C8.964 12.857 7 14 7 14"/><path d="M8 13.5V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-6.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a2 2 0 1 1 0-4a2 2 0 0 1 0 4Zm4.5-1.99l.01-.011m-9.01.011l.01-.011"/></g></svg>
+                      <span class="pl-4 whitespace-nowrap">Ventas Presencial</span>
                     </Link>
                   </li>
 
@@ -215,6 +227,7 @@ function MenuEmployed() {
                       <span class="pl-4">Estadisticas</span>
                     </Link>
                   </li>
+                 
 
 
                   <div class="space-y-2 pt-2">

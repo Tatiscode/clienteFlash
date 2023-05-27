@@ -32,8 +32,8 @@ function EditStore() {
         
       }}
     >
-      <Form className="formRegister">
-        <div className="flex w-full justify-between ">
+      <Form className="ml-[40%] absolute inset-0  ">
+        <div className="flex w-full justify-between  ">
        
 
         <div className="boxAccount">
@@ -43,7 +43,7 @@ function EditStore() {
                  <div className="containerName">
                     {data.img_store != null ? (
                       <div>
-                        <img src={data.img_store} alt="" className="w-44 rounded-full h-44 object-cover" />
+                        <img src={data.img_store} alt="" className="w-36 rounded-full h-36 object-cover" />
                         <div
                 className="campus bg-gray-100
             cursor-pointer mt-2"

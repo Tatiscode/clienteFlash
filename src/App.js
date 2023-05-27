@@ -9,7 +9,7 @@ import Data from "./components/Data"
 import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
 import PageLogin from "./pages/PageLogin"
-import { Route, Routes } from "react-router-dom"
+import { Route, Router, Routes } from "react-router-dom"
 import PageRegister from "./pages/PageRegister"
 import PageOffer from "./pages/PageOffer"
 import PageStores from "./pages/PageStores"
@@ -68,6 +68,7 @@ import Table from "./components/MenuUser/Table"
 import { UseContextShop } from "./Hook/UseContextShop" 
 import CreateMalls from "./CreateMalls/CreateMalls"
 import DataTableMalls from "./Table/DataTableMalls"
+import RegisterSales from "./components/FormsEmployed/RegisterSales/RegisterSales"
 
 
 function App() {
@@ -176,6 +177,7 @@ function App() {
        <Route path="/DataTableBuysUser" element={<Table/>}/>
        <Route path="/CreateMalls" element={<CreateMalls/>}/>
        <Route path="/Malls" element={<DataTableMalls/>}/>
+       <Route path="FormVentasPres" element={<RegisterSales/>}/>
       </Routes>
 
     </UseContextShop>

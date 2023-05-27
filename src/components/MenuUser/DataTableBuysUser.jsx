@@ -1,179 +1,164 @@
-import React, { useRef,
-    useState,
-    useCallback,
-    useEffect, } from "react";
-  import "ag-grid-community/styles/ag-grid.css";
-  import "ag-grid-community/styles/ag-theme-alpine.css";
-  import "ag-grid-enterprise";
-  import { AgGridReact } from "ag-grid-react";
-  import swal from "sweetalert2";
-  import { TodoGetApis } from "../../Apis/Apis";
-  import { useNavigate } from "react-router-dom";
-  
-  
-  
-  const ImageRenderer = (props) => {
-    const handdelImg = () => {
-      swal.fire({
-        title: 'Imagen de la categoria',
-        html:`<img src=${props.value} className="  cover" alt="t" style="width: 190px; heigth:190px; border-radius:8px; text-align:center ; display:block; margin:auto;" /> `,
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        },
-        showConfirmButton: false,
-      })
-    }
-    return (
-      <div className="h-[10rem]">
-        <span onClick={handdelImg}>Ver Imagen</span>
-        {/* <img src={props.value} className="   cover" alt="t" height={300} /> */}
-      </div>
-    );
+import React, { useRef, useState, useCallback, useEffect } from "react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import "ag-grid-enterprise";
+import { AgGridReact } from "ag-grid-react";
+import swal from "sweetalert2";
+import { TodoGetApis } from "../../Apis/Apis";
+import { useNavigate } from "react-router-dom";
+import MenuSuperAdmin from "../MenuAdmin/MenuAdmin";
+import MenuUserF from "./MenuUserF";
+const ImageRenderer = (props) => {
+  const handdleImg = () => {
+    swal.fire({
+      title: "Imagen del producto",
+      html: `<img src=${props.value} className="   cover" alt="t" style="width: 190px; heigth:190px; border-radius:8px; text-align:center ; display:block; margin:auto;" />`,
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+      showConfirmButton: false,
+    });
   };
-  
-  function Options(e) {
-    const navigate = useNavigate();
-    let idCategory = e.data.id_category
-    const handleUpdate = () => {
-      swal.fire({
-        title: "Editar Categoria",
-          html: `
-          <input type="text" id="nameCategory" class="swal2-input" placeholder="Username" value="${e.data.name_category}" name="nameCategory">
-          `,
-        focusConfirm: false,
-        focusCancel: false,
-        showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonText: "Guardar",
-        cancelButtonText: "Cancelar",
-        preConfirm: async () => {
-          let nameCategory = document.getElementById("nameCategory").value;
-          let data = {
-  
-            name: nameCategory,
-          };
-          
-          const response = await TodoGetApis.UpdateCategory(data, idCategory);
-          
-        }
-  
-      }).then((values) => {
-        window.location.reload(true);
-        swal.fire("Categoria actualizada", {
-            icon: "success",
-          });
-        
-      });
-    };
-    
-    const handleDelete = () => {
-      let data = JSON.stringify(e.data.id_category);
-      swal.fire({
-        text: "¿Estas seguro de eliminar el producto?",
+  return (
+    <div className="h-[10rem]">
+      <span onClick={handdleImg}>Ver imagen</span>
+      {/* <img src={props.value} className="   cover" alt="t" height={300} /> */}
+    </div>
+  );
+};
+function Options(e) {
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    let data = JSON.stringify(e.data.id_store);
+    swal
+      .fire({
+        text: "¿Estas seguro de eliminar la tienda?",
         buttons: {
           cancel: true,
           confirm: true,
         },
-      }).then(async (value) => {
+      })
+      .then(async (value) => {
         if (value) {
-          const response = await TodoGetApis.DeleteCategory(data);
+          const response = await TodoGetApis.DeleteStore(data);
           window.location.reload(true);
           if (response.status === 200) {
-            swal.fire("Producto eliminado", {
+            swal.fire("Tienda eliminada", {
               icon: "success",
             });
+            e.data.delete();
           }
         }
       });
-    };
-    return (
-      <>
-        <button onClick={handleUpdate}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="#1daf53"
-              d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"
-            />
-          </svg>
-        </button>
+  };
+
+  return (
+    <>
+      <button onClick={handleDelete}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="#ea4335"
+            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+          />
+        </svg>
+      </button>
+    </>
+  );
+}
+
+function DataTableMBuysUser() {
+  const [mall, setMall] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await TodoGetApis.GetMalls();
+      setMall(response.data.rows);
+    })();
+  }, []);
   
-        <button onClick={handleDelete}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="#ea4335"
-              d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-            />
-          </svg>
-        </button>
-      </>
-    );
-  }
-  
-  function DataTableBuysUser({ data }) {
-    const [column, setColumn] = useState([
-      {
-        headerName: "Codigo",
-        field: "id_category",
-      },
-      {
-        headerName: "Producto",
-        field: "name_category",
-      },
-      {
-        headerName: "Cantidad",
-        field: "img_category",
-        cellRenderer: ImageRenderer,
-      },
-      {
-        headerName: "Precio",
-        field: "id_Store",
-      },
-      {
-        headerName: "Total",
-        field: "id_Store",
-      },
-      {
-        headerName: "Fecha",
-        field: "id_Store",
-      },
-      
-  
+
+  const [column, setColumn] = useState([
+    {
+      headerName: "Codigo",
+      field: "id_buys",
+    },
+    {
+      headerName: "Fecha ",
+      field: "date_buys",
+    },
+
+    {
+      headerName: "Email Tienda",
+      field: "email_customer",
+    },
+
+    {
+      headerName: "Codigo Producto",
+      field: "id_product",
+     
+    },
+    {
+      headerName: "Codigo Tienda",
+      field: "id_store",
+    },
+    {
+      headerName: "Precio Producto",
+      field: "price_product",
+    },
+    {
+      headerName: "Cantidad Producto",
+      field: "amount_product",
+    },
+    {
+      headerName: "Total",
+      field: "total",
+    },
+
     
-    ]);
-    const gridRef = useRef();
-    const onFilterTextBoxChanged = useCallback(() => {
-      gridRef.current.api.setQuickFilter(
-        document.getElementById('filter-text-box').value
-      );
-    }, []);
-    return (
-      <div>
-         <div className="flex justify-between  max-w-4xl mx-auto">
+  ]);
+  const gridRef = useRef();
+  const onFilterTextBoxChanged = useCallback(() => {
+    gridRef.current.api.setQuickFilter(
+      document.getElementById("filter-text-box").value
+    );
+  }, []);
+  return (
+    <>
+    <MenuUserF/>
+    
+      <div className="ml-[17%]">
+        <div className="flex justify-between  max-w-4xl mx-auto mt-5 w-[70%] mx-auto">
           <div className="g">
-  
-         <h1 className="text-center block p-2 text-3xl text-gray-700 font-bold">Categorias</h1>
+            <h1 className="text-center block p-2 text-3xl text-gray-700 font-bold">
+              Mis Compras
+            </h1>
           </div>
-        <div className="p-2 bg-white  flex items-center mb-4 rounded-md border  w-auto ">
-            
+          <div className="p-2 bg-white  flex items-center mb-4 rounded-md border  w-auto ">
             <div className="icon_search mx-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 16 16"><g transform="translate(16 0) scale(-1 1)">
-              <path fill="#ABB2B9" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0z"/></g></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="21"
+                height="21"
+                viewBox="0 0 16 16"
+              >
+                <g transform="translate(16 0) scale(-1 1)">
+                  <path
+                    fill="#ABB2B9"
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0z"
+                  />
+                </g>
+              </svg>
             </div>
             <div className="input_panel">
-            <input
+              <input
                 type="text"
                 id="filter-text-box"
                 placeholder="Buscar..."
@@ -181,36 +166,33 @@ import React, { useRef,
                 className="outline-none w-full"
               />
             </div>
-           </div>
-         </div>
-         {
-          data != null ? (
-          <div
-            className="ag-theme-alpine shadow-md mx-auto w-[50%] rounded-md overflow-hidden shadow-lg"
-            id="myGrid"
-            style={{ height: 500, width: "92%" }}
-          >
-            <AgGridReact
-                  ref={gridRef}
-              columnDefs={column}
-              rowData={data.map((item) => {
-                return {
-                  id_category: item.id_category,
-                  name_category: item.name_category,
-                  img_category: item.img_category,
-                  id_Store: item.id_Store,
-                };
-              })}
-              pagination={true}
-              paginationPageSize={15}
-            />
-          </div>)
- : (<h1>NO hay dataaaaaaaa</h1>)
+          </div>
+        </div>
 
-         }
+        {/* {data.length > 0 ? ( */}
+        <div
+          className="ag-theme-alpine shadow-md mx-auto w-[30%] rounded-md overflow-hidden shadow-lg"
+          id="myGrid"
+          style={{ height: 500, width: "92%" }}
+        >
+          <AgGridReact
+            ref={gridRef}
+            columnDefs={column}
+            rowData={mall.map((item) => {
+              return {
+                name_admin: item.name_admin,
+                email_center: item.email_center,
+                email_admin: item.email_admin,
+                img_admin: item.img_adminx,
+              };
+            })}
+            pagination={true}
+            paginationPageSize={15}
+          />
+        </div>
       </div>
-    );
-  }
-  
-  export default DataTableBuysUser;
-  
+    </>
+  );
+}
+
+export default DataTableMBuysUser;

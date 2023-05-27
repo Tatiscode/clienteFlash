@@ -1,12 +1,13 @@
 import React from 'react'
 import MenuUserF from './MenuUserF'
-import DataTableBuysUser from './DataTableBuysUser'
+
+import DataTableMBuysUser from './DataTableBuysUser'
 
 function Table() {
   return (
     <>
-    <MenuUserF/>
-    <DataTableBuysUser/>
+    
+    <DataTableMBuysUser/>
     </>
   )
 }
