@@ -14,7 +14,7 @@ function Estadisticas() {
     })();
   }, []);
 
-  console.log(categorys);
+  
 
   return (
     <>

@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 export default function User() {
   const [loading,setLoading]=useState(false);
   let token = useParams();
-  console.log(token);
+  
   const [status, setStatus] = useState(false);
   return (
     <div className="form-register">
@@ -27,7 +27,7 @@ export default function User() {
         })}
         onSubmit={async (values) => {
           setLoading(true);
-          console.log(values);
+          
           try {
             const response = await TodoGetApis.SingIn(values);
             if (response.status === 200) {

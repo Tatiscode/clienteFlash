@@ -133,8 +133,7 @@ function DataTableStore({ data }) {
           ref={gridRef}
           columnDefs={column}
           rowData={data.map((item) => {
-            console.log("df", data);
-            console.log(item.id_store);
+
             return {
               id_store: item.id_store,
               name_employee: item.name_employee,

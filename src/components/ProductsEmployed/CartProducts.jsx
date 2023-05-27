@@ -10,10 +10,10 @@ function CartProducts() {
     (async () => {
       const response = await TodoGetApis.GetProductsStore();
       setProducts(response.data.rows);
-      console.log("product", response);
+      
     })();
   }, []);
-  console.log(Products);
+  
   return (
     <>
       {Products.map((e) => (

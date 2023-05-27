@@ -21,7 +21,7 @@ function FormCreateCategory() {
       password:Yup.string().required('Campo obligatorio'),
      })}
      onSubmit={async (values)=>{
-      console.log(values);
+      
       alert(JSON.stringify(values.nameUser))
      }}
 

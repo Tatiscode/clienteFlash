@@ -14,7 +14,6 @@ function Account() {
     (async () => {
       if (stop) {
         const response = await TodoGetApis.GetAccountCustomer();
-        console.log(response.data.rows);
         setData(response.data.rows);
         setStop(false);
       }
@@ -101,7 +100,7 @@ function Account() {
             <button
               onClick={async () => {
                 const response = await TodoGetApis.UpdateCustomer(image);
-                console.log(response);
+
               }}
             >
               Editar

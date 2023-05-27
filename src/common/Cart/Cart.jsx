@@ -3,7 +3,6 @@ import "./style.css";
 import { Link } from "react-router-dom";
 
 const Cart = ({ CartItem, addToCart, decreaseQty }) => {
-  console.log(CartItem);
   // Stpe: 7   calucate total of items
   const totalPrice = CartItem.reduce(
     (price, item) => price + item.qty * item.price,
@@ -29,8 +28,6 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                 No se han agregado artículos en el carrito
               </h1>
             )}
-
-            {/* yasma hami le cart item lai display garaaxa */}
             {CartItem.map((item) => {
               const productQty = item.price * item.qty;
 

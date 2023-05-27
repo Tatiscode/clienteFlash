@@ -8,7 +8,7 @@ function Malls() {
   // useEffect(()=>{
   //   (async () => {
   //     let response = await TodoGetApis.GetMalls();
-  //     console.log("malls    ",response);
+  
       
   //   })()
   // }, [])

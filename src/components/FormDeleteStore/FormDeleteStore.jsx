@@ -18,7 +18,7 @@ function FormDeleteStore() {
         })}
         onSubmit={async (values) => {
           const response = await TodoGetApis.DeleteStore(values, code);
-          console.log(response);
+          
 
         }}
       >

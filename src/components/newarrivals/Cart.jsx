@@ -5,10 +5,11 @@ import { TodoGetApis } from "../../Apis/Apis"
 
 const Cart = () => {
   const [product, setProduct ] = useState([])
+  
   useEffect (()=>{
     (async()=>{
       const response = await TodoGetApis.GetProductDate();
-      console.log("product",response);
+      
       setProduct(response.data.rows);
       
     }
@@ -22,21 +23,25 @@ const Cart = () => {
   });
   return (
     <>
-      <div className='content gridsp product1 '>
-        {product.map((val) => {
-          return (
-            <div className='box' >
-              <div className='img'>
-                <img src={val.img_product} alt='' />
+      {product.length > 0 ? (
+        <div className="content gridsp product1 ">
+          {product.map((val) => {
+            return (
+              <div className="box">
+                <div className="img">
+                  <img src={val.img_product} alt="" />
+                </div>
+                <h4>{val.name_product} </h4>
+                <span>{money.format(val.price_product)}</span>
               </div>
-              <h4>{val.name_product} </h4>
-              <span>{money.format(val.price_product)}</span>
-            </div>
-          )
-        })}
-      </div>
+            );
+          })}
+        </div>
+      ) : (
+        <h1>No hay data</h1>
+      )}
     </>
-  )
+  );
 }
 
 export default Cart

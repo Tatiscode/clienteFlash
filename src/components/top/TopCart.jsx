@@ -11,8 +11,8 @@ const TopCart = () => {
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetStores();
-      console.log("store:  ", response.data);
-      setStores(response.data.error);
+      
+      setStores(response.data.data);
     })();
   }, []);
 

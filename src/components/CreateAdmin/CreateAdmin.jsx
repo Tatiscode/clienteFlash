@@ -34,7 +34,7 @@ function CreateAdmin() {
           onSubmit={async (values) => {
             try {
               const response = await TodoGetApis.SingUp(values, values.token);
-              console.log(response);
+
               toast.success("Administrador registrado exitosamente", {
                 position: "top-right",
                 autoClose: 4000,

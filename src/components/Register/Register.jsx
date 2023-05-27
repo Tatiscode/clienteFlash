@@ -31,7 +31,7 @@ function Register() {
       try {
         const response= await TodoGetApis.CreateCustomer(values)
         setLoading(false);
-        console.log(response);
+        
         toast.success('Registro exitoso', {
           position: "top-right",
           autoClose: 4000,

@@ -1,38 +1,27 @@
-import React, { useEffect,useState  } from "react";
+import React, { useEffect, useState } from "react";
 //  import logo from "../../components/assets/images/logo.svg"
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserAfter from "./UserAfter";
 // import {useState} from "react";
 import UserBefore from "./UserBefore";
-import {useContextShopCar} from "../../Hook/UseContextShop"
+import { useContextShopCar } from "../../Hook/UseContextShop";
 import { TodoGetApis } from "../../Apis/Apis";
 
 const Search = ({ CartItem }) => {
-  // fixed Header
-  // useEffect(() => {
-  // window.addEventListener("scroll", function () {
-  //   const search = document.querySelector(".search")
-  //   search.classList.toggle("active", window.scrollY > 100)
-  // })
+  const [stop, setStop] = useState(true);
+  const [productShop, setproductShop] = useState([]);
+  const { getProductCar, addCard } = useContextShopCar();
 
-  // }, []);
-
-  const [productShop, setproductShop]= useState([]);
-
-  const {getProductCar,addCard} = useContextShopCar()
-
-  console.log(addCard);
-
-  useEffect(()=>{
-    (async ()=>{
-      const response = await getProductCar();
-      console.log(response);
-    })()
-  },[])
+  useEffect(() => {
+    (async () => {
+      if (stop) {
+        const response = await getProductCar();
+        setStop(false);
+      }
+    })();
+  }, [stop]);
 
   let getRol = localStorage.getItem("rol");
-
-  console.log(getRol);
   return (
     <>
       <section className="search">
