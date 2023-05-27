@@ -90,9 +90,9 @@ function Options(e) {
             price:price,
 
           };
-          console.log(data);
+          
           const response = await TodoGetApis.UpdateProduct(data, idProduct);
-          console.log(response);
+          
         }
       })
       .then((values) => {
@@ -136,7 +136,7 @@ function Options(e) {
 }
 
 function DataTableProducts({ data }) {
-  console.log(data);
+
 
   const [column, setColumn] = useState([
     {

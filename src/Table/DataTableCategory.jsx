@@ -55,9 +55,9 @@ function Options(e) {
 
           name: nameCategory,
         };
-        console.log(data);
+        
         const response = await TodoGetApis.UpdateCategory(data, idCategory);
-        console.log(response);
+        
       }
 
     }).then((values) => {

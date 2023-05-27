@@ -3,15 +3,24 @@ import { TodoGetApis } from "../../Apis/Apis";
 
 function SingleShop() {
   const [store, setStore] = useState([]);
-  const [stop, setStop] = useState(true);
+
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetStore();
       setStore(response.data.data);
+      const responseStore = await TodoGetApis.GetProductsStore();
+      setProducts(responseStore.data.rows);
     })();
   }, []);
 
+  const money = new Intl.NumberFormat("en-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 2,
+  });
+  console.log(products);
   return (
     <>
       {store.length > 0 ? (
@@ -51,7 +60,9 @@ function SingleShop() {
               </div>
 
               <p className="text-gray-700 text-xl">{item.description_store}</p>
-              <p className="text-sm text-gray-500 text-xl">{item.location_store}</p>
+              <p className="text-sm text-gray-500 text-xl">
+                {item.location_store}
+              </p>
               <div></div>
             </div>
           </div>
@@ -59,6 +70,86 @@ function SingleShop() {
       ) : (
         <h1>No hay información</h1>
       )}
+
+      <div>
+        {products.length > 0 ? (
+          products.map((productItems) => (
+            <div className=" ">
+              <div className="product border m-1 ">
+                <div className="">
+                  <p className="disponible">
+                    {productItems.availability_product === "available"
+                      ? "Disponible"
+                      : "No Disponible"}
+                  </p>
+                </div>
+                <div className="flex justify-center items-center">
+                  <img
+                    className=" w-[200px] object-cover"
+                    src={productItems.img_product}
+                    alt=""
+                  />
+                </div>
+                <div className="product-details p-4">
+                  <div className="info">
+                    <h3>{productItems.name_product}</h3>
+                    <p>
+                      {("" + productItems.amount_poduct).replace(
+                        /(\d)(?=(\d\d\d)+(?!\d))/g,
+                        "$1."
+                      )}{" "}
+                      Unidades
+                    </p>
+                  </div>
+                  <p className="truncate">{productItems.description_product}</p>
+                  <div className="price">
+                    <h4 className="text-black font-bold">
+                      {money.format(productItems.price_product)}{" "}
+                    </h4>
+
+                    {/* step : 3  
+                     if hami le button ma click garryo bahne 
+                    */}
+                  </div>
+
+                  <div className="flex justify-between item-center mt-4">
+                    <div className="truncate ">
+                      <a
+                        href="/"
+                        className="text-white compra pink text-white rounded-md inline-block truncate i"
+                      >
+                        Comprar Ahora
+                      </a>
+                    </div>
+                    <div className="">
+                      <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="30"
+                          viewBox="0 0 48 48"
+                        >
+                          <g fill="none" stroke="#475569" stroke-width="4">
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M5 7h6l7 17h17.5L43 10m-22 2h12m-6-6v12m-9 6l-4 6h26"
+                            />
+                            <circle cx="19" cy="39" r="3" />
+                            <circle cx="35" cy="39" r="3" />
+                          </g>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <h1>No hay produtos</h1>
+        )}
+      </div>
     </>
   );
 }

@@ -11,7 +11,7 @@ function NewPassword() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  console.log(id);
+  
 
   return (
     <div className="form-register">
@@ -34,10 +34,10 @@ function NewPassword() {
               password: values.password,
             };
             const response = await TodoGetApis.NewPassword(data);
-            console.log(response);
+            
             setLoading(false);
 
-            console.log(data);
+            
 
             if (response.status === 200) {
               toast.success("Contraseña actualizada", {

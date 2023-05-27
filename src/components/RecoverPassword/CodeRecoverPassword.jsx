@@ -10,7 +10,7 @@ function CodeRecoverPassword() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading]=useState(false);
-  console.log(id);
+  
 
   return (
     <div className="form-register">
@@ -30,7 +30,7 @@ function CodeRecoverPassword() {
               code: values.code,
             };
 
-            console.log(data);
+            
             const response = await TodoGetApis.CodeRecoverPassword(data);
             
             setLoading(false);

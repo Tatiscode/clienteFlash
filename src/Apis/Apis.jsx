@@ -7,12 +7,37 @@ let urlServerProducts = "http://localhost:3105/products";
 let urlServerCard = "http://localhost:3105/card";
 let urlServerUser = "http://localhost:3105/user";
 
+
+
 let token = localStorage.getItem("token");
 
 export const TodoGetApis = {
-  SingUp: async (data, code) =>
-    await axios.post(`${urlServerAuth}/signUpAdmin/${code}`, { data }),
+  SingUp: async (data) =>
+    await axios.post(
+      `${urlServerAuth}/signUpAdmin`,
+      { data },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    ),
 
+  UpdatePraductCar: async (id,data)=>
+  await axios.put(`${urlServerCard}/updateCard/${id}`,{data},
+  {
+    headers:{
+      token
+    }
+  }),
+
+  DeleteProductCar: async (id)=>
+  await axios.delete(`${urlServerCard}/deleteCard/${id}`,
+  {
+    headers:{
+      token,
+    },
+  }),
   // CreateProduct: async(data) => await axios.post(`${urlServer}/CreateProduct`,{data})
   SingIn: async (data) =>
     await axios.post(`${urlServerAuth}/signInUser`, { data }),
@@ -26,38 +51,44 @@ export const TodoGetApis = {
   CodeRecoverPassword: async (data) =>
     await axios.put(`${urlServerAuth}/newPassword`, { data }),
 
-  AddCarShop : async (data) =>
-   await axios.post(`${urlServerCard}/addCard`,
-   {data},
-   {
-    headers:{
-      token,
-    }
-   }),
-
-   Updatecar : async (data, id) => {
-    await axios.put(`${urlServerCard}/updateCard/${id}`, {data}, {
-      headers:{
-        token
+  AddCarShop: async (data) =>
+    await axios.post(
+      `${urlServerCard}/addCard`,
+      { data },
+      {
+        headers: {
+          token,
+        },
       }
-    })
-   },
+    ),
 
-   DeleteCar : async (id) => {
+  Updatecar: async (data, id) => {
+    await axios.put(
+      `${urlServerCard}/updateCard/${id}`,
+      { data },
+      {
+        headers: {
+          token,
+        },
+      }
+    );
+  },
+
+  DeleteCar: async (id) => {
     await axios.delete(`${urlServerCard}/deleteCard/${id}`, {
       headers: {
-        token
-      }
-    })
-   },
+        token,
+      },
+    });
+  },
 
-   GetCar : async () => {
-    await axios.get(`${urlServerCard}/getCard`, {
+  GetCar: async () => await axios.get(`${urlServerCard}/getCard`, {
       headers: {
-        token
-      }
-    })
-   },
+        token,
+      },
+    }
+    ),
+  
 
   GetAccountCustomer: async () =>
     await axios.get(`${urlServerUser}/gatDataCustomer`, {
@@ -121,7 +152,7 @@ export const TodoGetApis = {
 
   GetStores: async () =>
     await axios.get(`${urlServerStores}/consultationStore`),
-    
+
   GetMalls: async () => await axios.get(`${urlServerUser}/getSmall`),
 
   getStoresAdmin: async () =>

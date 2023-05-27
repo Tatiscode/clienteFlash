@@ -1,45 +1,68 @@
-import React,{useState, useContext,createContext, useReducer} from 'react'
-import { TodoGetApis } from '../Apis/Apis'
+import React, { useState, useContext, createContext, useReducer } from "react";
+import { TodoGetApis } from "../Apis/Apis";
 
-const shopCreateContext = createContext()
-export const  useContextShopCar = ()=> useContext(shopCreateContext)
+const shopCreateContext = createContext();
+export const useContextShopCar = () => useContext(shopCreateContext);
 
-export const UseContextShop = ({children}) => {
+export const UseContextShop = ({ children }) => {
+  const [addCard, setAddCard] = useState([]);
+  
 
-    const [addCard, setAddCard]= useState([]);
-
-    const getProductCar = async ()=>{
-        try {
-            const  response = await TodoGetApis.GetCar();
-            console.log(response);
-            return response
-            
-        } catch (error) {
-            return error
-        }
+  const getProductCar = async () => {
+    try {
+        const  response = await TodoGetApis.GetCar();
+        console.log("jjjj",response);
+        setAddCard(response.data.data)
+        return response
+    } catch (error) {
+        return error
     }
- 
-    const postProductCar = async (data)=>{
-        try {
-            const response = await TodoGetApis.AddCarShop(data);
-            console.log(response);
-            return response
-        } catch (error) {
-            return error
-        }
+  };
+
+  const postProductCar = async (data) => {
+    try {
+      const response = await TodoGetApis.AddCarShop(data);
+      setAddCard( response.data.data);
+
+      return response;
+    } catch (error) {
+      return error;
     }
-    
+  };
+
+  const deleteProductCar = async (id) =>{
+    try {
+      const response= await TodoGetApis.DeleteProductCar(id);
+      setAddCard(addCard.filter(i=>i.id_product !== id))
+      return response;
+      
+    } catch (error) {
+      return error;
+    }
+  }
+
+  const updateProductCar = async (id, data,datas) =>{
+    try {
+      const response=await TodoGetApis.UpdatePraductCar(id, data);
+      return response;
+      
+    } catch (error) {
+      return error;
+      
+    }
+  }
 
   return (
-   <shopCreateContext.Provider  value={{
-
-    postProductCar,
-    addCard,
-    getProductCar
-   }}  >
-    {
-        children
-    }
-   </shopCreateContext.Provider>
-  )
-}
+    <shopCreateContext.Provider
+      value={{
+        postProductCar,
+        addCard,
+        getProductCar,
+        deleteProductCar,
+        updateProductCar
+      }}
+    >
+      {children}
+    </shopCreateContext.Provider>
+  );
+};

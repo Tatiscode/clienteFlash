@@ -1,48 +1,42 @@
-import React, { useEffect,useState  } from "react";
+import React, { useEffect, useState } from "react";
 //  import logo from "../../components/assets/images/logo.svg"
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserAfter from "./UserAfter";
 // import {useState} from "react";
 import UserBefore from "./UserBefore";
-import {useContextShopCar} from "../../Hook/UseContextShop"
+import { useContextShopCar } from "../../Hook/UseContextShop";
 import { TodoGetApis } from "../../Apis/Apis";
 
 const Search = ({ CartItem }) => {
-  // fixed Header
-  // useEffect(() => {
-  // window.addEventListener("scroll", function () {
-  //   const search = document.querySelector(".search")
-  //   search.classList.toggle("active", window.scrollY > 100)
-  // })
+  const [stop, setStop] = useState(true);
+  const [productShop, setproductShop] = useState([]);
+  const { getProductCar, addCard } = useContextShopCar();
 
-  // }, []);
-
-  const [productShop, setproductShop]= useState([]);
-
-  const {getProductCar,addCard} = useContextShopCar()
-
-  console.log(addCard);
-
-  useEffect(()=>{
-    (async ()=>{
-      const response = await getProductCar();
-      console.log(response);
-    })()
-  },[])
-
+  useEffect(() => {
+    (async () => {
+      if (stop) {
+        const response = await getProductCar();
+        setStop(false);
+      }
+    })();
+  }, []);
+  
+  console.log("-----",addCard);
   let getRol = localStorage.getItem("rol");
-
-  console.log(getRol);
   return (
     <>
       <section className="search">
         <div className="container c_flex">
+         
           <div className="logo width ">
+          <Link to="/">
             <img
               src="https://res.cloudinary.com/dgpikgt5t/image/upload/v1684857250/Frame_1_2_shoktn.png"
               alt=""
             />
+             </Link>
           </div>
+         
 
           <div className="search-box">
             <span>
@@ -60,15 +54,22 @@ const Search = ({ CartItem }) => {
             </span>
             <input type="text" placeholder="Buscar" />
           </div>
+          
 
           <div className="icon f_flex width">
             {getRol === null ? <UserBefore /> : <UserAfter />}
 
             {/* <UserAfter/> */}
             {/* </Link> */}
-            <div className="cart">
-              <Link to="/cart">
-                <span className=" icon-circle2">
+            <div className="cart relative">
+              <Link to="/cart" className="relative">
+                <span className=" icon-circle2 relative">
+              <div className="absolute top-0 right-0 text-white bg-green-400 px-2 rounded-full">
+                {
+                  addCard.length
+                }
+                
+              </div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="29"
@@ -81,8 +82,8 @@ const Search = ({ CartItem }) => {
                     />
                   </svg>
                 </span>
-
                 {/* <span>{CartItem.length === 0 ? "" : CartItem.length}</span> */}
+                
               </Link>
             </div>
           </div>

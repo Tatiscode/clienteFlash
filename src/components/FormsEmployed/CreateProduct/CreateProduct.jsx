@@ -20,7 +20,7 @@ function CreateProduct() {
     })();
   }, []);
 
-  console.log(image);
+  
 
   return (
     <>
@@ -50,7 +50,7 @@ function CreateProduct() {
 
           onSubmit={async (values) => {
             setLoading(true);
-            console.log("Values    ",values);
+            
             const data = {
               name: values.nameProduct,
               description: values.descriptionProduct,
@@ -66,7 +66,7 @@ function CreateProduct() {
 
             try {
               const response = await TodoGetApis.CreateProduct(data);
-              console.log(response.data);
+              
               setLoading(false);
               if (response.status === 200) {
                 toast.success("Producto creado con exito", {

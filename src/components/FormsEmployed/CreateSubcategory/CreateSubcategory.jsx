@@ -26,7 +26,7 @@ function CreateSubcategory() {
               image: imgCategory,
             };
             try {
-              console.log(data);
+              
               const response = await TodoGetApis.CreateCategory(data);
               setLoading(false);
               toast.success("Categoria registrada con exito", {

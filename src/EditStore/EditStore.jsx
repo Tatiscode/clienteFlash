@@ -8,22 +8,16 @@ import swal from "sweetalert2";
 function EditStore() {
   const navigate = useNavigate();
   const [account, setAccount] = useState([]);
-  const [stop, setStop] = useState(true);
   const [image, setImage] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (stop) {
-        const response = await TodoGetApis.GetStore();
-        console.log(response.data);
-        setAccount(response.data.data);
-        setStop(false);
-      }
-    };
+    (async() => {
+      const response = await TodoGetApis.GetStore();
+      setAccount(response.data.data);
+    })()
 
-    fetchData();
-  }, [stop]);
-console.log(account);
+  }, []);
+
   return (
     <Formik
       initialValues={account}
@@ -35,7 +29,7 @@ console.log(account);
         password: Yup.string().required("Campo obligatorio"),
       })}
       onSubmit={async (values) => {
-        console.log(values);
+        
       }}
     >
       <Form className="formRegister">
@@ -229,6 +223,7 @@ console.log(account);
 
         <div className="boxAccount">
           {account.length > 0 ? (
+            
             account.map((data) => (
               <div className="boxAccount1">
                  
@@ -263,7 +258,7 @@ console.log(account);
                             const response = await TodoGetApis.UpdateStore(
                               data
                             );
-                            console.log(response);
+                            
                             if (response === 200) {
                               swal.fire("Nombre actualizado", {
                                 icon: "success",
