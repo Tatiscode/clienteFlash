@@ -1,21 +1,23 @@
 import { React ,useState,useEffect} from "react";
 import '../../App.css'
 import {TodoGetApis} from "../../Apis/Apis"
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Malls() {
   const [malls, setMalls]= useState([]);
+  const navigate = useNavigate()
 
-  // useEffect(()=>{
-  //   (async () => {
-  //     let response = await TodoGetApis.GetMalls();
-  
-      
-  //   })()
-  // }, [])
+  useEffect(()=>{
+    (async () => {
+      let response = await TodoGetApis.GetMalls();
+      setMalls(response.data.rows);
+    })()
+  }, [])
   return (
     <>
       <div className=" flex  items-center ml-[70px] mt-10">
-        <svg className='mr-3'
+        <svg
+          className="mr-3"
           xmlns="http://www.w3.org/2000/svg"
           width="30"
           height="30"
@@ -28,82 +30,22 @@ function Malls() {
         </svg>
         <h2 className="text-[25px]  ">Centros Comerciales</h2>
       </div>
-      <div className="flex justify-center items-center gap-6 my-10">
-        <div className="boxMalls ">
-          <div className="imgMalls ">
-            <img
-              src="https://res.cloudinary.com/anonimous/image/upload/c_scale,h_300,w_300/v1684930351/descarga_1_ugcbif.jpg"
-              alt=""
-            />
+      {malls.length > 0 ? (
+          <div className="flex justify-center items-center gap-6 my-10">
+            {malls.map((x) => (
+              <div className="boxMalls flex flex-col items-center">
+                <div className="imgMalls" onClick={()=> {
+                  navigate(`/OfficialStores/${x.id_admin}`);
+                }}>
+                  <img src={x.img_admin} alt="" />
+                </div>
+                <h4>{x.name_admin}</h4>
+              </div>
+            ))}
           </div>
-          <h4>Nombre</h4>
-        </div>
-        <div className="boxMalls ">
-          <div className="imgMalls ">
-            <img
-              src="https://res.cloudinary.com/anonimous/image/upload/c_scale,h_300,w_300/v1684930351/descarga_1_ugcbif.jpg"
-              alt=""
-            />
-          </div>
-          <h4>Nombre</h4>
-        </div>
-        <div className="boxMalls ">
-          <div className="imgMalls ">
-            <img
-              src="https://res.cloudinary.com/anonimous/image/upload/c_scale,h_300,w_300/v1684930351/descarga_1_ugcbif.jpg"
-              alt=""
-            />
-          </div>
-          <h4>Nombre</h4>
-        </div>
-        <div className="boxMalls ">
-          <div className="imgMalls ">
-            <img
-              src="https://res.cloudinary.com/anonimous/image/upload/c_scale,h_300,w_300/v1684930351/descarga_1_ugcbif.jpg"
-              alt=""
-            />
-          </div>
-          <h4>Nombre</h4>
-        </div>
-        <div className="boxMalls ">
-          <div className="imgMalls ">
-            <img
-              src="https://res.cloudinary.com/anonimous/image/upload/c_scale,h_300,w_300/v1684930351/descarga_1_ugcbif.jpg"
-              alt=""
-            />
-          </div>
-
-          <h4>Nombre</h4>
-        </div>
-        <div className="boxMalls ">
-          <div className="imgMalls ">
-            <img
-              src="https://res.cloudinary.com/anonimous/image/upload/c_scale,h_300,w_300/v1684930351/descarga_1_ugcbif.jpg"
-              alt=""
-            />
-          </div>
-
-          <h4>Nombre</h4>
-        </div>
-        <div className="boxMalls ">
-          <div className="imgMalls ">
-            <img
-              src="https://res.cloudinary.com/anonimous/image/upload/c_scale,h_300,w_300/v1684930351/descarga_1_ugcbif.jpg"
-              alt=""
-            />
-          </div>
-          <h4>Nombre</h4>
-        </div>
-        <div className="boxMalls ">
-          <div className="imgMalls ">
-            <img
-              src="https://res.cloudinary.com/anonimous/image/upload/c_scale,h_300,w_300/v1684930351/descarga_1_ugcbif.jpg"
-              alt=""
-            />
-          </div>
-          <h4>Nombre</h4>
-        </div>
-      </div>
+      ) : (
+        <h1>No hay centros comerciales</h1>
+      )}
     </>
   );
 }

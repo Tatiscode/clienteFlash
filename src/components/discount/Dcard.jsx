@@ -6,20 +6,21 @@ import "../flashDeals/style.css";
 import { TodoGetApis } from "../../Apis/Apis";
 import { ToastContainer, toast } from "react-toastify";
 import { useContextShopCar } from "../../Hook/UseContextShop";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const DCard = () => {
   const [count, setCount] = useState(0);
   const [product, setProduct] = useState([]);
   const [productShop, setproductShop] = useState([]);
+  const navigate = useNavigate();
 
-  const { postProductCar, addCard ,getProductCar} = useContextShopCar();
+  const { postProductCar, addCard, getProductCar } = useContextShopCar();
 
   let token = localStorage.getItem("token");
   let limit = 0;
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetProduct(limit);
-      
 
       setProduct(response.data.rows);
     })();
@@ -41,7 +42,6 @@ const DCard = () => {
   });
 
   const handdleCarShop = async (data) => {
-
     console.log(data);
     if (token === null) {
       toast.warn("Inicia sesión, para agregar al carrito!", {
@@ -61,12 +61,10 @@ const DCard = () => {
         code: data.id_store_product,
         price: data.price_product,
         amount: 1,
-        img : data.img_product,
-        description: data.description_product
-
+        img: data.img_product,
+        description: data.description_product,
       };
       console.log(carrito);
-     
 
       const response = await postProductCar(carrito);
       console.log(response);
@@ -90,8 +88,7 @@ const DCard = () => {
                           : "No Disponible"}
                       </p>
                       <p className="bg-pink-500 text-white p-1 px-2 rounded">
-                        {" "}
-                        50%
+                        {productItems.dicount}%
                       </p>
                     </div>
                     <div className="flex justify-center items-center">
@@ -115,10 +112,18 @@ const DCard = () => {
                       <p className="truncate">
                         {productItems.description_product}
                       </p>
-                      <div className="price">
-                        <h4 className="text-black font-bold">
+                      <div className="price flex flex-col">
+                        <h4 className="font-bold line-through text-red-600">
                           {money.format(productItems.price_product)}{" "}
                         </h4>
+                        <h3 className="text-black font-bold">
+                          {money.format(
+                            (productItems.price_product *
+                              productItems.dicount) /
+                              100 -
+                              productItems.price_product
+                          )}
+                        </h3>
 
                         {/* step : 3  
                      if hami le button ma click garryo bahne 
@@ -127,12 +132,18 @@ const DCard = () => {
 
                       <div className="flex justify-between item-center mt-4">
                         <div className="truncate ">
-                          <a
-                            href="/"
+                          {/* <NavLink to="/CardProducts"  > */}
+                          <span
                             className="text-white compra pink text-white rounded-md inline-block truncate i"
+                            onClick={() => {
+                              navigate(
+                                `/CardProducts/${productItems.id_product}`
+                              );
+                            }}
                           >
                             Comprar Ahora
-                          </a>
+                          </span>
+                          {/* </NavLink> */}
                         </div>
                         <div className="">
                           <button

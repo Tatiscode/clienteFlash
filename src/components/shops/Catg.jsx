@@ -1,54 +1,52 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { TodoGetApis } from "../../Apis/Apis";
 
 const Catg = () => {
-  const data = [
-    {
-      cateImg: "./images/category/cat-1.png",
-      cateName: "Frisby",
-    },
-    {
-      cateImg: "./images/category/cat-2.png",
-      cateName: "Shepora",
-    },
-    {
-      cateImg: "./images/category/cat-1.png",
-      cateName: "Cinema",
-    },
-    {
-      cateImg: "./images/category/cat-2.png",
-      cateName: "Exito",
-    },
-    {
-      cateImg: "./images/category/cat-1.png",
-      cateName: "Koaj",
-    },
-    {
-      cateImg: "./images/category/cat-2.png",
-      cateName: "Alkosto",
-    },
-  ]
+  const { code } = useParams();
+  const [stores, setStores] = useState([]);
+  const [bann, setBann] = useState(false)
+  const [idStore, setIdStore] = useState(0);
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    (async () => {
+      let response = await TodoGetApis.GetStoresMall(code, idStore);
+      setStores(response.data.data);
+    })();
+  }, [code]);
+
+  alert(idStore);
+
   return (
     <>
-      <div className='category'>
-        <div className='chead d_flex'>
+      <div className="categoryBi sticky">
+        <div className="chead d_flex">
           <h1>Tiendas </h1>
         </div>
-        {data.map((value, index) => {
-          return (
-              <NavLink to='/SingleShop'>
-            <div className='box f_flex' key={index}>
-              <img src={value.cateImg} alt='' />
-              <span>{value.cateName}</span>
-              
-            </div>
-            </NavLink>
-          )
-        })}
-        
+        {stores.length > 0 ? (
+          <>
+            {stores.map((y) => {
+              return (
+                <div className="flex w-[100%] items-center" onClick={()=> {
+                  setIdStore(y.id_store)
+                  
+                }}>
+                  <div className="w-[70px] ">
+                    <img src={y.img_store} alt="" />
+                  </div>
+                  <span className="ml-4 font-bold">{y.name_store}</span>
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <h1>No hay tiendas</h1>
+        )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Catg
+export default Catg;

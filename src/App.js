@@ -68,7 +68,11 @@ import Table from "./components/MenuUser/Table"
 import { UseContextShop } from "./Hook/UseContextShop" 
 import CreateMalls from "./CreateMalls/CreateMalls"
 import DataTableMalls from "./Table/DataTableMalls"
+<<<<<<< HEAD
 import RegisterSales from "./components/FormsEmployed/RegisterSales/RegisterSales"
+=======
+import PageDiscountAll from "./pages/PageDiscountAll"
+>>>>>>> 8031f1a78e243b551901837eb03d51fe1d38e614
 
 
 function App() {
@@ -115,7 +119,7 @@ function App() {
         <Route path='/Login' element={<PageLogin />} />
         <Route path='/Register' element={<PageRegister />} />
         <Route path='/Offers' element={<PageOffer productItems={productItems} addToCart={addToCart} />} />
-        <Route path='/OfficialStores/*' element={<PageStores addToCart={addToCart} shopItems={shopItems} />}>
+        <Route path='/OfficialStores/:code' element={<PageStores  />}>
           <Route path="tienda" element={<PageStores addToCart={addToCart} shopItems={shopItems} />} />
         </Route>
         <Route path='/NewProducts' element={<PageNewProduct productItems={productItems} addToCart={addToCart} />} />
@@ -141,7 +145,7 @@ function App() {
         <Route path='/Employed' element={<PageEmployed />} />
 
         <Route path='/CreateAdmin' element={<PageCreateAdmin />} />
-        <Route path='/CardProducts' element={<CardProductBig />} />
+        <Route path='/CardProducts/:code' element={<CardProductBig />} />
 
         <Route path='*' element={<PageNotFound />} />
 
@@ -177,7 +181,7 @@ function App() {
        <Route path="/DataTableBuysUser" element={<Table/>}/>
        <Route path="/CreateMalls" element={<CreateMalls/>}/>
        <Route path="/Malls" element={<DataTableMalls/>}/>
-       <Route path="FormVentasPres" element={<RegisterSales/>}/>
+          <Route path="/DiscountCard" element={<PageDiscountAll />} />
       </Routes>
 
     </UseContextShop>

@@ -25,7 +25,7 @@ const Discount = ({ productItems, addToCart }) => {
               <h2>Grandes Descuentos</h2>
             </div>
             <div className="container-see">
-              <NavLink to="/Offers">
+              <NavLink to="/DiscountCard">
                 <span>Ver Todas </span>
               </NavLink>
               <svg
@@ -41,7 +41,7 @@ const Discount = ({ productItems, addToCart }) => {
               </svg>
             </div>
           </div>
-          <DCard productItems={productItems} addToCart={addToCart} />
+          <DCard />
         </div>
       </section>
     </>

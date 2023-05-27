@@ -1,12 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { TodoGetApis } from "../../Apis/Apis";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
-const ShopCart = () => {
-  const { code } = useParams();
-  const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
+import "../flashDeals/style.css";
+import { TodoGetApis } from "../../Apis/Apis";
+import { ToastContainer, toast } from "react-toastify";
+import { useContextShopCar } from "../../Hook/UseContextShop";
+import { NavLink, useNavigate } from "react-router-dom";
+
+function DiscountCard() {
   const [count, setCount] = useState(0);
+  const [product, setProduct] = useState([]);
+  const [productShop, setproductShop] = useState([]);
+  const navigate = useNavigate();
+
+  const { postProductCar, addCard } = useContextShopCar();
+
+  let token = localStorage.getItem("token");
+  useEffect(() => {
+    (async () => {
+      const response = await TodoGetApis.GetProductDiscount();
+      setProduct(response.data.data);
+      console.log(response);
+    })();
+  }, []);
 
   const increment = () => {
     setCount(count + 1);
@@ -18,34 +33,49 @@ const ShopCart = () => {
     minimumFractionDigits: 2,
   });
 
-  let idStore = 0;
+  const handdleCarShop = async (data) => {
+    if (token === null) {
+      toast.warn("Inicia sesión, para agregar al carrito!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      let carrito = {
+        idProduct: data.id_product,
+        nameProduct: data.name_product,
+        code: data.id_store_product,
+        price: data.price_product,
+        amount: 1,
+      };
 
-  useEffect(() => {
-    (async () => {
-      const response = await TodoGetApis.GetProductsStoresMall(code);
-      setProducts(response.data.rows);
-    })();
-  }, []);
+      const response = await postProductCar(carrito);
+    }
+  };
 
   return (
     <>
-      <div className=" grid gap-4 grid-cols-3 grid-rows-3">
-        {products.length > 0 ? (
-          <>
-            {products.map((productItems) => {
+      <ToastContainer />
+      <div className="">
+        <div className="  grid gap-4 grid-cols-4 grid-rows-3">
+          {product.length > 0 ? (
+            product.map((productItems) => {
               return (
-                <div className=" ">
+                <div className="  ">
                   <div className="product border m-1 ">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between p-2">
                       <p className="disponible">
                         {productItems.availability_product === "available"
                           ? "Disponible"
-                          : "Agotado"}
+                          : "No Disponible"}
                       </p>
-                      <p>
-                        {productItems.dicount !== 0
-                          ? productItems.dicount + "%"
-                          : null}
+                      <p className="bg-pink-500 text-white p-1 px-2 rounded">
+                        {productItems.dicount}%
                       </p>
                     </div>
                     <div className="flex justify-center items-center">
@@ -69,13 +99,31 @@ const ShopCart = () => {
                       <p className="truncate">
                         {productItems.description_product}
                       </p>
-                      <div className="price">
-                        <h4 className="text-black font-bold">
-                          {money.format(productItems.price_product)}{" "}
-                        </h4>
+                      <div className="price flex flex-col">
+                        <div>
+                          <h4 className="font-bold line-through text-red-600">
+                            {money.format(productItems.price_product)}
+                          </h4>
+                        </div>
+                        <div className="flex justify-end">
+                          <h3 className="text-black font-bold">
+                            {money.format(
+                              (productItems.price_product *
+                                productItems.dicount) /
+                                100 -
+                                productItems.price_product
+                            )}
+                          </h3>
+                        </div>
+
+                        {/* step : 3  
+                     if hami le button ma click garryo bahne 
+                    */}
                       </div>
+
                       <div className="flex justify-between item-center mt-4">
                         <div className="truncate ">
+                          {/* <NavLink to="/CardProducts"  > */}
                           <span
                             className="text-white compra pink text-white rounded-md inline-block truncate i"
                             onClick={() => {
@@ -86,9 +134,13 @@ const ShopCart = () => {
                           >
                             Comprar Ahora
                           </span>
+                          {/* </NavLink> */}
                         </div>
                         <div className="">
-                          <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md">
+                          <button
+                            className="bg-gray-100 py-1 px-3  border border-2 rounded-md"
+                            onClick={() => handdleCarShop(productItems)}
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="30"
@@ -112,14 +164,14 @@ const ShopCart = () => {
                   </div>
                 </div>
               );
-            })}
-          </>
-        ) : (
-          <h1>No hay data</h1>
-        )}
+            })
+          ) : (
+            <h1>no hay data</h1>
+          )}
+        </div>
       </div>
     </>
   );
-};
+}
 
-export default ShopCart;
+export default DiscountCard;
