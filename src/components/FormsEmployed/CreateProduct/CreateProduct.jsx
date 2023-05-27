@@ -50,7 +50,7 @@ function CreateProduct() {
 
           onSubmit={async (values) => {
             setLoading(true);
-            console.log(values);
+            console.log("Values    ",values);
             const data = {
               name: values.nameProduct,
               description: values.descriptionProduct,
@@ -61,6 +61,8 @@ function CreateProduct() {
               category: values.category,
               discount:values.discount
             };
+
+            alert(values);
 
             try {
               const response = await TodoGetApis.CreateProduct(data);
