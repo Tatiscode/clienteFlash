@@ -1,70 +1,468 @@
-import React from 'react'
-import '../../components/Login/user.css'
-import {Formik, Form, Field, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
-import { Link, NavLink, json } from 'react-router-dom'
-import MenuUserF from './MenuUserF'
+import React, { useEffect, useState } from "react";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import { Link, useNavigate } from "react-router-dom";
+import { TodoGetApis } from "../../Apis/Apis";
+import swal from "sweetalert2";
+import moment from "moment-with-locales-es6";
+ moment.locale("es")
 
 
 function FormPorfileUser() {
+  const navigate = useNavigate();
+  const [customer, setCustomer] = useState([]);
+  const [image, setImage] = useState([]);
+
+  useEffect(() => {
+    (async() => {
+      const response = await TodoGetApis.GetAccountCustomer();
+      console.log("11111",response);
+      setCustomer(response.data.rows);
+    })()
+
+  }, []);
+
   return (
-    <>
-  
-   
-   
-    <div className="form-register">
-     <MenuUserF/> 
-    
-    <Formik 
-     
-     initialValues={{
-      nameUser:'',
-      email:'',
-      password:'',
-     }}
-     validationSchema={Yup.object({
-      nameUser:Yup.string().required('Campo obligatorio') ,
-      email:Yup.string().email('Email no valido').required('Campo obligatorio'),
-      password:Yup.string().required('Campo obligatorio'),
-     })}
-     onSubmit={async (values)=>{
-      
-      alert(JSON.stringify(values.nameUser))
-     }}
-
+    <Formik
+      initialValues={customer}
+      validationSchema={Yup.object({
+        nameUser: Yup.string().required("Campo obligatorio"),
+        email: Yup.string()
+          .email("Email no válido")
+          .required("Campo obligatorio"),
+        password: Yup.string().required("Campo obligatorio"),
+      })}
+      onSubmit={async (values) => {
+        
+      }}
     >
-      <Form>
-      <h1>Editar Tienda</h1>
-    <div className="campus">
-    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 36 36"><path fill="gray" d="M28 30H16v-8h-2v8H8v-8H6v8a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2v-8h-2Z" class="clr-i-solid clr-i-solid-path-1"/><path fill="gray" d="m33.79 13.27l-4.08-8.16A2 2 0 0 0 27.92 4H8.08a2 2 0 0 0-1.79 1.11l-4.08 8.16a2 2 0 0 0-.21.9v3.08a2 2 0 0 0 .46 1.28A4.67 4.67 0 0 0 6 20.13a4.72 4.72 0 0 0 3-1.07a4.73 4.73 0 0 0 6 0a4.73 4.73 0 0 0 6 0a4.73 4.73 0 0 0 6 0a4.72 4.72 0 0 0 6.53-.52a2 2 0 0 0 .47-1.28v-3.09a2 2 0 0 0-.21-.9ZM15 14.4v1.52L14.18 17a2.71 2.71 0 0 1-4.37 0L9 15.88V14.4L11.59 6H16Zm12 1.48L26.19 17a2.71 2.71 0 0 1-4.37 0L21 15.88V14.4L20 6h4.45L27 14.4Z" class="clr-i-solid clr-i-solid-path-2"/><path fill="none" d="M0 0h36v36H0z"/></svg>
-        <Field  className='input_forms' type='text' name='nameUser' placeholder='Nombre'  />
-    </div>
-        <ErrorMessage component='p' name='nameUser' className='error'/>
-        <div className="campus">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="gray" d="M20 6H4V4h16v2m-6 10.13l-3 3V20H4v-6H3v-2l1-5h16l.61 3.07c-.45.1-.88.33-1.22.67L16.13 14H14v2.13M12 14H6v4h6v-4m10.85-.53l-1.32-1.32c-.2-.2-.53-.2-.72 0l-.98.98l2.04 2.04l.98-.98c.2-.19.2-.52 0-.72M13 19.96V22h2.04l6.13-6.12l-2.04-2.05L13 19.96Z"/></svg>
-        <Field  className='input_forms' type='text' name='email' placeholder='Descripcion'  />
-        </div>
-        <ErrorMessage component='p' name='email' className='error'/>
-        <div className="campus">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="gray" d="M5 21q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.588 1.413T19 21H5Zm1-4h12l-3.75-5l-3 4L9 13l-3 4Z"/></svg>
-        <Field className='input_forms' type='file' name='password' placeholder='Imagen Perfil'  />
-        </div>
-        <div className="campus">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="gray" d="M5 21q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.588 1.413T19 21H5Zm1-4h12l-3.75-5l-3 4L9 13l-3 4Z"/></svg>
-        <Field className='input_forms' type='file' name='password' placeholder='Imagen Portada'  />
-        </div>
-        <div className="campus">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="gray" d="M12 12q.825 0 1.413-.588T14 10q0-.825-.588-1.413T12 8q-.825 0-1.413.588T10 10q0 .825.588 1.413T12 12Zm0 9.625q-.2 0-.4-.075t-.35-.2Q7.6 18.125 5.8 15.362T4 10.2q0-3.75 2.413-5.975T12 2q3.175 0 5.588 2.225T20 10.2q0 2.4-1.8 5.163t-5.45 5.987q-.15.125-.35.2t-.4.075Z"/></svg>
-        <Field className='input_forms' type='password' name='password' placeholder='Ubicacion'  />
-        </div>
-        <ErrorMessage component='p' name='password' className='error'/>
-         <button className='pink'>Editar</button>
+      <Form className="ml-[40%] absolute inset-0  ">
+        <div className="flex w-full justify-between  ">
+       
 
+        <div className="boxAccount">
+          {customer.length > 0 ? (
+            customer.map((data) => (
+              <div className="boxAccount1">
+                 <div className="containerName">
+                    {data.img_customer != null ? (
+                      <div>
+                        <img src={data.img_customer} alt="" className="w-36 rounded-full h-36 object-cover" />
+                        <div
+                className="campus bg-gray-100
+            cursor-pointer mt-2"
+              >
+                <div className="relative w-full ">
+                  <div className="">
+                    <input
+                      className="input_forms z-50 icon  opacity-0 absolute w-full"
+                      type="file"
+                      name="imgStore"
+                      placeholder="Imagen"
+                      onChange={(e) => setImage(e.target.files[0])}
+                    />
+                  </div>
+                  <div className="icon  w-full z-10 bg-gray-100 inset-0 h-full flex justify-center items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <g
+                        fill="none"
+                        stroke="gray"
+                        stroke-linecap="round"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-dasharray="2 4"
+                          stroke-dashoffset="6"
+                          d="M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3"
+                        >
+                          <animate
+                            attributeName="stroke-dashoffset"
+                            dur="0.6s"
+                            repeatCount="indefinite"
+                            values="6;0"
+                          />
+                        </path>
+                        <path
+                          stroke-dasharray="30"
+                          stroke-dashoffset="30"
+                          d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21"
+                        >
+                          <animate
+                            fill="freeze"
+                            attributeName="stroke-dashoffset"
+                            begin="0.1s"
+                            dur="0.3s"
+                            values="30;0"
+                          />
+                        </path>
+                        <path
+                          stroke-dasharray="10"
+                          stroke-dashoffset="10"
+                          d="M12 16v-7.5"
+                        >
+                          <animate
+                            fill="freeze"
+                            attributeName="stroke-dashoffset"
+                            begin="0.5s"
+                            dur="0.2s"
+                            values="10;0"
+                          />
+                        </path>
+                        <path
+                          stroke-dasharray="6"
+                          stroke-dashoffset="6"
+                          d="M12 8.5l3.5 3.5M12 8.5l-3.5 3.5"
+                        >
+                          <animate
+                            fill="freeze"
+                            attributeName="stroke-dashoffset"
+                            begin="0.7s"
+                            dur="0.2s"
+                            values="6;0"
+                          />
+                        </path>
+                      </g>
+                    </svg>
+                    <span>Subir Imagen</span>
+                  </div>
+                </div>
+              </div>
+                        
+                      </div>
+                    ) : (
+                      <div className=" flex flex-col items-center" >
+                       <div className="   flex flex-col justify-center items-center relative rounded-full cursor-pointer overflow-hidden ">
+                         <div className="icon-img relative
+                         ">
+                         
+                        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 32 32"><path fill="none" d="M8.007 24.93A4.996 4.996 0 0 1 13 20h6a4.996 4.996 0 0 1 4.993 4.93a11.94 11.94 0 0 1-15.986 0ZM20.5 12.5A4.5 4.5 0 1 1 16 8a4.5 4.5 0 0 1 4.5 4.5Z"/><path fill="#c9ccd1" d="M26.749 24.93A13.99 13.99 0 1 0 2 16a13.899 13.899 0 0 0 3.251 8.93l-.02.017c.07.084.15.156.222.239c.09.103.187.2.28.3c.28.304.568.596.87.87c.092.084.187.162.28.242c.32.276.649.538.99.782c.044.03.084.069.128.1v-.012a13.901 13.901 0 0 0 16 0v.012c.044-.031.083-.07.128-.1c.34-.245.67-.506.99-.782c.093-.08.188-.159.28-.242c.302-.275.59-.566.87-.87c.093-.1.189-.197.28-.3c.071-.083.152-.155.222-.24ZM16 8a4.5 4.5 0 1 1-4.5 4.5A4.5 4.5 0 0 1 16 8ZM8.007 24.93A4.996 4.996 0 0 1 13 20h6a4.996 4.996 0 0 1 4.993 4.93a11.94 11.94 0 0 1-15.986 0Z"/></svg>
+                        <input
+                          type="file"
+                          className="absolute h-full w-ful top-0 opacity-0 cursor-pointer"
+                          name="imgStore"
+                          onChange={(e) => {
+                            setImage(e.target.files[0]);
+                          }}
+                        />
+                         
+                        </div>
+                        <div className="input-img l ">
+                        
+
+                       </div>
+                        </div>
+                        <button className="bg-gray-100 border rounded-md my-2 p-2 text-gray-800 "
+                          
+                          onClick={async () => {
+                            const response = await TodoGetApis.UpdateCustomer(
+                              image
+
+                            );
+                            if(response.status===200){
+                              swal.fire("Imagen actualizada", {
+                                icon: "success",
+                              });
+                            }else{
+                              swal.fire("Error al actualizar la imagen", {
+                                icon: "error",
+                              });
+                            }
+                          }}
+                        >
+                          Actualizar
+                        </button>
+                      </div>
+                    )}
+                  </div>
+              </div>
+            ))
+          ) : (
+            <h1>No hay data</h1>
+          )}
+
+          {/* <div className="boxAccount2">
+              {account.length > 0 ? (
+                <div className="imagen">
+                  {account.map((data) => (
+                    <img
+                      key={data.id}
+                      src={data.img_admin || "https://via.placeholder.com/150"}
+                      alt=""
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div>No tiene imagen</div>
+              )}
+            </div>
+
+          </div>
+        ) : (
+          <div>No hay datos disponibles</div>
+        )} */}
+        </div>
+        <div className="tittleAccount  ">
+          <h1>
+            {
+            
+              customer.length > 0 ? customer[0].name_customer : "Asigna tu nombre"
+            }
+          </h1>
+          <p>
+          {
+            
+            customer.length > 0 ? customer[0].email_customer : "Asigna tu email"
+          }
+          </p>
+        </div>
+        </div>
+      
+
+        <div className="boxAccount">
+          {customer.length > 0 ? (
+            
+            customer.map((data) => (
+              <div className="boxAccount1">
+                 
+                <div className="containerBox flex items-center">
+                  <div className="name">
+                    <label>Nombre:</label>
+                    <span className="ml-2" >{data.name_customer}</span>
+                  </div>
+                  
+                  <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
+                  
+                    <button
+  
+                      onClick={() => {
+                        swal.fire({
+                          title: "cambiar nombre",
+                          html: `
+                        <input id="name" type="text"
+                        placeholder="Ingrese el nuevo nombre"/>
+                        `,
+                          focusConfirm: false,
+                          focusCancel: false,
+                          showCancelButton: true,
+                          showConfirmButton: true,
+                          confirmButtonText: "Guardar",
+                          cancelButtonText: "Cancelar",
+                          preConfirm: async () => {
+                            let name = document.getElementById("name").value;
+                            let data = {
+                              name,
+                            };
+                            const response = await TodoGetApis.UpdateCustomer(
+                              data
+                            );
+                            
+                            if (response === 200) {
+                              swal.fire("Nombre actualizado", {
+                                icon: "success",
+                              });
+                            }
+                          },
+                        });
+                      }}
+                    >
+                      <div className="flex p-1 ">
+                     <span className="ml-4">Editar</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div className="containerBox flex items-center">
+                  <div className="name">
+                    <label>Email:</label>
+                    <span className="mx-2 " >{data.email_customer}</span>
+
+                  </div>
+                  <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
+                    <button
+                     
+                      onClick={() => {
+                        swal.fire({
+                          tittle: "Editar Direccion",
+                          html: ` <input id="addresStore" type="text"
+                        placeholder="Ingrese la nueva direccion"/>
+                        `,
+                          focusConfirm: false,
+                          focusCancel: false,
+                          showCancelButton: true,
+                          showConfirmButton: true,
+                          confirmButtonText: "Guardar",
+                          cancelButtonText: "Cancelar",
+                          preConfirm: async () => {
+                            let addres =
+                              document.getElementById("addresStore").value;
+                            let data = {
+                              addres,
+                            };
+                            const response = await TodoGetApis.UpdateStore(
+                              data
+                            );
+                            if (response === 200) {
+                              swal.fire("Direccion actualizada", {
+                                icon: "success",
+                              });
+                            }
+                          },
+                        });
+                      }}
+                    >
+                     <div className="flex p-1 ">
+                     <span className="mx-2">Editar</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="containerBox flex items-center">
+                  <div className="name">
+                    <label>Dirreccion:</label>
+                    <span className="mx-2 " >{data.address_customer}</span>
+
+                  </div>
+                  <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
+                    <button
+                     
+                      onClick={() => {
+                        swal.fire({
+                          tittle: "Editar Direccion",
+                          html: ` <input id="addresStore" type="text"
+                        placeholder="Ingrese la nueva direccion"/>
+                        `,
+                          focusConfirm: false,
+                          focusCancel: false,
+                          showCancelButton: true,
+                          showConfirmButton: true,
+                          confirmButtonText: "Guardar",
+                          cancelButtonText: "Cancelar",
+                          preConfirm: async () => {
+                            let addres =
+                              document.getElementById("addresStore").value;
+                            let data = {
+                              addres,
+                            };
+                            const response = await TodoGetApis.UpdateStore(
+                              data
+                            );
+                            if (response === 200) {
+                              swal.fire("Direccion actualizada", {
+                                icon: "success",
+                              });
+                            }
+                          },
+                        });
+                      }}
+                    >
+                     <div className="flex p-1 ">
+                     <span className="mx-2">Editar</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div className="containerBox flex items-center">
+                  <div className="name">
+                    <label>Telefono:</label>
+                    <span className="mx-2 " >{data.phone_number_customer}</span>
+
+                  </div>
+                  <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
+                    <button
+                     
+                      onClick={() => {
+                        swal.fire({
+                          tittle: "Editar Direccion",
+                          html: ` <input id="addresStore" type="text"
+                        placeholder="Ingrese la nueva direccion"/>
+                        `,
+                          focusConfirm: false,
+                          focusCancel: false,
+                          showCancelButton: true,
+                          showConfirmButton: true,
+                          confirmButtonText: "Guardar",
+                          cancelButtonText: "Cancelar",
+                          preConfirm: async () => {
+                            let addres =
+                              document.getElementById("addresStore").value;
+                            let data = {
+                              addres,
+                            };
+                            const response = await TodoGetApis.UpdateStore(
+                              data
+                            );
+                            if (response === 200) {
+                              swal.fire("Direccion actualizada", {
+                                icon: "success",
+                              });
+                            }
+                          },
+                        });
+                      }}
+                    >
+                     <div className="flex p-1 ">
+                     <span className="mx-2">Editar</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div className="containerBox flex items-center">
+                  <div className="name">
+                    <label>Fecha de creacion de la cuenta:</label>
+                    <span className="ml-2">{
+                      moment(data.date).format("D MMM  YY")
+                    }</span>
+                  </div>
+                  <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
+                    
+                   
+                  </div>
+                </div>
+                
+                
+               
+                <a href="/EditPorfileEmployed"  className="pink mx-auto w-full block text-center">Guardar</a>
+                 
+                
+              </div>
+            ))
+          ) : (
+            <h1>No hay data</h1>
+          )}
+
+          {/* <div className="boxAccount2">
+              {account.length > 0 ? (
+                <div className="imagen">
+                  {account.map((data) => (
+                    <img
+                      key={data.id}
+                      src={data.img_admin || "https://via.placeholder.com/150"}
+                      alt=""
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div>No tiene imagen</div>
+              )}
+            </div>
+
+          </div>
+        ) : (
+          <div>No hay datos disponibles</div>
+        )} */}
+        </div>
       </Form>
     </Formik>
-   
-   </div>
-   </>
   )
 }
 

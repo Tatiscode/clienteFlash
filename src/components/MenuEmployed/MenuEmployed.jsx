@@ -24,7 +24,7 @@ function MenuEmployed() {
       <div class="">
         <aside
           id="sidebar"
-          class="fixed hidden z-20 h-full top-0 left-0 pt-1 flex lg:flex
+          class="fixed overflow-y-auto z-20 h-full top-0 left-0 pt-1 flex lg:flex
              flex-shrink-0 flex-col w-64 transition-width duration-75 "
           aria-label="Sidebar"
         >
@@ -102,6 +102,12 @@ function MenuEmployed() {
                     </Link>
                   </li>
 
+                 
+
+                 
+
+                
+                 
                   <li>
                     <Link
                       to="/Categorys"
@@ -224,7 +230,7 @@ function MenuEmployed() {
                     </Link>
                   </li>
 
-                  <div class="space-y-2 pt-2">
+
                     <button class="px-4 py-3 flex items-center space-x-4 rounded-md text-white-600 group">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -251,10 +257,10 @@ function MenuEmployed() {
                 </div>
               </div>
             </div>
-          </div>
-        </aside>
+          </aside>
+        </div>
       </div>
-    </div>
+      
   );
 }
 

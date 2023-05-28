@@ -39,7 +39,7 @@ function MenuUserF() {
                       hover:text-white 
                       hover:rounded-full duration-300
                        px-4 my-2 flex bg-gray-100 rounded-md block p-2"
-                      to="/FormProfileUser"
+                      to="/PageUser"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
