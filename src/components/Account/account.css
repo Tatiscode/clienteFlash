@@ -31,7 +31,7 @@ justify-content: center;
   flex-direction: column;
  
   inset: 0;
-    margin: 10px auto;
+    margin: auto;
   height:fit-content
 
 }

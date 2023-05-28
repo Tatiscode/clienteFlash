@@ -31,18 +31,21 @@ function Malls() {
         <h2 className="text-[25px]  ">Centros Comerciales</h2>
       </div>
       {malls.length > 0 ? (
-          <div className="flex justify-center items-center gap-6 my-10">
-            {malls.map((x) => (
-              <div className="boxMalls flex flex-col items-center">
-                <div className="imgMalls" onClick={()=> {
+        <div className="flex justify-center items-center gap-6 my-10">
+          {malls.map((x) => (
+            <div className="boxMalls flex flex-col items-center">
+              <div
+                className="imgMalls object-cover"
+                onClick={() => {
                   navigate(`/OfficialStores/${x.id_admin}`);
-                }}>
-                  <img src={x.img_admin} alt="" />
-                </div>
-                <h4>{x.name_admin}</h4>
+                }}
+              >
+                <img src={x.img_admin} alt="" />
               </div>
-            ))}
-          </div>
+              <h4 className="mt-4 text-gray-700 text-lg">{x.name_admin}</h4>
+            </div>
+          ))}
+        </div>
       ) : (
         <h1>No hay centros comerciales</h1>
       )}

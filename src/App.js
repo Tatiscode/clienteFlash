@@ -68,6 +68,7 @@ import Table from "./components/MenuUser/Table"
 import { UseContextShop } from "./Hook/UseContextShop" 
 import CreateMalls from "./CreateMalls/CreateMalls"
 import DataTableMalls from "./Table/DataTableMalls"
+import RegisterSales from "./components/FormsEmployed/RegisterSales/RegisterSales"
 import PageDiscountAll from "./pages/PageDiscountAll"
 
 
@@ -178,6 +179,7 @@ function App() {
        <Route path="/CreateMalls" element={<CreateMalls/>}/>
        <Route path="/Malls" element={<DataTableMalls/>}/>
           <Route path="/DiscountCard" element={<PageDiscountAll />} />
+          <Route path="/RegistreSales" element={<RegisterSales/>}/>
       </Routes>
 
     </UseContextShop>

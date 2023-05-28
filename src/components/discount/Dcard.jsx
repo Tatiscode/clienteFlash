@@ -17,12 +17,12 @@ const DCard = () => {
   const { postProductCar, addCard, getProductCar } = useContextShopCar();
 
   let token = localStorage.getItem("token");
-  let limit = 0;
+
   useEffect(() => {
     (async () => {
-      const response = await TodoGetApis.GetProduct(limit);
+      const response = await TodoGetApis.GetProductDiscount();
 
-      setProduct(response.data.rows);
+      setProduct(response.data.data);
     })();
   }, []);
   const increment = () => {
@@ -64,10 +64,10 @@ const DCard = () => {
         img: data.img_product,
         description: data.description_product,
       };
-      console.log(carrito);
+      // console.log(carrito);
 
       const response = await postProductCar(carrito);
-      console.log(response);
+      // console.log(response);
     }
   };
 
@@ -87,13 +87,15 @@ const DCard = () => {
                           ? "Disponible"
                           : "No Disponible"}
                       </p>
-                      <p className="bg-pink-500 text-white p-1 px-2 rounded">
-                        {productItems.dicount}%
-                      </p>
+                      {productItems.dicount !== 0 ? (
+                        <p className="bg-pink-500 text-white p-1 px-2 rounded">
+                          {productItems.dicount}%
+                        </p>
+                      ) : null}
                     </div>
                     <div className="flex justify-center items-center">
                       <img
-                        className=" w-[200px] object-cover"
+                        className=" w-[200px] bg-contain	object-cover"
                         src={productItems.img_product}
                         alt=""
                       />
@@ -112,7 +114,7 @@ const DCard = () => {
                       <p className="truncate">
                         {productItems.description_product}
                       </p>
-                      <div className="price flex flex-col">
+                      <div className="price ">
                         <h4 className="font-bold line-through text-red-600">
                           {money.format(productItems.price_product)}{" "}
                         </h4>

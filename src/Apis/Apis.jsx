@@ -7,8 +7,6 @@ let urlServerProducts = "http://localhost:3105/products";
 let urlServerCard = "http://localhost:3105/card";
 let urlServerUser = "http://localhost:3105/user";
 
-
-
 let token = localStorage.getItem("token");
 
 export const TodoGetApis = {
@@ -23,21 +21,23 @@ export const TodoGetApis = {
       }
     ),
 
-  UpdatePraductCar: async (id,data)=>
-  await axios.put(`${urlServerCard}/updateCard/${id}`,{data},
-  {
-    headers:{
-      token
-    }
-  }),
+  UpdatePraductCar: async (id, data) =>
+    await axios.put(
+      `${urlServerCard}/updateCard/${id}`,
+      { data },
+      {
+        headers: {
+          token,
+        },
+      }
+    ),
 
-  DeleteProductCar: async (id)=>
-  await axios.delete(`${urlServerCard}/deleteCard/${id}`,
-  {
-    headers:{
-      token,
-    },
-  }),
+  DeleteProductCar: async (id) =>
+    await axios.delete(`${urlServerCard}/deleteCard/${id}`, {
+      headers: {
+        token,
+      },
+    }),
   // CreateProduct: async(data) => await axios.post(`${urlServer}/CreateProduct`,{data})
   SingIn: async (data) =>
     await axios.post(`${urlServerAuth}/signInUser`, { data }),
@@ -82,13 +82,12 @@ export const TodoGetApis = {
     });
   },
 
-  GetCar: async () => await axios.get(`${urlServerCard}/getCard`, {
+  GetCar: async () =>
+    await axios.get(`${urlServerCard}/getCard`, {
       headers: {
         token,
       },
-    }
-    ),
-  
+    }),
 
   GetAccountCustomer: async () =>
     await axios.get(`${urlServerUser}/gatDataCustomer`, {
@@ -122,6 +121,7 @@ export const TodoGetApis = {
       { data },
       {
         headers: {
+          "Content-Type": "multipart/form-data",
           token,
         },
       }
@@ -162,6 +162,8 @@ export const TodoGetApis = {
         token: `${token}`,
       },
     }),
+    getStoresHome: async () =>
+    await axios.get(`${urlServerStores}/consultationStore`),
 
   GetStore: async () =>
     await axios.get(`${urlServerStores}/getDataStore`, {
@@ -242,6 +244,9 @@ export const TodoGetApis = {
       },
     }),
 
+  getCategory: async () =>
+    await axios.get(`${urlServerCategory}/getCategories`),
+
   // APIS PRODUCTS EMPLOYED FLASH
 
   CreateProduct: async (data) =>
@@ -297,4 +302,7 @@ export const TodoGetApis = {
 
   GetProductsStoresMall: async (code) =>
     await axios.get(`${urlServerProducts}/getProductMall/${code}`),
+
+  GetProductCustomerStore: async (code) =>
+    await axios.get(`${urlServerProducts}/getProductStoreCustomer/${code}`),
 };

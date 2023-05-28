@@ -17,7 +17,7 @@ const Catg = () => {
     })();
   }, [code]);
 
-  alert(idStore);
+  // alert(idStore);
 
   return (
     <>

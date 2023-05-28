@@ -19,6 +19,9 @@ body {
   max-width: 90%;
   margin: auto;
 }
+.homeStoreMalls{
+  border-radius: 100%;
+}
 .d_flex {
   display: flex;
   justify-content: space-between;
@@ -85,6 +88,7 @@ button {
 }
 .imgMalls img {
   border-radius: 100%;
+  box-shadow:  0 0 10px 0 rgb(215, 215, 215);
 }
 .imgMalls {
   width: 140px;
