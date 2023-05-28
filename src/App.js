@@ -68,11 +68,7 @@ import Table from "./components/MenuUser/Table"
 import { UseContextShop } from "./Hook/UseContextShop" 
 import CreateMalls from "./CreateMalls/CreateMalls"
 import DataTableMalls from "./Table/DataTableMalls"
-<<<<<<< HEAD
-import RegisterSales from "./components/FormsEmployed/RegisterSales/RegisterSales"
-=======
 import PageDiscountAll from "./pages/PageDiscountAll"
->>>>>>> 8031f1a78e243b551901837eb03d51fe1d38e614
 
 
 function App() {
