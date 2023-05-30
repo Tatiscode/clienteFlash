@@ -42,7 +42,6 @@ const DCard = () => {
   });
 
   const handdleCarShop = async (data) => {
-    console.log(data);
     if (token === null) {
       toast.warn("Inicia sesión, para agregar al carrito!", {
         position: "top-right",
@@ -116,7 +115,7 @@ const DCard = () => {
                       </p>
                       <div className="price ">
                         <h4 className="font-bold line-through text-red-600">
-                          {money.format(productItems.price_product)}{" "}
+                          {money.format(productItems.price_product)}
                         </h4>
                         <h3 className="text-black font-bold">
                           {money.format(
@@ -126,17 +125,11 @@ const DCard = () => {
                               productItems.price_product
                           )}
                         </h3>
-
-                        {/* step : 3  
-                     if hami le button ma click garryo bahne 
-                    */}
                       </div>
-
                       <div className="flex justify-between item-center mt-4">
                         <div className="truncate ">
-                          {/* <NavLink to="/CardProducts"  > */}
                           <span
-                            className="text-white compra pink text-white rounded-md inline-block truncate i"
+                            className="compra pink text-white rounded-md inline-block truncate i"
                             onClick={() => {
                               navigate(
                                 `/CardProducts/${productItems.id_product}`
@@ -145,7 +138,6 @@ const DCard = () => {
                           >
                             Comprar Ahora
                           </span>
-                          {/* </NavLink> */}
                         </div>
                         <div className="">
                           <button

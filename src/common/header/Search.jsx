@@ -64,12 +64,14 @@ const Search = ({ CartItem }) => {
             <div className="cart relative">
               <Link to="/cart" className="relative">
                 <span className=" icon-circle2 relative">
+                  {addCard.length > 0 ? (
               <div className="absolute top-0 right-0 text-white bg-green-400 px-2 rounded-full">
                 {
                   addCard.length
                 }
                 
               </div>
+              ): null}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="29"

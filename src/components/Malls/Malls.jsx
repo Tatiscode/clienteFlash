@@ -13,6 +13,7 @@ function Malls() {
       setMalls(response.data.rows);
     })()
   }, [])
+
   return (
     <>
       <div className=" flex  items-center ml-[70px] mt-10">
@@ -37,7 +38,7 @@ function Malls() {
               <div
                 className="imgMalls object-cover"
                 onClick={() => {
-                  navigate(`/OfficialStores/${x.id_admin}`);
+                  navigate(`/OfficialStores/${x.id_admin}/0`);
                 }}
               >
                 <img src={x.img_admin} alt="" />

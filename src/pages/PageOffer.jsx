@@ -5,7 +5,7 @@ import Pagination from '../components/Pagination/Pagination'
 import Header from '../common/header/Header'
 import Footer from '../common/footer/Footer'
 
-function PageOffer({ productItems, addToCart }) {
+function PageOffer() {
   return (
     <>
 <Header/>
@@ -15,7 +15,7 @@ function PageOffer({ productItems, addToCart }) {
     </div>
     <div className="pageOffersWith1">
    
-     <CardOffer productItems={productItems} addToCart={addToCart} /> 
+     <CardOffer/> 
    
    </div>
    {/* <Pagination/> */}

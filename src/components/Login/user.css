@@ -1,4 +1,23 @@
+.BuyPart{
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  width: 500px;
+  display: flex;
+  padding: 30px;
+  align-items: center;
+  flex-direction: column;
+  inset: 0;
+  margin:auto;
+  height:fit-content;
+  margin-bottom: 8rem;
+  border-radius: 10px; position:absolute;
+  inset: 0;
+  margin: auto;
+  border: 1px solid #eee;
+}
+.buyyy {
+  width: 350px;
 
+}
 
 Form{
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
@@ -115,4 +134,3 @@ p{
 .scroll-beheavior::-webkit-scrollbar-track{
   width: 2px;
 }
-

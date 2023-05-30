@@ -5,10 +5,9 @@ import { TodoGetApis } from "../../Apis/Apis";
 const Catg = () => {
   const { code } = useParams();
   const [stores, setStores] = useState([]);
-  const [bann, setBann] = useState(false)
   const [idStore, setIdStore] = useState(0);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -17,7 +16,14 @@ const Catg = () => {
     })();
   }, [code]);
 
-  // alert(idStore);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (idStore !== 0) {
+        navigate(`/OfficialStores/${code}/${idStore}`);
+      }
+    };
+    fetchData();
+  }, [idStore, navigate, code]);
 
   return (
     <>
@@ -29,10 +35,12 @@ const Catg = () => {
           <>
             {stores.map((y) => {
               return (
-                <div className="flex w-[100%] items-center" onClick={()=> {
-                  setIdStore(y.id_store)
-                  
-                }}>
+                <div
+                  className="flex w-[100%] items-center"
+                  onClick={() => {
+                    setIdStore(y.id_store);
+                  }}
+                >
                   <div className="w-[70px] ">
                     <img src={y.img_store} alt="" />
                   </div>

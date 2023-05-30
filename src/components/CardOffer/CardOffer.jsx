@@ -3,39 +3,23 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../flashDeals/style.css";
+import { ToastContainer, toast } from "react-toastify";
 import { TodoGetApis } from "../../Apis/Apis";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContextShopCar } from "../../Hook/UseContextShop";
 
-// const SampleNextArrow = (props) => {
-//   const { onClick } = props
-//   return (
-//     <div className='control-btn' onClick={onClick}>
-//       <button className='next'>
-//       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="white" d="M11.3 19.3q-.275-.275-.288-.7t.263-.7l4.9-4.9H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.175l-4.9-4.9q-.275-.275-.263-.7t.288-.7q.275-.275.7-.275t.7.275l6.6 6.6q.15.125.213.313t.062.387q0 .2-.062.375t-.213.325l-6.6 6.6q-.275.275-.7.275t-.7-.275Z"/></svg>
-//       </button>
-//     </div>
-//   )
-// }
-
-// const SamplePrevArrow = (props) => {
-//   const { onClick } = props
-//   return (
-//     <div className='control-btn' onClick={onClick}>
-//       <button className='prev'>
-//       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="white" d="m10.875 19.3l-6.6-6.6q-.15-.15-.213-.325T4 12q0-.2.063-.375t.212-.325l6.6-6.6q.275-.275.688-.287t.712.287q.3.275.313.688T12.3 6.1L7.4 11h11.175q.425 0 .713.288t.287.712q0 .425-.287.713t-.713.287H7.4l4.9 4.9q.275.275.288.7t-.288.7q-.275.3-.7.3t-.725-.3Z"/></svg>
-//       </button>
-//     </div>
-//   )
-// }
 const CardOffer = () => {
+  let { code } = useParams();
   const [count, setCount] = useState(0);
   const [product, setProduct] = useState([]);
   const navigate = useNavigate();
+
+  const { postProductCar, addCard } = useContextShopCar();
+
   let limite = 0;
   useEffect(() => {
     (async () => {
-      const response = await TodoGetApis.GetProduct(limite);
-
+      const response = await TodoGetApis.GetProduct(limite, code);
       setProduct(response.data.rows);
     })();
   }, []);
@@ -57,8 +41,35 @@ const CardOffer = () => {
     minimumFractionDigits: 2,
   });
 
+  let token = localStorage.getItem("token");
+  const handdleCarShop = async (data) => {
+    if (token === null) {
+      toast.warn("Inicia sesión, para agregar al carrito!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      let carrito = {
+        idProduct: data.id_product,
+        nameProduct: data.name_product,
+        code: data.id_store_product,
+        price: data.price_product,
+        amount: 1,
+      };
+
+      const response = await postProductCar(carrito);
+    }
+  };
+
   return (
     <>
+      <ToastContainer />
       <div className="  grid gap-4 grid-cols-4 grid-rows-3">
         {/* <Slider {...settings}> */}
         {product.length > 0 ? (
@@ -118,7 +129,10 @@ const CardOffer = () => {
                         </span>
                       </div>
                       <div className="">
-                        <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md">
+                        <button
+                          className="bg-gray-100 py-1 px-3  border border-2 rounded-md"
+                          onClick={() => handdleCarShop(productItems)}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="30"

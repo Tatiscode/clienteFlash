@@ -37,10 +37,11 @@ const FlashCard = () => {
   const navigate = useNavigate()
 
   let limite = 12
+  let code = 0
   let token =localStorage.getItem("token")
   useEffect (()=>{
     (async()=>{
-      const response = await TodoGetApis.GetProduct(limite);
+      const response = await TodoGetApis.GetProduct(limite, code);
       
       setProduct(response.data.rows);
     }

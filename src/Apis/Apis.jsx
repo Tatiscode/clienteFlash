@@ -6,6 +6,7 @@ let urlServerCategory = "http://localhost:3105/category";
 let urlServerProducts = "http://localhost:3105/products";
 let urlServerCard = "http://localhost:3105/card";
 let urlServerUser = "http://localhost:3105/user";
+let urlServerBuy = "http://localhost:3105/buy";
 
 let token = localStorage.getItem("token");
 
@@ -162,7 +163,7 @@ export const TodoGetApis = {
         token: `${token}`,
       },
     }),
-    getStoresHome: async () =>
+  getStoresHome: async () =>
     await axios.get(`${urlServerStores}/consultationStore`),
 
   GetStore: async () =>
@@ -191,8 +192,8 @@ export const TodoGetApis = {
       },
     }),
 
-  GetStoresMall: async (code) =>
-    await axios.get(`${urlServerStores}/consultationStore/${code}/0`),
+  GetStoresMall: async (code, idStore) =>
+    await axios.get(`${urlServerStores}/consultationStore/${code}/${idStore}`),
 
   CreateCustomer: async (data) =>
     await axios.post(`${urlServerAuth}/signUpCustomer`, { data }),
@@ -284,8 +285,10 @@ export const TodoGetApis = {
       },
     }),
 
-  GetProduct: async (data) =>
-    await axios.get(`${urlServerProducts}/productsConsultation/${data}`),
+  GetProduct: async (limit, code) =>
+    await axios.get(
+      `${urlServerProducts}/productsConsultation/${limit}/${code}`
+    ),
 
   GetProductsStore: async () =>
     await axios.get(`${urlServerProducts}/getProductsStore`, {
@@ -300,9 +303,21 @@ export const TodoGetApis = {
   GetProductDiscount: async () =>
     await axios.get(`${urlServerProducts}/getProductDiscount`),
 
-  GetProductsStoresMall: async (code) =>
-    await axios.get(`${urlServerProducts}/getProductMall/${code}`),
+  GetProductsStoresMall: async (code, idStore) =>
+    await axios.get(`${urlServerProducts}/getProductMall/${code}/${idStore}`),
 
   GetProductCustomerStore: async (code) =>
     await axios.get(`${urlServerProducts}/getProductStoreCustomer/${code}`),
+
+  PostBuy: async (data, idProduct) => {
+    await axios.post(
+      `${urlServerBuy}/buy/${idProduct}`,
+      { data },
+      {
+        headers: {
+          token,
+        },
+      }
+    );
+  },
 };

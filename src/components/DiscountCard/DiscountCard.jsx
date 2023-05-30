@@ -23,10 +23,6 @@ function DiscountCard() {
     })();
   }, []);
 
-  const increment = () => {
-    setCount(count + 1);
-  };
-
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
     currency: "COP",

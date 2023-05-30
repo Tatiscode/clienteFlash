@@ -5,7 +5,7 @@ import Header from "./common/header/Header"
 
 import Pages from "./pages/Pages"
 import Data from "./components/Data"
- import Cart from "./common/Cart/Cart"
+import Cart from "./common/Cart/Cart"
 import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
 import PageLogin from "./pages/PageLogin"
@@ -65,11 +65,12 @@ import FormPorfileUser from "./components/MenuUser/FormPorfileUser"
 import DataTableBuysUser from "./components/MenuUser/DataTableBuysUser"
 import DasboharUser from "./components/MenuUser/DasboharUser"
 import Table from "./components/MenuUser/Table"
-import { UseContextShop } from "./Hook/UseContextShop" 
+import { UseContextShop } from "./Hook/UseContextShop"
 import CreateMalls from "./CreateMalls/CreateMalls"
 import DataTableMalls from "./Table/DataTableMalls"
 import RegisterSales from "./components/FormsEmployed/RegisterSales/RegisterSales"
 import PageDiscountAll from "./pages/PageDiscountAll"
+import Buy from "./components/FormBuy/Buy"
 
 
 function App() {
@@ -110,80 +111,80 @@ function App() {
   return (
     <>
 
-    <UseContextShop>
-    <Routes>
-        <Route path="/" element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
-        <Route path='/Login' element={<PageLogin />} />
-        <Route path='/Register' element={<PageRegister />} />
-        <Route path='/Offers' element={<PageOffer productItems={productItems} addToCart={addToCart} />} />
-        <Route path='/OfficialStores/:code' element={<PageStores  />}>
-          <Route path="tienda" element={<PageStores addToCart={addToCart} shopItems={shopItems} />} />
-        </Route>
-        <Route path='/NewProducts' element={<PageNewProduct productItems={productItems} addToCart={addToCart} />} />
-        <Route path='/BigDiscount' element={<PageNewProduct productItems={productItems} addToCart={addToCart} />} />
-        <Route path='/RecoverPassword' element={<RecoverPasword />} />
-        <Route path='/CodeRecoverPassword/:id' element={<CodeRecoverPassword />} />
-        <Route path='/ConcludeBuy' element={<ConcludeBuy />} />
-        <Route path='/Category' element={<CategoryUnitarie />} />
-        <Route path='/Account' element={<Account />} />
-        {/* <Route path='/CardProduct' element={<CardProduct />} /> */}
-        <Route path='/Admin' element={<PageAdmin />} />
-        <Route path='/StoresInfo' element={<PageStoreInfo />} />
-        <Route path='/CreateStore' element={<PageCreateStore />} />
-        <Route path='/DeleteStore/:code' element={<PageDeleteStore />} />
-        <Route path='/CategoryInfo' element={<PageInfoCategory />} />
-        <Route path='/CreateCategory' element={<PageCreateCategory />} />
-        <Route path='/DeleteCategory' element={<PageDeleteCategory />} />
-        <Route path='/UpdateCategory' element={<PageUpdateCategory />} />
-        <Route path='/AccountAdmin' element={<PageAccountAdmin />} />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/SingleShop' element={<PageSingleShop productItems={productItems} addToCart={addToCart} />} />
-        <Route path='/SingleCategory' element={<CategoryUnitarie productItems={productItems} addToCart={addToCart} />} />
-        <Route path='/Employed' element={<PageEmployed />} />
+      <UseContextShop>
+        <Routes>
+          <Route path="/" element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
+          <Route path='/Login' element={<PageLogin />} />
+          <Route path='/Register' element={<PageRegister />} />
+          <Route path='/Offers/:code' element={<PageOffer />} />
+          <Route path='/OfficialStores/:code/:idStore' element={<PageStores />}>
+            <Route path="tienda" element={<PageStores addToCart={addToCart} shopItems={shopItems} />} />
+          </Route>
+          <Route path='/NewProducts' element={<PageNewProduct productItems={productItems} addToCart={addToCart} />} />
+          <Route path='/BigDiscount' element={<PageNewProduct productItems={productItems} addToCart={addToCart} />} />
+          <Route path='/RecoverPassword' element={<RecoverPasword />} />
+          <Route path='/CodeRecoverPassword/:id' element={<CodeRecoverPassword />} />
+          <Route path='/ConcludeBuy' element={<ConcludeBuy />} />
+          <Route path='/Category' element={<CategoryUnitarie />} />
+          <Route path='/Account' element={<Account />} />
+          {/* <Route path='/CardProduct' element={<CardProduct />} /> */}
+          <Route path='/Admin' element={<PageAdmin />} />
+          <Route path='/StoresInfo' element={<PageStoreInfo />} />
+          <Route path='/CreateStore' element={<PageCreateStore />} />
+          <Route path='/DeleteStore/:code' element={<PageDeleteStore />} />
+          <Route path='/CategoryInfo' element={<PageInfoCategory />} />
+          <Route path='/CreateCategory' element={<PageCreateCategory />} />
+          <Route path='/DeleteCategory' element={<PageDeleteCategory />} />
+          <Route path='/UpdateCategory' element={<PageUpdateCategory />} />
+          <Route path='/AccountAdmin' element={<PageAccountAdmin />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/SingleShop' element={<PageSingleShop productItems={productItems} addToCart={addToCart} />} />
+          <Route path='/SingleCategory' element={<CategoryUnitarie productItems={productItems} addToCart={addToCart} />} />
+          <Route path='/Employed' element={<PageEmployed />} />
 
-        <Route path='/CreateAdmin' element={<PageCreateAdmin />} />
-        <Route path='/CardProducts/:code' element={<CardProductBig />} />
+          <Route path='/CreateAdmin' element={<PageCreateAdmin />} />
+          <Route path='/CardProducts/:code' element={<CardProductBig />} />
 
-        <Route path='*' element={<PageNotFound />} />
+          <Route path='*' element={<PageNotFound />} />
 
-        <Route path='/Employed' element={<PageEmployed2 />} />
-        <Route path='*' element={<PageNotFound />} />
-        {/* ROUTES CRUD PRODUCT */}
-        <Route path='/Products' element={<ProductsEmployed/>} />
-        <Route path='/CreateProduct' element={<CreateProduct />} />
-        <Route path='/EditProduct/:code' element={<EditProduct />} />
-        <Route path='/DeleteProduct' element={<DeleteProduct />} />
-        {/* ROUTES CRUD STORE */}
-        <Route path='/MyStore' element={<MyStoreEmployed />} />
-        <Route path='/EditStore' element={<EditStore />} />
-        {/* ROUTES CRUD ESTADISTICAS */}
-        <Route path='/Estaditicas' element={<PageEmployed />} />
-        {/* ROUTES CRUD CATEGORYS */}
-        <Route path='/Categorys' element={<Estadisticas />} />
-        {/* <Route to='/CreateCategory' element={<CreateCategory/>}/> */}
-        {/* <Route to='/EditCategory' element={<EditCategory/>}/> */}
-        {/* <Route to='/DeleteCategory'  element={<DeleteCategory/>}/> */}
-        {/* ROUTES CRUD SUBCATEGORYS */}
-        <Route path='/EditPorfileEmployed' element={<PageEditPorfileEmployed />} />
-        <Route path='/CreateSubcategory' element={<CreateSubcategory />} />
-        <Route path='/EditSubcategory/:code' element={<EditSubCategory />} />
-        <Route path='/DeleteSubcategory' element={<DeleteSubcategory />} />
-        <Route path='/SubCategorys' element={<PageSubcategorys />} />
-        <Route path='/ProductsCategorys' element={<Products productItems={productItems} addToCart={addToCart} />} />
-        {/* <Route path="/NewPassword/:id" element={<NewPassword />} /> */}
-        <Route path="/overAdmin" element={<PageViewOverAdmin/>} />
+          <Route path='/Employed' element={<PageEmployed2 />} />
+          <Route path='*' element={<PageNotFound />} />
+          {/* ROUTES CRUD PRODUCT */}
+          <Route path='/Products' element={<ProductsEmployed />} />
+          <Route path='/CreateProduct' element={<CreateProduct />} />
+          <Route path='/EditProduct/:code' element={<EditProduct />} />
+          <Route path='/DeleteProduct' element={<DeleteProduct />} />
+          {/* ROUTES CRUD STORE */}
+          <Route path='/MyStore' element={<MyStoreEmployed />} />
+          <Route path='/EditStore' element={<EditStore />} />
+          {/* ROUTES CRUD ESTADISTICAS */}
+          <Route path='/Estaditicas' element={<PageEmployed />} />
+          {/* ROUTES CRUD CATEGORYS */}
+          <Route path='/Categorys' element={<Estadisticas />} />
+          {/* <Route to='/CreateCategory' element={<CreateCategory/>}/> */}
+          {/* <Route to='/EditCategory' element={<EditCategory/>}/> */}
+          {/* <Route to='/DeleteCategory'  element={<DeleteCategory/>}/> */}
+          {/* ROUTES CRUD SUBCATEGORYS */}
+          <Route path='/EditPorfileEmployed' element={<PageEditPorfileEmployed />} />
+          <Route path='/CreateSubcategory' element={<CreateSubcategory />} />
+          <Route path='/EditSubcategory/:code' element={<EditSubCategory />} />
+          <Route path='/DeleteSubcategory' element={<DeleteSubcategory />} />
+          <Route path='/SubCategorys' element={<PageSubcategorys />} />
+          <Route path='/ProductsCategorys' element={<Products productItems={productItems} addToCart={addToCart} />} />
+          {/* <Route path="/NewPassword/:id" element={<NewPassword />} /> */}
+          <Route path="/overAdmin" element={<PageViewOverAdmin />} />
 
-        <Route path="/PageUser" element={<DasboharUser/>}/>
-       <Route path="/FormProfileUser" element={<FormPorfileUser/>}/>
-       <Route path="/DataTableBuysUser" element={<Table/>}/>
-       <Route path="/CreateMalls" element={<CreateMalls/>}/>
-       <Route path="/Malls" element={<DataTableMalls/>}/>
+          <Route path="/PageUser" element={<DasboharUser />} />
+          <Route path="/FormProfileUser" element={<FormPorfileUser />} />
+          <Route path="/DataTableBuysUser" element={<Table />} />
+          <Route path="/CreateMalls" element={<CreateMalls />} />
+          <Route path="/Malls" element={<DataTableMalls />} />
           <Route path="/DiscountCard" element={<PageDiscountAll />} />
-          <Route path="/RegistreSales" element={<RegisterSales/>}/>
-      </Routes>
+          <Route path="/RegistreSales" element={<RegisterSales />} />
+          <Route path="/Buy/:idP/:price/:amount" element={<Buy/>}/>
+        </Routes>
+      </UseContextShop>
 
-    </UseContextShop>
-      
       {/* <Footer />  */}
     </>
   )

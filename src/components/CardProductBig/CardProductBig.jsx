@@ -3,15 +3,18 @@ import "./cardProducts.css";
 import Header from "../../common/header/Header";
 import Footer from "../../common/footer/Footer";
 import Counter from "../Counter/Counter";
+import { ToastContainer, toast } from "react-toastify";
 import { TodoGetApis } from "../../Apis/Apis";
 import { useParams } from "react-router-dom";
 
 function CardProductBig() {
   const { code } = useParams();
+  const [counter, setCounter] = useState(0);
 
   const [product, setProduct] = useState([]);
   useEffect(() => {
     (async () => {
+
       const response = await TodoGetApis.GetProductBig(code);
       setProduct(response.data.data);
     })();
@@ -24,12 +27,18 @@ function CardProductBig() {
   return (
     <>
       <Header />
+      <ToastContainer />
       {product.length > 0 ? (
         <div className="boxBig">
           {product.map((items) => {
             return (
               <div className="boxProduct">
                 <div className="imgProduct">
+                  <div className=" w-full flex justify-start  ml-7 ">
+                    <div className="bg-pink-500 px-3 py-2  rounded-2xl text-white font-bold">
+                      {items.dicount > 0 ? items.dicount : null}%
+                    </div>
+                  </div>
                   <img src={items.img_product} alt={items.name_product} />
                 </div>
                 <div className="infoProduct">
@@ -42,24 +51,67 @@ function CardProductBig() {
                     </p>
                   </div>
                   <div className="priceProduct">
-                    <p> {money.format(items.price_product)} </p>
-                    <p className="impuestos">Impuestos incluidos (Si aplica)</p>
+                    <p className="font-bold ">
+                      {items.dicount > 0 ? (
+                        <div className="flex ">
+                          <p className="text-red-600 mr-4 line-through text-lg">
+                            {money.format(items.price_product)}
+                          </p>
+                          <p className="text-lg">
+                            {money.format(
+                              (items.price_product * items.dicount) / 100 -
+                                items.price_product
+                            )}
+                          </p>
+                        </div>
+                      ) : (
+                        money.format(items.price_product)
+                      )}
+                    </p>
+                    <p className="impuestos text-s">
+                      Impuestos incluidos (Si aplica)
+                    </p>
                   </div>
                   <div className="amountProduct">
                     <div className="infooo">
                       <p>Cantidad</p>
                     </div>
                     <div className="buttonsBox">
-                      <Counter />
+                      <div class="custom-number-input h-10 w-32">
+                        <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                          <button
+                            onClick={() => {
+                              if (counter > 0) {
+                                setCounter(counter - 1);
+                              }
+                            }}
+                            data-action="decrement"
+                            class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                          >
+                            <span class="m-auto text-2xl font-thin">−</span>
+                          </button>
+                          <div class=" none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center justify-center text-gray-700  outline-none">
+                            {counter}
+                          </div>
+                          <button
+                            onClick={() => {
+                              setCounter(counter + 1);
+                            }}
+                            data-action="increment"
+                            class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                          >
+                            <span class="m-auto text-2xl font-thin">+</span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="amount">
                     <p>
-                      {" "}
                       {("" + items.amount_poduct).replace(
                         /(\d)(?=(\d\d\d)+(?!\d))/g,
                         "$1."
-                      )}{" "}
+                      )}
                       Unidades
                     </p>
                   </div>
@@ -78,7 +130,34 @@ function CardProductBig() {
                       </svg>
                       Añadir al carrito
                     </button>
-                    <button className="buy">Comprar Ahora</button>
+                    <button
+                      className="buy"
+                      onClick={() => {
+                        let discount = items.dicount;
+                        let price = (discount !== 0) ? (items.price_product * discount) / 100 - items.price_product : items.price_product;
+                        let id = items.id_product
+                        if (counter !== 0) {
+                        window.location.href = "/Buy/"+id+"/"+price+"/"+counter;
+                        } else {
+                          toast.warn(
+                            "Agrege una cantidad del producto!",
+                            {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                            }
+                          );
+                        }
+                
+                      }}
+                    >
+                      Comprar Ahora
+                    </button>
                   </div>
                 </div>
               </div>

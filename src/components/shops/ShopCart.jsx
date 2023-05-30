@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { TodoGetApis } from "../../Apis/Apis";
 import { useNavigate, useParams } from "react-router-dom";
+import { useContextShopCar } from "../../Hook/UseContextShop";
+import { ToastContainer, toast } from "react-toastify";
 
 const ShopCart = () => {
-  const { code } = useParams();
+  const { code, idStore } = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [count, setCount] = useState(0);
+  const [pageReloaded, setPageReloaded] = useState(true);
+  const { postProductCar } = useContextShopCar();
 
-  const increment = () => {
-    setCount(count + 1);
-  };
+  let token = localStorage.getItem("token");
 
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
@@ -18,24 +19,58 @@ const ShopCart = () => {
     minimumFractionDigits: 2,
   });
 
-  let idStore = 0;
-
   useEffect(() => {
     (async () => {
-      const response = await TodoGetApis.GetProductsStoresMall(code);
+      const response = await TodoGetApis.GetProductsStoresMall(
+        code,
+        parseInt(idStore)
+      );
       setProducts(response.data.rows);
     })();
-  }, []);
+  }, [code, idStore]);
+
+  useEffect(() => {
+    if (idStore !== "0" && pageReloaded) {
+      setPageReloaded(false);
+    }
+  }, [idStore, pageReloaded]);
+
+  const handdleCarShop = async (data) => {
+    if (token === null) {
+      toast.warn("Inicia sesión, para agregar al carrito!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      let carrito = {
+        idProduct: data.id_product,
+        nameProduct: data.name_product,
+        code: data.id_store_product,
+        price: data.price_product,
+        amount: 1,
+        img: data.img_product,
+        description: data.description_product,
+      };
+      const response = await postProductCar(carrito);
+    }
+  };
 
   return (
     <>
-      <div className=" grid gap-4 grid-cols-3 grid-rows-3">
+      <ToastContainer />
+      <div className="grid gap-4 grid-cols-3 grid-rows-3">
         {products.length > 0 ? (
           <>
             {products.map((productItems) => {
               return (
-                <div className=" ">
-                  <div className="product border m-1 ">
+                <div className="" key={productItems.id_product}>
+                  <div className="product border m-1">
                     <div className="flex justify-between">
                       <p className="disponible">
                         {productItems.availability_product === "available"
@@ -43,14 +78,14 @@ const ShopCart = () => {
                           : "Agotado"}
                       </p>
                       <p>
-                        {productItems.dicount !== 0
-                          ? productItems.dicount + "%"
-                          : null}
+                        {productItems.dicount !== 0 && (
+                          <p>{productItems.dicount + "%"}</p>
+                        )}
                       </p>
                     </div>
                     <div className="flex justify-center items-center">
                       <img
-                        className=" w-[200px] object-cover"
+                        className="w-[200px] object-cover"
                         src={productItems.img_product}
                         alt=""
                       />
@@ -70,14 +105,30 @@ const ShopCart = () => {
                         {productItems.description_product}
                       </p>
                       <div className="price">
-                        <h4 className="text-black font-bold">
-                          {money.format(productItems.price_product)}{" "}
-                        </h4>
+                        {productItems.dicount === 0 ? (
+                          <h4 className="text-black font-bold">
+                            {money.format(productItems.price_product)}{" "}
+                          </h4>
+                        ) : (
+                          <div className="flex justify-between">
+                            <h4 className="font-bold line-through text-red-600">
+                              {money.format(productItems.price_product)}
+                            </h4>
+                            <h3 className="text-black font-bold">
+                              {money.format(
+                                (productItems.price_product *
+                                  productItems.dicount) /
+                                  100 -
+                                  productItems.price_product
+                              )}
+                            </h3>
+                          </div>
+                        )}
                       </div>
                       <div className="flex justify-between item-center mt-4">
-                        <div className="truncate ">
+                        <div className="truncate">
                           <span
-                            className="text-white compra pink text-white rounded-md inline-block truncate i"
+                            className="text-white compra pink rounded-md inline-block truncate i"
                             onClick={() => {
                               navigate(
                                 `/CardProducts/${productItems.id_product}`
@@ -88,17 +139,20 @@ const ShopCart = () => {
                           </span>
                         </div>
                         <div className="">
-                          <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md">
+                          <button
+                            className="bg-gray-100 py-1 px-3 border-2 rounded-md"
+                            onClick={() => handdleCarShop(productItems)}
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="30"
                               height="30"
                               viewBox="0 0 48 48"
                             >
-                              <g fill="none" stroke="#475569" stroke-width="4">
+                              <g fill="none" stroke="#475569" strokeWidth="4">
                                 <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                   d="M5 7h6l7 17h17.5L43 10m-22 2h12m-6-6v12m-9 6l-4 6h26"
                                 />
                                 <circle cx="19" cy="39" r="3" />
