@@ -160,15 +160,15 @@ function CreateMalls() {
 
             <div className="relative w-full ">
               <div className="">
-                <input
-                  className="input_forms z-50 icon  opacity-0 absolute w-full"
+                <input 
+                  className="input_forms z-50 icon  opacity-0 absolute w-full py-6 "
                   type="file"
                   name="image"
                   placeholder="Imagen"
                   onChange={(e) => {setImage(e.target.files[0])}}
                 />
               </div>
-              <div className="icon  w-full z-10 bg-gray-100 inset-0 h-full flex justify-center items-center">
+              <div className="icon  w-full z-10 bg-gray-100 inset-0 h-full flex justify-center items-center py-2 border border-gray-300 rounded-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -285,7 +285,7 @@ function CreateMalls() {
                 </svg>
               </div>
             ) : (
-              <button className="pink" type="submit">
+              <button className="pink mt-4" type="submit">
                 Crear
               </button>
             )}

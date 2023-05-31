@@ -1,29 +1,101 @@
-import React, { useState, useEffect } from "react";
-import "./cardProducts.css";
-import Header from "../../common/header/Header";
-import Footer from "../../common/footer/Footer";
-import Counter from "../Counter/Counter";
 import { ToastContainer, toast } from "react-toastify";
-import { TodoGetApis } from "../../Apis/Apis";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import { useContextShopCar } from "../../Hook/UseContextShop";
+import Header from "../../common/header/Header";
+import Footer from "../../common/footer/Footer";
+import { TodoGetApis } from "../../Apis/Apis";
+import "./cardProducts.css";
+
 function CardProductBig() {
-  const { code } = useParams();
   const [counter, setCounter] = useState(0);
-
   const [product, setProduct] = useState([]);
-  useEffect(() => {
-    (async () => {
+  const { postProductCar } = useContextShopCar();
+  const { code } = useParams();
 
-      const response = await TodoGetApis.GetProductBig(code);
-      setProduct(response.data.data);
-    })();
-  }, []);
+  let token = localStorage.getItem("token");
+
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
     currency: "COP",
     minimumFractionDigits: 2,
   });
+
+  const handdleShop = (discount, price) => {
+    if (token === null) {
+      toast.warn("Inicia sesión, para agregar al carrito!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (counter === 0) {
+      toast.warn("Debes agregar al menos un producto!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      let priceProduct =
+        discount !== 0 ? (price * discount) / 100 - price : price;
+      window.location.href = `/Buy/${code}/${priceProduct}/${counter}`;
+    }
+  };
+
+  const handdleCarShop = async (data) => {
+    if (token === null) {
+      toast.warn("Inicia sesión, para agregar al carrito!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (counter > 0) {
+      let carrito = {
+        idProduct: data.id_product,
+        nameProduct: data.name_product,
+        code: data.id_store_product,
+        price: data.price_product,
+        img: data.img_product,
+        description: data.description_product,
+        amount: counter,
+      };
+      const response = await postProductCar(carrito);
+    } else {
+      toast.warn("Debe poner una cantidad!!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      const response = await TodoGetApis.GetProductBig(code);
+      setProduct(response.data.data);
+    })();
+  }, [code]);
+
   return (
     <>
       <Header />
@@ -35,9 +107,11 @@ function CardProductBig() {
               <div className="boxProduct">
                 <div className="imgProduct">
                   <div className=" w-full flex justify-start  ml-7 ">
-                    <div className="bg-pink-500 px-3 py-2  rounded-2xl text-white font-bold">
-                      {items.dicount > 0 ? items.dicount : null}%
-                    </div>
+                    {items.dicount !== 0 ? (
+                      <div className="bg-pink-500 px-3 py-2  rounded-2xl text-white font-bold">
+                        {items.dicount > 0 ? items.dicount : null}%
+                      </div>
+                    ) : null}
                   </div>
                   <img src={items.img_product} alt={items.name_product} />
                 </div>
@@ -116,7 +190,10 @@ function CardProductBig() {
                     </p>
                   </div>
                   <div className="buttonsBuy">
-                    <button className="addCar">
+                    <button
+                      className="addCar"
+                      onClick={() => handdleCarShop(items)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -133,27 +210,7 @@ function CardProductBig() {
                     <button
                       className="buy"
                       onClick={() => {
-                        let discount = items.dicount;
-                        let price = (discount !== 0) ? (items.price_product * discount) / 100 - items.price_product : items.price_product;
-                        let id = items.id_product
-                        if (counter !== 0) {
-                        window.location.href = "/Buy/"+id+"/"+price+"/"+counter;
-                        } else {
-                          toast.warn(
-                            "Agrege una cantidad del producto!",
-                            {
-                              position: "top-right",
-                              autoClose: 5000,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: "light",
-                            }
-                          );
-                        }
-                
+                        handdleShop(items.dicount, items.price_product);
                       }}
                     >
                       Comprar Ahora

@@ -29,8 +29,8 @@ function EditStore() {
       })}
       onSubmit={async (values) => {}}
     >
-      <Form className="formRegister">
-        <div className="flex w-full justify-between ">
+      <Form className="formRegister w-[650px]">
+        <div className="flex w-full justify-around ">
           <div className="boxAccount">
             {account.length > 0 ? (
               account.map((data) => (
@@ -41,7 +41,7 @@ function EditStore() {
                         <img
                           src={data.img_store}
                           alt=""
-                          className="w-44 rounded-full h-44 object-cover"
+                          className="w-32 rounded-full h-32 object-cover"
                         />
                         <div
                           className="campus bg-gray-100
@@ -57,7 +57,7 @@ function EditStore() {
                                 onChange={(e) => setImage(e.target.files[0])}
                               />
                             </div>
-                            <div className="icon  w-full z-10 bg-gray-100 inset-0 h-full flex justify-center items-center">
+                            <div className="icon h-5 w-full z-10 bg-gray-100 inset-0 flex justify-center items-center">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -230,27 +230,6 @@ function EditStore() {
             ) : (
               <h1>No hay data</h1>
             )}
-
-            {/* <div className="boxAccount2">
-              {account.length > 0 ? (
-                <div className="imagen">
-                  {account.map((data) => (
-                    <img
-                      key={data.id}
-                      src={data.img_admin || "https://via.placeholder.com/150"}
-                      alt=""
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div>No tiene imagen</div>
-              )}
-            </div>
-
-          </div>
-        ) : (
-          <div>No hay datos disponibles</div>
-        )} */}
           </div>
           <div className="tittleAccount  ">
             <h1>
@@ -271,9 +250,9 @@ function EditStore() {
             account.map((data) => (
               <div className="boxAccount1">
                 <div className="containerBox flex items-center">
-                  <div className="name">
-                    <label>Nombre:</label>
-                    <span className="ml-2">{data.name_store}</span>
+                  <div className=" flex w-full">
+                    <label className="text-gray-400 w-[25%]">Nombre:</label>
+                    <span className="ml-2 w-[75%]">{data.name_store}</span>
                   </div>
 
                   <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
@@ -327,20 +306,17 @@ function EditStore() {
                   </div>
                 </div>
                 <div className="containerBox flex items-center">
-                  <div className="name">
-                    <label>Email:</label>
-                    <span
-                      className="ml-2 w-36 truncate"
-                      title={data.email_store}
-                    >
+                  <div className="flex w-full">
+                    <label className="text-gray-400 w-[20%]">Email:</label>
+                    <span className="ml-2 w-[80%]" title={data.email_store}>
                       {data.email_store}
                     </span>
                   </div>
                 </div>
                 <div className="containerBox flex items-center">
-                  <div className="name">
-                    <label>Dirección:</label>
-                    <span className="mx-2 ">{data.location_store}</span>
+                  <div className="flex w-full">
+                    <label className="text-gray-400 w-[25%]">Dirección:</label>
+                    <span className="ml-2 w-[75%]">{data.location_store}</span>
                   </div>
                   <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
                     <button
@@ -392,9 +368,11 @@ function EditStore() {
                   </div>
                 </div>
                 <div className="containerBox flex items-center">
-                  <div className="name">
-                    <label>Telefono:</label>
-                    <span className="ml-2">{data.phone_number_store}</span>
+                  <div className="flex w-full">
+                    <label className="text-gray-400 w-[25%]">Telefono:</label>
+                    <span className="ml-2 w-[75%]">
+                      {data.phone_number_store}
+                    </span>
                   </div>
                   <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
                     <button
@@ -445,9 +423,17 @@ function EditStore() {
                   </div>
                 </div>
                 <div className="containerBox flex items-center">
-                  <div className="name">
-                    <label>Descripcion:</label>
-                    <span className="ml-2">{data.description_store}</span>
+                  <div className="flex w-full">
+                    <label className="text-gray-400 w-[25%]">
+                      Descripcion:
+                    </label>
+                    <span
+                      className="ml-2 w-[80%] truncate"
+                      title={data.description_store}
+                    >
+                      {data.description_store}
+                    </span>
+                    <div className="w-[5%]"></div>
                   </div>
                   <div className="bg-gray-100 border rounded-md my-2 p-1 text-gray-800">
                     <button

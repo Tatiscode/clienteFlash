@@ -160,7 +160,7 @@ function DataTableMalls() {
         <div
           className="ag-theme-alpine shadow-md mx-auto w-[50%] rounded-md overflow-hidden shadow-lg"
           id="myGrid"
-          style={{ height: 500, width: "92%" }}
+          style={{ height: 500, width: '70%' }}
         >
           <AgGridReact
             ref={gridRef}

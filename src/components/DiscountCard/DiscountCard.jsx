@@ -1,27 +1,17 @@
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import React, { useState, useEffect } from "react";
 
-import "../flashDeals/style.css";
-import { TodoGetApis } from "../../Apis/Apis";
-import { ToastContainer, toast } from "react-toastify";
 import { useContextShopCar } from "../../Hook/UseContextShop";
-import { NavLink, useNavigate } from "react-router-dom";
+import { TodoGetApis } from "../../Apis/Apis";
+import "../flashDeals/style.css";
 
 function DiscountCard() {
-  const [count, setCount] = useState(0);
   const [product, setProduct] = useState([]);
-  const [productShop, setproductShop] = useState([]);
+  const { postProductCar } = useContextShopCar();
+
   const navigate = useNavigate();
-
-  const { postProductCar, addCard } = useContextShopCar();
-
   let token = localStorage.getItem("token");
-  useEffect(() => {
-    (async () => {
-      const response = await TodoGetApis.GetProductDiscount();
-      setProduct(response.data.data);
-      console.log(response);
-    })();
-  }, []);
 
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
@@ -49,10 +39,19 @@ function DiscountCard() {
         price: data.price_product,
         amount: 1,
       };
-
       const response = await postProductCar(carrito);
+
+
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      const response = await TodoGetApis.GetProductDiscount();
+      setProduct(response.data.data);
+      console.log(response);
+    })();
+  }, []);
 
   return (
     <>
@@ -111,17 +110,12 @@ function DiscountCard() {
                             )}
                           </h3>
                         </div>
-
-                        {/* step : 3  
-                     if hami le button ma click garryo bahne 
-                    */}
                       </div>
 
                       <div className="flex justify-between item-center mt-4">
                         <div className="truncate ">
-                          {/* <NavLink to="/CardProducts"  > */}
                           <span
-                            className="text-white compra pink text-white rounded-md inline-block truncate i"
+                            className="text-white compra pink rounded-md inline-block truncate i"
                             onClick={() => {
                               navigate(
                                 `/CardProducts/${productItems.id_product}`
@@ -134,7 +128,7 @@ function DiscountCard() {
                         </div>
                         <div className="">
                           <button
-                            className="bg-gray-100 py-1 px-3  border border-2 rounded-md"
+                            className="bg-gray-100 py-1 px-3 border-2 rounded-md"
                             onClick={() => handdleCarShop(productItems)}
                           >
                             <svg

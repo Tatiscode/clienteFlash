@@ -180,7 +180,7 @@ function DataTableCategory({ data }) {
          </div>
        </div>
       <div
-        className="ag-theme-alpine shadow-md mx-auto w-[50%] rounded-md overflow-hidden shadow-lg"
+        className="ag-theme-alpine mx-auto w-[50%] rounded-md overflow-hidden shadow-lg"
         id="myGrid"
         style={{ height: 500, width: "92%" }}
       >

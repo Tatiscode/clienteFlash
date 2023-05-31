@@ -320,4 +320,11 @@ export const TodoGetApis = {
       }
     );
   },
+
+  GetBuy: async () =>
+    await axios.get(`${urlServerBuy}/getBuy`, {
+      headers: {
+        token,
+      },
+    }),
 };

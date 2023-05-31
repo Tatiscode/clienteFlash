@@ -1,17 +1,28 @@
-import React, { useState } from "react";
-import "../Login/user.css";
 import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+
 import { TodoGetApis } from "../../Apis/Apis";
+import "../Login/user.css";
 
 function Buy() {
- const {idP, price,amount}= useParams()
- const [form, setForm] =useState([])
- console.log(form);
+  const { idP, price, amount } = useParams();
+  const [form, setForm] = useState([]);
+  console.log(form);
 
-const data =async()=>{
-  const datas ={price, amount , total:price * amount,adress: form.adress, phone : form.phone, id: form.id}
-const response = await TodoGetApis.PostBuy(datas, idP)
-}
+  const data = async () => {
+    const datas = {
+      price,
+      amount,
+      total: price * amount,
+      adress: form.adress,
+      phone: form.phone,
+      id: form.id,
+    };
+    const response = await TodoGetApis.PostBuy(datas, idP)
+    // if (response.status === 200) {
+      
+    // }
+  };
   return (
     <>
       <div className=" ">
@@ -35,8 +46,8 @@ const response = await TodoGetApis.PostBuy(datas, idP)
                 type="text"
                 name="adress"
                 placeholder="Direccion"
-                onChange={(e)=>{
-                  setForm({...form, adress: e.target.value})
+                onChange={(e) => {
+                  setForm({ ...form, adress: e.target.value });
                 }}
               />
             </div>
@@ -57,11 +68,9 @@ const response = await TodoGetApis.PostBuy(datas, idP)
                 type="number"
                 name="phone"
                 placeholder="Telefono"
-                onChange={ (e)=>{
-                  setForm({...form, phone: e.target.value})
-
-                  }
-                }
+                onChange={(e) => {
+                  setForm({ ...form, phone: e.target.value });
+                }}
               />
             </div>
 
@@ -84,14 +93,16 @@ const response = await TodoGetApis.PostBuy(datas, idP)
                 type="text"
                 name="id"
                 placeholder="Identificacion"
-                onChange={(e)=>{
-                  setForm({...form, id: e.target.value})
+                onChange={(e) => {
+                  setForm({ ...form, id: e.target.value });
                 }}
               />
             </div>
           </div>
 
-          <button className="pink" onClick={data}>Comprar</button>
+          <button className="pink" onClick={data}>
+            Comprar
+          </button>
         </div>
       </div>
     </>

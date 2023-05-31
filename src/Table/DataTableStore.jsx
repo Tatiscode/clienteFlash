@@ -60,6 +60,7 @@ function DataTableStore({ data }) {
     {
       headerName: "Codigo",
       field: "id_store",
+      width: 100,
     },
     {
       headerName: "Nombre Empleado",
@@ -72,15 +73,18 @@ function DataTableStore({ data }) {
     {
       headerName: "Estado",
       field: "state_employee",
+      width: 100,
     },
 
     {
       headerName: "Tienda",
       field: "name_store",
+      width: 150,
     },
     {
       headerName: "Ubicacion",
       field: "location_store",
+      width: 100,
     },
     {
       headerName: "Correo Tienda",
@@ -92,6 +96,7 @@ function DataTableStore({ data }) {
       field: "actions",
       cellRenderer: Options,
       enablePivot: true,
+      width: 150,
     },
   ]);
   const gridRef = useRef();
@@ -132,13 +137,14 @@ function DataTableStore({ data }) {
         <AgGridReact
           ref={gridRef}
           columnDefs={column}
+
           rowData={data.map((item) => {
 
             return {
               id_store: item.id_store,
               name_employee: item.name_employee,
               email_employee: item.email_employee,
-              state_employee: item.state_employee,
+              state_employee: (item.state_employee === "asset") ? "Activo" : "Inactivo",
               name_store: item.name_store,
               location_store: item.location_store,
               email_store: item.email_store,
