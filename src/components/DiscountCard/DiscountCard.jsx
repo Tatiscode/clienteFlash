@@ -5,11 +5,13 @@ import React, { useState, useEffect } from "react";
 import { useContextShopCar } from "../../Hook/UseContextShop";
 import { TodoGetApis } from "../../Apis/Apis";
 import "../flashDeals/style.css";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function DiscountCard() {
   const [product, setProduct] = useState([]);
   const { postProductCar } = useContextShopCar();
-
+  const [load, setLoad] = useState(false);
   const navigate = useNavigate();
   let token = localStorage.getItem("token");
 
@@ -50,9 +52,11 @@ function DiscountCard() {
 
   useEffect(() => {
     (async () => {
+      setLoad(true)
       const response = await TodoGetApis.GetProductDiscount();
       setProduct(response.data.data);
       console.log(response);
+      setLoad(false)
     })();
   }, []);
 
@@ -66,6 +70,50 @@ function DiscountCard() {
             product.map((productItems) => {
               return (
                 <div className="  ">
+                  {
+                    load ? (
+                      <div className="product border m-1 ">
+                      <div className="flex justify-between p-2">
+                        <div className="disponible">
+                        <Skeleton width={80}/>
+                        </div>
+                        <div className="">
+                          <Skeleton width={30}/>
+                        </div>
+                      </div>
+                    <div className="flex justify-center items-center">
+                    <Skeleton width={220} height={180}/>
+          
+                    </div>
+                    <div className="product-details p-4">
+                                <div className="info">
+                                 <Skeleton width={100}/>
+                                  <Skeleton width={90}/>
+                                </div>
+                                <div className="div">
+          <Skeleton width={150}/>
+                                </div>
+                               
+                                <div className="price">
+                                  
+                                    <Skeleton width={100}/>
+                                  <Skeleton width={100}/>
+                                 
+                            
+                                </div>
+                                <div className="flex justify-between item-center mt-4">
+                                 <div className="div">
+                                  <Skeleton width={90} height={30}/>
+          
+                                 </div>
+                                 <div className="div">
+                                  <Skeleton width={60} height={30}/>
+                                 </div>
+                                </div>
+                              </div>
+                    </div>
+                    ):(
+
                   <div className="product border m-1 ">
                     <div className="flex justify-between p-2">
                       <p className="disponible">
@@ -156,6 +204,8 @@ function DiscountCard() {
                       </div>
                     </div>
                   </div>
+                    )
+                  }
                 </div>
               );
             })

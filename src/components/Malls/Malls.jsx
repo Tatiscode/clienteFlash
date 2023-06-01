@@ -1,18 +1,23 @@
-import { React ,useState,useEffect} from "react";
-import '../../App.css'
-import {TodoGetApis} from "../../Apis/Apis"
+import { React, useState, useEffect } from "react";
+import "../../App.css";
+import { TodoGetApis } from "../../Apis/Apis";
 import { NavLink, useNavigate } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function Malls() {
-  const [malls, setMalls]= useState([]);
-  const navigate = useNavigate()
+  const [malls, setMalls] = useState([]);
+  const [load, setLoad] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     (async () => {
+      setLoad(true);
       let response = await TodoGetApis.GetMalls();
       setMalls(response.data.rows);
-    })()
-  }, [])
+      setLoad(false);
+    })();
+  }, []);
 
   return (
     <>
@@ -31,27 +36,76 @@ function Malls() {
         </svg>
         <h2 className="text-[25px]  ">Centros Comerciales</h2>
       </div>
-      {malls.length > 0 ? (
-        <div className="flex justify-center items-center gap-6 my-10">
-          {malls.map((x) => (
-            <div className="boxMalls flex flex-col items-center">
-              <div
-                className="imgMalls object-cover"
-                onClick={() => {
-                  navigate(`/OfficialStores/${x.id_admin}/0`);
-                }}
-              >
-                <img src={x.img_admin} alt="" />
-              </div>
-              <h4 className="mt-4 text-gray-700 text-lg">{x.name_admin}</h4>
+      {load  ? (
+        <div className=" flex justify-center items-center gap-6 my-10 ">
+          <div className="boxMalls flex flex-col items-center ">
+            <div className="rounded-full h-full overflow-clip  ">
+              <Skeleton width={140} height={140} count={1} />
             </div>
-          ))}
+            <Skeleton width={100} />
+          </div>
+          <div className="boxMalls flex flex-col items-center">
+            <div className="rounded-full overflow-hidden">
+              <Skeleton width={140} height={140} count={1} />
+            </div>
+            <Skeleton width={100} />
+          </div>
+          <div className="boxMalls flex flex-col items-center">
+            <div className="rounded-full overflow-hidden">
+              <Skeleton width={140} height={140} count={1} />
+            </div>
+            <Skeleton width={100} />
+          </div>
+          <div className="boxMalls flex flex-col items-center">
+            <div className="rounded-full overflow-hidden ">
+              <Skeleton width={140} height={140} count={1} />
+            </div>
+            <Skeleton width={100} />
+          </div>
+          <div className="boxMalls flex flex-col items-center">
+            <div className="rounded-full overflow-hidden">
+              <Skeleton width={140} height={140} count={1} />
+            </div>
+            <Skeleton width={100} />
+          </div>
+          <div className="boxMalls flex flex-col items-center">
+            <div className="rounded-full overflow-hidden">
+              <Skeleton width={140} height={140} count={1} />
+            </div>
+            <Skeleton width={100} />
+          </div>
+          <div className="boxMalls flex flex-col items-center">
+            <div className="rounded-full overflow-hidden">
+              <Skeleton width={140} height={140} count={1} />
+            </div>
+            <Skeleton width={100} />
+          </div>
         </div>
       ) : (
-        <h1>No hay centros comerciales</h1>
+        <>
+          {malls.length > 0 ? (
+            <div className="mallsResponsive  flex justify-center items-center gap-6 my-10">
+              {malls.map((x) => (
+                <div className="boxMalls flex flex-col items-center">
+                  <div
+                    className="imgMalls object-cover"
+                    onClick={() => {
+                      navigate(`/OfficialStores/${x.id_admin}/0`);
+                    }}
+                  >
+                    <img src={x.img_admin} alt="" />
+                  </div>
+                  <h4 className="mt-4 text-gray-700 text-lg">{x.name_admin}</h4>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <h1>No hay centros comerciales</h1>
+          )}
+        </>
       )}
     </>
   );
 }
 
-export default Malls
+export default Malls;

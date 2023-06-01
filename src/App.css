@@ -9,7 +9,7 @@ html {
 }
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #ffffff;
+  background-color: white;
 }
 .background {
   background: #f6f9fc;
@@ -113,6 +113,7 @@ button {
   margin-top: -3rem;
   z-index: 1000;
   position: relative;
+  overflow-x: auto
 }
 .categoryBi {
   background-color: white;
@@ -328,4 +329,26 @@ button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .mallsResponsive{
+    max-width: 480px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .storesResponsive{
+    max-width: 480px;
+    background: yellow;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .stoeeee{
+    background: green;
+    max-width: 480px;
+   
+    display: flex;
+    flex-wrap: wrap;
+
+  }
 }
