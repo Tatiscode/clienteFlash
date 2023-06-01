@@ -47,8 +47,8 @@ const Categories = () => {
        </div>
        
       ) :category.length > 0 ? (
-        <div className="boxBigCategory">
-          <div className="category flex">
+        <div className="boxBigCategory ">
+          <div className="category flex ">
             {category.map((items) => (
               <NavLink to="/SingleCategory">
                 <div className="box f_flex">

@@ -6,7 +6,7 @@ import { CChart } from '@coreui/react-chartjs'
 function GraficaAdmin() {
   return (
    <>
-   <div className="flex">
+   <div className="flex w-[1500px] justify-center">
    <div className="w-[600px] shadow-lg border m-3 rounded-md ">
 
    

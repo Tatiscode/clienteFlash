@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import "./style.css"
+import '../../App.css'
 import TopCart from "./TopCart"
 import { NavLink } from "react-router-dom"
 import { useEffect } from "react"
@@ -28,7 +29,7 @@ const TopCate = () => {
 
            
           </div>
-          <div className="flex z-auto">
+          <div className="flex z-auto bg-pink-600 stoeeee">
             <TopCart />
           </div>
         </div>

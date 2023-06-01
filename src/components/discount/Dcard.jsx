@@ -77,10 +77,10 @@ const DCard = () => {
   return (
     <>
       {
-        load ? (
+        load  ? (
           <>
-<div className=" w-[1400px] flex items-center justify-center">
-          <div className="flex   gap-3">
+<div className=" w-[1700px] flex items-center justify-center ">
+          <div className="flex   gap-20">
           <div className="product border m-1 ">
             <div className="flex justify-between p-2">
               <div className="disponible">

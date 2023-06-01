@@ -37,7 +37,7 @@ function Malls() {
         <h2 className="text-[25px]  ">Centros Comerciales</h2>
       </div>
       {load  ? (
-        <div className="flex justify-center items-center gap-6 my-10 ">
+        <div className=" flex justify-center items-center gap-6 my-10 ">
           <div className="boxMalls flex flex-col items-center ">
             <div className="rounded-full h-full overflow-clip  ">
               <Skeleton width={140} height={140} count={1} />
@@ -84,7 +84,7 @@ function Malls() {
       ) : (
         <>
           {malls.length > 0 ? (
-            <div className="flex justify-center items-center gap-6 my-10">
+            <div className="mallsResponsive  flex justify-center items-center gap-6 my-10">
               {malls.map((x) => (
                 <div className="boxMalls flex flex-col items-center">
                   <div

@@ -38,15 +38,26 @@ const TopCart = () => {
         return (
           <div className="">
             {load  ?(
-                <Skeleton width={20}/>
+               <div className="flex justify-center items-center  my-10 ">
+               
+               <div className="boxMalls   flex flex-col justify-center items-center">
+                 <div className="rounded-full overflow-hidden  m-2">
+                   <Skeleton width={180} height={180}   />
+                 </div>
+                 <div className="flex  ">
+                 <Skeleton width={100} />
+                 </div>
+               </div>
+
+             </div>
             ):(
 
-            <div className="" onClick={() => {
+            <div className="storesResponsive" onClick={() => {
               window.location.href = `/Offers/${value.id_store}`;
             }}>
-              <div className="">
+              <div className="stoeeee">
                 {/* <div className="">{value.location_store}</div> */}
-              </div>
+             
               <div className="homeStoreMalls  p-4 h-[200px] w-[200px] flex items-center justify-center">
                 <div className="rounded-full overflow-hidden">
                   <img
@@ -59,6 +70,7 @@ const TopCart = () => {
               <span className="flex justify-center text-gray-600 font-bold">
                 {value.name_store}
               </span>
+              </div>
             </div>
             )}
           </div>

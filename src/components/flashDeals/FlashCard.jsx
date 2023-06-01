@@ -7,6 +7,8 @@ import Slider from "react-slick"
  import { ToastContainer, toast } from "react-toastify";
  import { useContextShopCar } from "../../Hook/UseContextShop";
 import { useNavigate } from "react-router-dom"
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 // const SampleNextArrow = (props) => {
 //   const { onClick } = props
@@ -34,7 +36,9 @@ const FlashCard = () => {
   const [product, setProduct ] = useState([])
   const [productShop, setProductShop] =useState([])
   const {postProductCar, addCard, getProductCar}=useContextShopCar();
- 
+  
+  const [load, setLoad] = useState(false);
+
   const navigate = useNavigate()
 
   let limite = 12
@@ -42,9 +46,11 @@ const FlashCard = () => {
   let token =localStorage.getItem("token")
   useEffect (()=>{
     (async()=>{
+      setLoad(true)
       const response = await TodoGetApis.GetProduct(limite, code);
       console.log(response);
       setProduct(response.data.rows);
+      setLoad(false)
       
     }
     )()
@@ -109,6 +115,57 @@ const FlashCard = () => {
           {product.map((productItems) => {
             return (
               <div className=" ">
+                {
+                  load  ? (
+
+         
+          
+        
+        
+          <div className="product border m-1 ">
+            <div className="flex justify-between p-2">
+              <div className="disponible">
+              <Skeleton width={80}/>
+              </div>
+              <div className="">
+                <Skeleton width={30}/>
+              </div>
+            </div>
+          <div className="flex justify-center items-center">
+          <Skeleton width={220} height={180}/>
+
+          </div>
+          <div className="product-details p-4">
+                      <div className="info">
+                       <Skeleton width={100}/>
+                        <Skeleton width={90}/>
+                      </div>
+                      <div className="div">
+<Skeleton width={150}/>
+                      </div>
+                     
+                      <div className="price">
+                        
+                          <Skeleton width={100}/>
+                        <Skeleton width={100}/>
+                       
+                  
+                      </div>
+                      <div className="flex justify-between item-center mt-4">
+                       <div className="div">
+                        <Skeleton width={90} height={30}/>
+
+                       </div>
+                       <div className="div">
+                        <Skeleton width={60} height={30}/>
+                       </div>
+                      </div>
+                    </div>
+          </div>
+          
+         
+                  ):(
+
                 <div className="product border m-1 ">
                   <div className="">
                     <p className="disponible">
@@ -185,6 +242,8 @@ const FlashCard = () => {
                     </div>
                   </div>
                 </div>
+                  )
+                }
               </div>
             );
           })}
