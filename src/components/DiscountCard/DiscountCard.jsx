@@ -29,7 +29,7 @@ function DiscountCard() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "light"
       });
     } else {
       let carrito = {
@@ -38,6 +38,9 @@ function DiscountCard() {
         code: data.id_store_product,
         price: data.price_product,
         amount: 1,
+        img: data.img_product,
+        description: data.description_product,
+        discount: data.dicount
       };
       const response = await postProductCar(carrito);
 
@@ -56,6 +59,7 @@ function DiscountCard() {
   return (
     <>
       <ToastContainer />
+      Hola
       <div className="">
         <div className="  grid gap-4 grid-cols-4 grid-rows-3">
           {product.length > 0 ? (

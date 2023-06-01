@@ -309,9 +309,9 @@ export const TodoGetApis = {
   GetProductCustomerStore: async (code) =>
     await axios.get(`${urlServerProducts}/getProductStoreCustomer/${code}`),
 
-  PostBuy: async (data, idProduct) => {
+  PostBuy: async (data, idProduct, price) => {
     await axios.post(
-      `${urlServerBuy}/buy/${idProduct}`,
+      `${urlServerBuy}/buy/${idProduct}/${price}`,
       { data },
       {
         headers: {

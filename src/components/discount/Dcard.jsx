@@ -62,6 +62,7 @@ const DCard = () => {
         amount: 1,
         img: data.img_product,
         description: data.description_product,
+        discount: data.dicount,
       };
       // console.log(carrito);
 

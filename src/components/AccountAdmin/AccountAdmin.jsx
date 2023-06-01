@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
 import swal from "sweetalert2";
 
 function AccountAdmin() {
-  const navigate = useNavigate();
   const [account, setAccount] = useState([]);
   const [stop, setStop] = useState(true);
   const [image, setImage] = useState([]);
@@ -166,7 +164,7 @@ function AccountAdmin() {
                                   setImage(e.target.files[0]);
                                 }}
                               />
-                              <div className="absolute inset-0 m-auto inset-0 w-20  top-[4.8rem] self-end flex justify-end item-end">
+                              <div className="absolute inset-0 m-auto w-20  top-[4.8rem] self-end flex justify-end item-end">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   width="80"

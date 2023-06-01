@@ -72,6 +72,7 @@ function CardProductBig() {
         price: data.price_product,
         img: data.img_product,
         description: data.description_product,
+        discount: data.dicount,
         amount: counter,
       };
       const response = await postProductCar(carrito);

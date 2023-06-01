@@ -56,6 +56,7 @@ const ShopCart = () => {
         amount: 1,
         img: data.img_product,
         description: data.description_product,
+        discount: data.dicount,
       };
       const response = await postProductCar(carrito);
     }

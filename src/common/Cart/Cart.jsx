@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Header from "../header/Header";
-import { ToastContainer, toast } from "react-toastify";
 import { useContextShopCar } from "../../Hook/UseContextShop";
-import { object } from "yup";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert2";
+import Header from "../header/Header";
+// import { object } from "yup";
+import "../../components/Login/user.css";
+import { TodoGetApis } from "../../Apis/Apis";
 
 function Cart() {
-  const [count, setCount] = useState(0);
   const [product, setProduct] = useState([]);
-  const [productShop, setproductShop] = useState([]);
-  const {
-    postProductCar,
-    addCard,
-    getProductCar,
-    deleteProductCar,
-    updateProductCar,
-  } = useContextShopCar();
+  const { addCard, getProductCar, deleteProductCar, updateProductCar } =
+    useContextShopCar();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -22,6 +19,7 @@ function Cart() {
       setProduct(response.data.rows);
     })();
   }, []);
+
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
     currency: "COP",
@@ -40,11 +38,33 @@ function Cart() {
     };
     console.log(id, amount, datas);
     const response = await updateProductCar(id, data, datas);
-    window.location.reload();
+    window.location.reload(false);
   };
 
-  let totalBuy = addCard.reduce((a, b) => a + b.price_product, 0);
-  let totalUnidades = addCard.reduce((a, b) => a + b.amount_Product, 0);
+  const total = 0;
+  const amountP = 0;
+
+  const respons = addCard.map((i) =>
+    i.discount !== 0
+      ? total + (i.price_product * i.discount) / 100
+      : total + i.price_product
+  );
+
+  const amount = addCard.map((i) =>
+    i.amount_Product !== 1
+      ? amountP + i.amount_Product
+      : amountP + i.amount_Product
+  );
+
+  let totalBuy = 0;
+
+  for (let x = 0; x < respons.length; x++) {
+    totalBuy += respons[x] * amount[x];
+  }
+
+  const handdleBuy = async (dataUser) => {
+    const responseApi = await TodoGetApis.PostBuy(dataUser, 0, totalBuy)
+  }
 
   return (
     <>
@@ -56,7 +76,14 @@ function Cart() {
             {addCard.map((i) => (
               <>
                 <div class="justify-between mb-6 relative rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-                  <img className="w-32 rounded-md" src={i.img_producto} />
+                  {i.discount > 0 ? (
+                    <p className="font-bold">{i.discount} % Off</p>
+                  ) : null}
+                  <img
+                    className="w-32 rounded-md"
+                    src={i.img_producto}
+                    alt=""
+                  />
                   <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                     <div class="mt-5 sm:mt-0">
                       <h2 class="text-lg font-bold text-gray-900">
@@ -93,7 +120,24 @@ function Cart() {
                         </span>
                       </div>
                       <div class="flex items-center space-x-4">
-                        <p class="text-sm">{money.format(i.price_product)}</p>
+                        <p class="text-sm">
+                          {i.discount > 0 ? (
+                            <div className="flex flex-col">
+                              <p className="font-bold line-through text-red-600">
+                                {money.format(i.price_product)}
+                              </p>
+                              <p className="text-black bg-red font-bold">
+                                {money.format(
+                                  ((i.price_product * i.discount) / 100 -
+                                    i.price_product) *
+                                    -1
+                                )}
+                              </p>
+                            </div>
+                          ) : (
+                            <p>{money.format(i.price_product)}</p>
+                          )}
+                        </p>
                         <div
                           className="absolute top-2 right-3 bg-gray-100 rounded-full p-1"
                           onClick={() => DeleteProductCar(i.id_product)}
@@ -120,14 +164,15 @@ function Cart() {
               </>
             ))}
           </div>
-
           <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3 sticky top-[5rem]">
             <div class="mb-2 flex justify-between">
               <p class="text-gray-700">Subtotal</p>
               <p class="text-gray-700 flex flex-col">
                 {addCard.map((i) => (
                   <span>
-                    {money.format(i.price_product * i.amount_Product)}
+                    {i.discount !== 0
+                      ? money.format((i.price_product * i.discount) / 100)
+                      : money.format(i.price_product)}
                   </span>
                 ))}
               </p>
@@ -137,12 +182,100 @@ function Cart() {
             <div class="flex justify-between">
               <p class="text-lg font-bold">Total</p>
               <div class="">
-                <p class="mb-1 text-lg font-bold">
-                  {money.format(totalBuy * totalUnidades)}
-                </p>
+                <p class="mb-1 text-lg font-bold">{money.format(totalBuy)}</p>
               </div>
             </div>
-            <button class="pink mx-auto block">Comprar</button>
+            <button
+              class="pink mx-auto block"
+              onClick={() => {
+                swal.fire({
+                  title: "¿Estas seguro de realizar la compra?",
+                  text: "Una vez realizada la compra no se podra cancelar",
+                  html: `
+                    <div className="BuyPart">
+          <h1 className="pb-3 text-2xl font-bold text-gray-700">Compra</h1>
+          <div className="buyyy">
+            <div className="campus">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 16 16"
+              >
+                <g fill="gray">
+                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
+                  <path d="m8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
+                </g>
+              </svg>
+              <input
+                className="input_forms"
+                type="text"
+                name="adress"
+                placeholder="Direccion"
+              />
+            </div>
+            <div className="campus">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  fill="gray"
+                  d="M231.88 175.08A56.26 56.26 0 0 1 176 224C96.6 224 32 159.4 32 80a56.26 56.26 0 0 1 48.92-55.88a16 16 0 0 1 16.62 9.52l21.12 47.15v.12A16 16 0 0 1 117.39 96c-.18.27-.37.52-.57.77L96 121.45c7.49 15.22 23.41 31 38.83 38.51l24.34-20.71a8.12 8.12 0 0 1 .75-.56a16 16 0 0 1 15.17-1.4l.13.06l47.11 21.11a16 16 0 0 1 9.55 16.62Z"
+                />
+              </svg>
+              <input
+                className="input_forms"
+                type="number"
+                name="phone"
+                placeholder="Telefono"
+              />
+            </div>
+            <div className="campus flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 15 15"
+              >
+                <path
+                  fill="gray"
+                  fill-rule="evenodd"
+                  d="M0 3.5A1.5 1.5 0 0 1 1.5 2h12A1.5 1.5 0 0 1 15 3.5v8a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 0 11.5v-8ZM3 6a2 2 0 1 1 4 0a2 2 0 0 1-4 0Zm9 0H9V5h3v1Zm0 3H9V8h3v1ZM5 9a2.927 2.927 0 0 0-2.618 1.618l-.33.658A.5.5 0 0 0 2.5 12h5a.5.5 0 0 0 .447-.724l-.329-.658A2.927 2.927 0 0 0 5 9Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <input
+                className="input_forms"
+                type="text"
+                name="id"
+                placeholder="Identificacion"
+              />
+            </div>
+          </div>
+        </div>
+                  `,
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: "Si, comprar",
+                  cancelButtonText: "No, cancelar",
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  preConfirm: () => {
+                    let data = {
+                      adress: document.getElementsByName("adress")[0].value,
+                      phone: document.getElementsByName("phone")[0].value,
+                      id: document.getElementsByName("id")[0].value,
+                    };
+                    return handdleBuy(data);
+                  },
+                });
+              }}
+            >
+              Comprar
+            </button>
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ function Buy() {
       phone: form.phone,
       id: form.id,
     };
-    const response = await TodoGetApis.PostBuy(datas, idP)
+    const response = await TodoGetApis.PostBuy(datas, idP, 0)
     // if (response.status === 200) {
       
     // }
@@ -73,7 +73,6 @@ function Buy() {
                 }}
               />
             </div>
-
             <div className="campus">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
