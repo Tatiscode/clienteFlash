@@ -77,7 +77,7 @@ const DCard = () => {
   return (
     <>
       {
-        load === false? (
+        load ? (
           <>
 <div className=" w-[1400px] flex items-center justify-center">
           <div className="flex   gap-3">

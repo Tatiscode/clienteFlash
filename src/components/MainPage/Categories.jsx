@@ -19,7 +19,7 @@ const Categories = () => {
 
   return (
     <>
-     {load === false ? ( 
+     {load  ? ( 
        <div className="category flex">
           
        <Skeleton width={95} height={25} count={1}/>

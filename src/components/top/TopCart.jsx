@@ -37,7 +37,7 @@ const TopCart = () => {
       {store.map((value) => {
         return (
           <div className="">
-            {load === false ?(
+            {load  ?(
                 <Skeleton width={20}/>
             ):(
 
