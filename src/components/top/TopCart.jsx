@@ -6,16 +6,21 @@ import Tdata from "./Tdata";
 import { TodoGetApis } from "../../Apis/Apis";
 import "../../App.css";
 import { useParams } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const TopCart = () => {
   const [store, setStores] = useState([]);
+  const [load, setLoad] = useState(false);
   console.log("tiendas", store);
 
   useEffect(() => {
     (async () => {
+      setLoad(true)
       const response = await TodoGetApis.GetStores();
       console.log("respuesta", response);
       setStores(response.data.data);
+      setLoad(false)
     })();
   }, []);
 
@@ -32,6 +37,10 @@ const TopCart = () => {
       {store.map((value) => {
         return (
           <div className="">
+            {load === false ?(
+                <Skeleton width={20}/>
+            ):(
+
             <div className="" onClick={() => {
               window.location.href = `/Offers/${value.id_store}`;
             }}>
@@ -51,6 +60,7 @@ const TopCart = () => {
                 {value.name_store}
               </span>
             </div>
+            )}
           </div>
         );
       })}
