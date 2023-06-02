@@ -14,7 +14,6 @@ function MenuAdmin() {
    useEffect(() => {
     (async () => {
          const response = await TodoGetApis.GetAccountAdmin();
-         console.log(response);
          setAccount(response.data.rows);
     })()
    }, []);

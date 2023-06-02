@@ -68,10 +68,8 @@ const DCard = () => {
         description: data.description_product,
         discount: data.dicount,
       };
-      // console.log(carrito);
 
       const response = await postProductCar(carrito);
-      // console.log(response);
     }
   };
 

@@ -62,9 +62,25 @@ function Cart() {
     totalBuy += respons[x] * amount[x];
   }
 
-  const handdleBuy = async (dataUser) => {
-    const responseApi = await TodoGetApis.PostBuy(dataUser, 0, totalBuy)
-  }
+  // const handdleBuy = async (dataUser) => {
+  //   const responseApi = await TodoGetApis.PostBuy(dataUser, 0, totalBuy)
+
+  //   if (responseApi.status === 200) {
+  //     swal.fire({
+  //       icon: "success",
+  //       title: "Compra realizada con exito",
+  //       showConfirmButton: false,
+  //       timer: 1500,
+  //     });
+  //     navigate("/");
+  //   } else {
+  //     swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: "Algo salio mal, intenta de nuevo",
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -263,13 +279,33 @@ function Cart() {
                   cancelButtonText: "No, cancelar",
                   confirmButtonColor: "#3085d6",
                   cancelButtonColor: "#d33",
-                  preConfirm: () => {
+                  preConfirm: async () => {
                     let data = {
                       adress: document.getElementsByName("adress")[0].value,
                       phone: document.getElementsByName("phone")[0].value,
                       id: document.getElementsByName("id")[0].value,
                     };
-                    return handdleBuy(data);
+                    const responseApi = await TodoGetApis.PostBuy(
+                      data,
+                      0,
+                      totalBuy
+                    );
+                      navigate("/");
+                    console.log(responseApi);
+                    // if (responseApi.status === 200) {
+                    //   swal.fire({
+                    //     icon: "success",
+                    //     title: "Compra realizada con exito",
+                    //     showConfirmButton: false,
+                    //     timer: 1500,
+                    //   });
+                    // } else {
+                    //   swal.fire({
+                    //     icon: "error",
+                    //     title: "Oops...",
+                    //     text: "Algo salio mal, intenta de nuevo",
+                    //   });
+                    // }
                   },
                 });
               }}

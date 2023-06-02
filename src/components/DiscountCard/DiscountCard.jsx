@@ -55,7 +55,6 @@ function DiscountCard() {
       setLoad(true)
       const response = await TodoGetApis.GetProductDiscount();
       setProduct(response.data.data);
-      console.log(response);
       setLoad(false)
     })();
   }, []);

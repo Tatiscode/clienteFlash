@@ -48,7 +48,6 @@ const FlashCard = () => {
     (async()=>{
       setLoad(true)
       const response = await TodoGetApis.GetProduct(limite, code);
-      console.log(response);
       setProduct(response.data.rows);
       setLoad(false)
       
@@ -95,14 +94,11 @@ const FlashCard = () => {
         img: data.img_product,
         description:data.description_product
       };
-      console.log(carrito);
 
       const response = await postProductCar(carrito);
-      console.log(response);
     }
   };
 
- console.log("Imprimir Producto",product );
   return (
     <>
      <ToastContainer />

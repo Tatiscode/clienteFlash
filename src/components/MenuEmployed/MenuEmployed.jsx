@@ -15,7 +15,6 @@ function MenuEmployed() {
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetStore();
-      console.log(response);
       setStore(response.data.data);
     })();
   }, []);
