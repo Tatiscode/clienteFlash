@@ -9,7 +9,7 @@ import { TodoGetApis } from "../../Apis/Apis"
 const TopCate = () => {
   return (
     <>
-      <section className="TopCate background ">
+      <section className="TopCate background bg-white">
         <div className="container">
           <div className="heading d_flex">
             <div className="heading-left row  f_flex">
