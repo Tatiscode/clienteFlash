@@ -62,7 +62,7 @@ function DiscountCard() {
   return (
     <>
       <ToastContainer />
-      Hola
+      
       <div className="">
         <div className="  grid gap-4 grid-cols-4 grid-rows-3">
           {product.length > 0 ? (
@@ -70,7 +70,7 @@ function DiscountCard() {
               return (
                 <div className="  ">
                   {
-                    load ? (
+                    load === false? (
                       <div className="product border m-1 ">
                       <div className="flex justify-between p-2">
                         <div className="disponible">

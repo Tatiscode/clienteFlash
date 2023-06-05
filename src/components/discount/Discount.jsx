@@ -7,7 +7,7 @@ import DCard from "./Dcard";
 const Discount = ({ productItems, addToCart }) => {
   return (
     <>
-      <section className="flash">
+      <section className="flash bg-white">
         <div className="container">
           <div className="heading d_flex">
             <div className="heading-left row  f_flex">

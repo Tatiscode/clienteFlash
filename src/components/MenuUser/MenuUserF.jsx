@@ -93,8 +93,8 @@ function MenuUserF() {
               
 
 
-                  <div class="space-y-2 pt-2">
-                    <button class="px-4 py-3 flex items-center space-x-4 rounded-md text-white-600 group">
+                  <div class="space-y-2 pt-2  h-[600px]  flex items-end">
+                    <button class="px-4 py-3 flex items-center space-x-4 rounded-md text-white-600 group h-[50px]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-6 w-6"

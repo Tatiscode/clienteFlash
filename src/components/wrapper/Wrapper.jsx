@@ -26,11 +26,11 @@ const Wrapper = () => {
   ]
   return (
     <>
-      <section className='   wrapper '>
-        <div className='plus flex '>
+      <section className='   wrapper flex justify-center '>
+        <div className='plus flex gap-20 mb-7'>
           {data.map((val, index) => {
             return (
-              <div className='product' key={index}>
+              <div className='product border shadow-2xl' key={index}>
                 <div className='img icon-circle'>
                   <i>{val.cover}</i>
                 </div>

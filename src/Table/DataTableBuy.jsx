@@ -1,6 +1,11 @@
 import React from "react";
 
 function DataTableBuy(data) {
+    const money = new Intl.NumberFormat("en-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 2,
+    });
   return (
     <>
       <div class="overflow-x-auto">
@@ -35,7 +40,7 @@ function DataTableBuy(data) {
                             </div>
                           </td>
                           <td class="py-3 px-6 text-center">
-                            <span>{x.price_product}</span>
+                            <span>{money.format(x.price_product)}</span>
                           </td>
                           <td class="py-3 px-6 text-center">
                             <span>{x.quantity}</span>
@@ -46,13 +51,13 @@ function DataTableBuy(data) {
                           <td class="py-3 px-6 text-center">
                             {x.dicount !== 0 ? (
                               <span>
-                                {((x.price_product * x.dicount) / 100 -
+                                {money.format(((x.price_product * x.dicount) / 100 -
                                   x.price_product) *
                                   x.quantity *
-                                  -1}
+                                  -1)}
                               </span>
                             ) : (
-                              <span>{x.price_product * x.quantity}</span>
+                              <span>{money.format(x.price_product * x.quantity)}</span>
                             )}
                           </td>
                           <td class="py-3 px-6 text-center">

@@ -16,6 +16,7 @@ function PageBuy() {
   let suggestions = getSuggestions(select);
   const [back, setBack] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
+  let styles = null;
 
   function getSuggestions(data) {
     let options = [];
@@ -29,6 +30,13 @@ function PageBuy() {
 
   const handleSelectChange = (event) => {
     setSelect(event.target.value);
+  };
+
+  const handdlePago = (e) => {
+    if (e.target.value !== null) {
+      setSubTotal(total);
+      setBack(back);
+    }
   };
 
   const money = new Intl.NumberFormat("en-CO", {
@@ -83,6 +91,8 @@ function PageBuy() {
       const responseEmployee = await TodoGetApis.GetEmployee();
       setEmployee(responseEmployee.data.data);
       setProducts(response.data.rows);
+      setSubTotal(total);
+      setBack(back);
     })();
   }, []);
 
@@ -108,8 +118,8 @@ function PageBuy() {
             </div>
           </div>
           <div className="w-[1300px] ml-14 mt-4">
-            <div className="flex w-full items-center bg-black">
-              <div className="flex border border-gray-300 py-2 px-1 w-[300px] ">
+            <div className="flex w-full items-center">
+              <div className="flex border border-gray-300 py-2 px-1 w-[500px] ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
@@ -158,8 +168,8 @@ function PageBuy() {
                   </button>
                 </div>
               </div>
-              <div className="flex  bg-red-600 w-[430px] justify-end right-0">
-                <div className="flex justify-end w-[100px]  items-center">
+              <div className="flex w-full justify-end right-0">
+                <div className="flex justify-end mr-12 w-[100px]  items-center">
                   <button
                     className="pink w-[10px]"
                     onClick={() => {
@@ -205,17 +215,27 @@ function PageBuy() {
                 <input
                   type="number"
                   onChange={(e) => {
-                    setSubTotal(e.target.value);
+                    handdlePago(e);
                   }}
                   placeholder="Ingrese el pago"
                 />
               </div>
             </div>
             <div className="flex justify-center items-center">
-              <label className="text-base">Cambio:</label>
-              <p className="text-base ml-2">
-                {back !== 0 ? back : money.format(0)}
-              </p>
+              {subTotal - back ? (
+                <>
+                  <label className="text-base">Cambio:</label>
+                  <p className={
+                    subTotal - back > 0 ? "text-base ml-2 text-red-500 font-bold" : "text-base ml-2 text-green-500 font-bold"
+                  }>
+                    {money.format(back - subTotal)}
+                  </p>
+                </>
+              ) : (
+                <p className="text-base ml-2 text-green-500 font-bold">
+                  {money.format(0)}
+                </p>
+              )}
             </div>
             <div className=" w-[180px] flex justify-end h-[50px] mr-20">
               <button className="pink">Finalizar venta</button>
