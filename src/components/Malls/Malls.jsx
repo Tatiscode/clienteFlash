@@ -84,9 +84,9 @@ function Malls() {
       ) : (
         <>
           {malls.length > 0 ? (
-            <div className="mallsResponsive  bg-red-500 flex justify-center items-center gap-6 my-10">
+            <div className="mallsResponsive  flex justify-center items-center gap-6 my-10">
               {malls.map((x) => (
-                <div className="boxMalls flex flex-col items-center">
+                <div className="boxMalls flex flex-col items-center ">
                   <div
                     className="imgMalls object-cover"
                     onClick={() => {

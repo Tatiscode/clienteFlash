@@ -29,7 +29,7 @@ const TopCate = () => {
 
            
           </div>
-          <div className="flex z-auto bg-pink-600 stoeeee">
+          <div className="flex z-auto  stoeeee">
             <TopCart />
           </div>
         </div>

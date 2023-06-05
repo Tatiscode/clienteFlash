@@ -41,7 +41,7 @@ const FlashCard = () => {
 
   const navigate = useNavigate()
 
-  let limite = 12
+  let limite = 15
   let code = 0
   let token =localStorage.getItem("token")
   useEffect (()=>{
@@ -62,7 +62,7 @@ const FlashCard = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     // nextArrow: <SampleNextArrow />,
     // prevArrow: <SamplePrevArrow />,
@@ -106,7 +106,7 @@ const FlashCard = () => {
   return (
     <>
      <ToastContainer />
-      <div className=" grid gap-4 grid-cols-4 grid-rows-3">
+      <div className=" grid gap-4 grid-cols-5 grid-rows-3">
         {/* <Slider {...settings}> */}
         
     

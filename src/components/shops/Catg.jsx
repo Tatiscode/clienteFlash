@@ -29,7 +29,7 @@ const Catg = () => {
     <>
       <div className="categoryBi sticky">
         <div className="chead d_flex">
-          <h1>Tiendas </h1>
+          <h1 className="text-5xl font-bold">Tiendas </h1>
         </div>
         {stores.length > 0 ? (
           <>
@@ -41,7 +41,7 @@ const Catg = () => {
                     setIdStore(y.id_store);
                   }}
                 >
-                  <div className="w-[70px] ">
+                  <div className="w-[70px] my-3">
                     <img src={y.img_store} alt="" />
                   </div>
                   <span className="ml-4 font-bold">{y.name_store}</span>

@@ -65,7 +65,7 @@ const ShopCart = () => {
   return (
     <>
       <ToastContainer />
-      <div className="grid gap-4 grid-cols-3 grid-rows-3">
+      <div className="grid gap-4 grid-cols-4 grid-rows-3">
         {products.length > 0 ? (
           <>
             {products.map((productItems) => {
@@ -78,13 +78,18 @@ const ShopCart = () => {
                           ? "Disponible"
                           : "Agotado"}
                       </p>
-                      <p>
-                        {productItems.dicount !== 0 && (
-                          <p>{productItems.dicount + "%"}</p>
-                        )}
-                      </p>
+                        
+                        {productItems.dicount !== 0 ? (
+                          
+                          <p className="bg-pink-500 text-white p-1 px-2 rounded">
+                        
+                        {  productItems.dicount } %
+                          </p>
+
+                        ) : null}
+                    
                     </div>
-                    <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center mt-3">
                       <img
                         className="w-[200px] object-cover"
                         src={productItems.img_product}
@@ -112,7 +117,7 @@ const ShopCart = () => {
                           </h4>
                         ) : (
                           <div className="flex justify-between">
-                            <h4 className="font-bold line-through text-red-600">
+                            <h4 className="font-bold text-sm line-through text-red-600">
                               {money.format(productItems.price_product)}
                             </h4>
                             <h3 className="text-black font-bold">
