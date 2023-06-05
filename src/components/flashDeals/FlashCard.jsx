@@ -116,7 +116,7 @@ const FlashCard = () => {
             return (
               <div className=" ">
                 {
-                  load  ? (
+                  load ? (
 
          
           

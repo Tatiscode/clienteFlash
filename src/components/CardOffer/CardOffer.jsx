@@ -81,7 +81,7 @@ const CardOffer = () => {
             return (
               <div className=" ">
                 {
-                  load   ?(
+                  load   === false?(
                     <div className="product border m-1 ">
                     <div className="flex justify-between p-2">
                       <div className="disponible">
