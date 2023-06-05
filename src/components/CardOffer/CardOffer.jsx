@@ -64,6 +64,9 @@ const CardOffer = () => {
         nameProduct: data.name_product,
         code: data.id_store_product,
         price: data.price_product,
+        img: data.img_product,
+        description: data.description_product,
+        discount: data.dicount,
         amount: 1,
       };
 

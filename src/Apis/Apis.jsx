@@ -327,4 +327,25 @@ export const TodoGetApis = {
         token,
       },
     }),
+
+  BuyStore: async () =>
+    await axios.get(`${urlServerBuy}/buyStore`, {
+      headers: {
+        token,
+      },
+    }),
+
+  BuyCustumer: async () =>
+    await axios.get(`${urlServerBuy}/buyCustomer`, {
+      headers: {
+        token,
+      },
+    }),
+
+  GetEmployee: async () =>
+    await axios.get(`${urlServerUser}/getEmployee`, {
+      headers: {
+        token,
+      },
+    }),
 };

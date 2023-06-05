@@ -46,7 +46,7 @@ function Cart() {
 
   const respons = addCard.map((i) =>
     i.discount !== 0
-      ? total + (i.price_product * i.discount) / 100
+      ? total + ((i.price_product * i.discount) / 100 - i.price_product) * -1
       : total + i.price_product
   );
 
@@ -81,6 +81,10 @@ function Cart() {
   //     });
   //   }
   // };
+  const handdleBuy = async (dataUser) => {
+    const responseApi = await TodoGetApis.PostBuy(dataUser, 0, totalBuy);
+    window.location.reload()
+  }
 
   return (
     <>
@@ -90,6 +94,7 @@ function Cart() {
         <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
           <div class="rounded-lg md:w-2/3">
             {addCard.map((i) => (
+          
               <>
                 <div class="justify-between mb-6 relative rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                   {i.discount > 0 ? (
