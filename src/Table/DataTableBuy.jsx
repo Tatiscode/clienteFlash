@@ -1,6 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 
 function DataTableBuy(data) {
+  const [dataTable, setDataTable] = useState([]);
+  const [dataTable2, setDataTable2] = useState([]);
+
+  const handdleDelete = (data) => {
+    
+  }
+
     const money = new Intl.NumberFormat("en-CO", {
       style: "currency",
       currency: "COP",
@@ -63,7 +70,9 @@ function DataTableBuy(data) {
                           <td class="py-3 px-6 text-center">
                             <div class="flex item-center justify-center">
                               <div class="w-4 mr-2 transform hover:text-red-300 hover:scale-110"></div>
-                              <div class="w-4 mr-2 transform hover:text-red-300 hover:scale-110">
+                              <div class="w-4 mr-2 transform hover:text-red-300 hover:scale-110" onClick={()=> {
+                                handdleDelete(x)
+                              }}>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"

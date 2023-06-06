@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
-import RegisterSales from "../components/FormsEmployed/RegisterSales/RegisterSales";
-import DataTableBuy from "../Table/DataTableBuy";
-import MenuEmployed from "../components/MenuEmployed/MenuEmployed";
 import { ToastContainer, toast } from "react-toastify";
-import "../components/Login/user.css";
+import swal from "sweetalert2";
+
+import MenuEmployed from "../components/MenuEmployed/MenuEmployed";
+import { useContextShopCar } from "../Hook/UseContextShop";
+import DataTableBuy from "../Table/DataTableBuy";
 import { TodoGetApis } from "../Apis/Apis";
+import "../components/Login/user.css";
 
 function PageBuy() {
+  const [subTotal, setSubTotal] = useState(0);
   const [counter, setCounter] = useState(0);
-  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [back, setBack] = useState(0);
   const [select, setSelect] = useState();
   const [dataTable, setDataTable] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [products, setProducts] = useState([]);
   const [employee, setEmployee] = useState([]);
+  const { postProductCar } = useContextShopCar();
   let suggestions = getSuggestions(select);
-  const [back, setBack] = useState(0);
-  const [subTotal, setSubTotal] = useState(0);
-  let styles = null;
 
   function getSuggestions(data) {
     let options = [];
@@ -35,15 +37,9 @@ function PageBuy() {
   const handdlePago = (e) => {
     if (e.target.value !== null) {
       setSubTotal(total);
-      setBack(back);
+      setBack(e.target.value !== null ? parseInt(e.target.value) : parseInt(0));
     }
   };
-
-  const money = new Intl.NumberFormat("en-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 2,
-  });
 
   const addTable = () => {
     let product = products.find((product) => product.id_product == select);
@@ -62,7 +58,7 @@ function PageBuy() {
         setSelect("");
         setDataTable([...dataTable, data]);
       } else {
-        toast.warn("Ingrese una cantidad", {
+        toast.warn("Ingrese una cantidad Valida", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -83,6 +79,146 @@ function PageBuy() {
         theme: "light",
       });
     }
+  };
+
+  const money = new Intl.NumberFormat("en-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 2,
+  });
+  const handdleShopping = () => {
+    if (dataTable.length === 0) {
+      toast.warn("No hay productos en la lista", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    } else if (
+      back - subTotal > 0 ||
+      back - subTotal === 0 ||
+      back - subTotal === -0
+    ) {
+      swal.fire({
+        titel: "Venta en proceso",
+        text: "Espere un momento",
+        html: `
+                    <div className="BuyPart">
+          <h1 className="pb-3 text-2xl font-bold text-gray-700">Compra</h1>
+          <div className="buyyy">
+            <div className="campus">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 16 16"
+              >
+                <g fill="gray">
+                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z" />
+                  <path d="m8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z" />
+                </g>
+              </svg>
+              <input
+                className="input_forms"
+                type="text"
+                name="adress"
+                placeholder="Direccion"
+              />
+            </div>
+            <div className="campus">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  fill="gray"
+                  d="M231.88 175.08A56.26 56.26 0 0 1 176 224C96.6 224 32 159.4 32 80a56.26 56.26 0 0 1 48.92-55.88a16 16 0 0 1 16.62 9.52l21.12 47.15v.12A16 16 0 0 1 117.39 96c-.18.27-.37.52-.57.77L96 121.45c7.49 15.22 23.41 31 38.83 38.51l24.34-20.71a8.12 8.12 0 0 1 .75-.56a16 16 0 0 1 15.17-1.4l.13.06l47.11 21.11a16 16 0 0 1 9.55 16.62Z"
+                />
+              </svg>
+              <input
+                className="input_forms"
+                type="number"
+                name="phone"
+                placeholder="Telefono"
+              />
+            </div>
+            <div className="campus flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 15 15"
+              >
+                <path
+                  fill="gray"
+                  fill-rule="evenodd"
+                  d="M0 3.5A1.5 1.5 0 0 1 1.5 2h12A1.5 1.5 0 0 1 15 3.5v8a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 0 11.5v-8ZM3 6a2 2 0 1 1 4 0a2 2 0 0 1-4 0Zm9 0H9V5h3v1Zm0 3H9V8h3v1ZM5 9a2.927 2.927 0 0 0-2.618 1.618l-.33.658A.5.5 0 0 0 2.5 12h5a.5.5 0 0 0 .447-.724l-.329-.658A2.927 2.927 0 0 0 5 9Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <input
+                className="input_forms"
+                type="text"
+                name="id"
+                placeholder="Identificacion"
+              />
+            </div>
+          </div>
+        </div>`,
+        showCancelButton: true,
+        confirmButtonText: "Efectuar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        preConfirm: async () => {
+          for (let x = 0; x < dataTable.length; x++) {
+            let carrito = {
+              idProduct: dataTable[x].id_product,
+              nameProduct: dataTable[x].name_product,
+              code: dataTable[x].id_store_product,
+              price: dataTable[x].price_product,
+              amount: dataTable[x].quantity,
+              img: dataTable[x].img_product,
+              description: dataTable[x].description_product,
+              discount: dataTable[x].dicount,
+            };
+            const response = await postProductCar(carrito);
+          }
+
+
+          let data = {
+            adress: document.getElementsByName("adress")[0].value,
+            phone: document.getElementsByName("phone")[0].value,
+            id: document.getElementsByName("id")[0].value,
+            total,
+            venta: "presencial",
+            products: dataTable
+          };
+          
+          const responseApi = await TodoGetApis.PostBuy(data, 0, 0);
+        },
+      });
+    } else {
+      toast.warn("Ingrese un pago valido", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    }
+  };
+
+  const handdleDelete = (data) => {
+    setDataTable(dataTable.filter((x) => x.id_product !== data.id_product));
+    setTotal(total - data.total);
   };
 
   useEffect(() => {
@@ -143,29 +279,15 @@ function PageBuy() {
               <label className="ml-7"> Cantidad:</label>
               <div className="ml-4">
                 <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-                  <button
-                    onClick={() => {
-                      if (counter > 0) {
-                        setCounter(counter - 1);
+                  <input
+                    type="number"
+                    placeholder="Ingrese la cantidad"
+                    onChange={(e) => {
+                      if (e.target.value > 0) {
+                        setCounter(e.target.value);
                       }
                     }}
-                    data-action="decrement"
-                    class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-                  >
-                    <span class="m-auto text-2xl font-thin">−</span>
-                  </button>
-                  <div class=" none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center justify-center text-gray-700  outline-none">
-                    {counter}
-                  </div>
-                  <button
-                    onClick={() => {
-                      setCounter(counter + 1);
-                    }}
-                    data-action="increment"
-                    class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-                  >
-                    <span class="m-auto text-2xl font-thin">+</span>
-                  </button>
+                  />
                 </div>
               </div>
               <div className="flex w-full justify-end right-0">
@@ -198,12 +320,151 @@ function PageBuy() {
               </div>
             ) : null}
           </div>
-
           <div className="w-[100%]">
-            <DataTableBuy data={dataTable} />
+            {/* <DataTableBuy data={dataTable} /> */}
+            <div class="overflow-x-auto">
+              <div class="flex justify-center">
+                <div class="w-[1260px]  ">
+                  <div class="bg-white shadow-md rounded my-6 h-[500px]">
+                    <table class="min-w-max w-full table-auto ">
+                      <thead>
+                        <tr class="bg-gray-100 text-gray-500 uppercase text-sm leading-normal">
+                          <th class="py-3 px-6 text-left">Codigo</th>
+                          <th class="py-3 px-6 text-left">Nombre</th>
+                          <th class="py-3 px-6 text-left">Precio unitario</th>
+                          <th class="py-3 px-6 text-center">Cantidad</th>
+                          <th class="py-3 px-6 text-center">Descuento</th>
+                          <th class="py-3 px-6 text-center">Total</th>
+                          <th class="py-3 px-6 text-center">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody class="text-gray-600 text-sm font-light">
+                        {dataTable.length > 0 ? (
+                          <>
+                            {dataTable.map((x) => (
+                              <tr class="border-b border-gray-200 bg-white hover:bg-gray-100 ">
+                                <td class="py-3 px-6 text-left">
+                                  <div class="flex items-center">
+                                    <span class="font-medium">
+                                      {x.id_product}
+                                    </span>
+                                  </div>
+                                </td>
+                                <td class="py-3 px-6 text-left">
+                                  <div class="flex items-center">
+                                    <span>{x.name_product}</span>
+                                  </div>
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                  <span>{money.format(x.price_product)}</span>
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                  <span>{x.quantity}</span>
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                  <span>{x.dicount}</span>
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                  {x.dicount !== 0 ? (
+                                    <span>
+                                      {money.format(
+                                        ((x.price_product * x.dicount) / 100 -
+                                          x.price_product) *
+                                          x.quantity *
+                                          -1
+                                      )}
+                                    </span>
+                                  ) : (
+                                    <span>
+                                      {money.format(
+                                        x.price_product * x.quantity
+                                      )}
+                                    </span>
+                                  )}
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                  <div class="flex item-center justify-center">
+                                    <div class="w-4 mr-2 transform hover:text-red-300 hover:scale-110"></div>
+                                    <div
+                                      class="w-4 mr-2 transform hover:text-red-300 hover:scale-110"
+                                      onClick={() => {
+                                        handdleDelete(x);
+                                      }}
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                        />
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </>
+                        ) : (
+                          <tr class="border-b border-gray-200 bg-white hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left">
+                              <div class="flex items-center">
+                                <span class="font-medium"></span>
+                              </div>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                              <div class="flex items-center">
+                                <span></span>
+                              </div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                              <span></span>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                              <span></span>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                              <span></span>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                              <span></span>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                              <div class="flex item-center justify-center">
+                                <div class="w-4 mr-2 transform hover:text-red-300 hover:scale-110"></div>
+                                <div class="w-4 mr-2 transform hover:text-red-300 hover:scale-110">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                    />
+                                  </svg>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className=" ml-14  px-7 pt-7 flex  w-[1300px] justify-between items-center">
-            <div className="flex items-center justify-center w-[250px] text-base">
+            <div className="flex items-center justify-center w-[300px] text-base flex-nowrap">
               <p className="text-base">Total a pagar:</p>
               <p className="text-base ml-2 font-bold">
                 {total !== 0 ? money.format(total) : money.format(0)}
@@ -225,9 +486,13 @@ function PageBuy() {
               {subTotal - back ? (
                 <>
                   <label className="text-base">Cambio:</label>
-                  <p className={
-                    subTotal - back > 0 ? "text-base ml-2 text-red-500 font-bold" : "text-base ml-2 text-green-500 font-bold"
-                  }>
+                  <p
+                    className={
+                      subTotal - back > 0
+                        ? "text-base ml-2 text-red-500 font-bold"
+                        : "text-base ml-2 text-green-500 font-bold"
+                    }
+                  >
                     {money.format(back - subTotal)}
                   </p>
                 </>
@@ -238,7 +503,14 @@ function PageBuy() {
               )}
             </div>
             <div className=" w-[180px] flex justify-end h-[50px] mr-20">
-              <button className="pink">Finalizar venta</button>
+              <button
+                className="pink"
+                onClick={() => {
+                  handdleShopping();
+                }}
+              >
+                Finalizar venta
+              </button>
             </div>
           </div>
         </div>

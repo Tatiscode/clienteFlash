@@ -1,10 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
 import "./style.css"
 import '../../App.css'
 import TopCart from "./TopCart"
-import { NavLink } from "react-router-dom"
-import { useEffect } from "react"
-import { TodoGetApis } from "../../Apis/Apis"
 
 const TopCate = () => {
   return (
@@ -29,7 +26,7 @@ const TopCate = () => {
 
            
           </div>
-          <div className="flex z-autostoeeee">
+          <div className="flex z-auto  stoeeee">
             <TopCart />
           </div>
         </div>

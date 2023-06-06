@@ -65,7 +65,7 @@ const Search = ({ CartItem }) => {
               <Link to="/cart" className="relative">
                 <span className=" icon-circle2 relative">
                   {addCard.length > 0 ? (
-              <div className="absolute top-0 right-0 text-white bg-green-400 px-2 rounded-full">
+              <div className="absolute top-0 right-0 text-white px-2 rounded-full bg-gradient-to-r from-orange-500 to-pink-500 ">
                 {
                   addCard.length
                 }

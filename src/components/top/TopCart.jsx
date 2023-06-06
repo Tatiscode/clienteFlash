@@ -34,42 +34,43 @@ const TopCart = () => {
       {/* <Slider {...settings}> */}
       {store.map((value) => {
         return (
-          <div className="">
-            {load ? (
-              <div className="flex justify-center items-center  my-10 ">
-                <div className="boxMalls   flex flex-col justify-center items-center">
-                  <div className="rounded-full overflow-hidden  m-2">
-                    <Skeleton width={180} height={180} />
-                  </div>
-                  <div className="flex  ">
-                    <Skeleton width={100} />
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div
-                className="storesResponsive"
-                onClick={() => {
-                  window.location.href = `/Offers/${value.id_store}`;
-                }}
-              >
-                <div className="stoeeee">
-                  {/* <div className="">{value.location_store}</div> */}
+          <div className="my-10">
+            {load  ?(
+               <div className="flex justify-center items-center  my-10 ">
+               
+               <div className="boxMalls   flex flex-col justify-center items-center">
+                 <div className="rounded-full overflow-hidden  m-2">
+                   <Skeleton width={180} height={180}   />
+                 </div>
+                 <div className="flex  ">
+                 <Skeleton width={100} />
+                 </div>
+               </div>
 
-                  <div className="homeStoreMalls  p-4 h-[200px] w-[200px] flex items-center justify-center">
-                    <div className="rounded-full overflow-hidden">
-                      <img
-                        className="h-full w-full object-cover"
-                        src={value.img_store}
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <span className="flex justify-center text-gray-600 font-bold">
-                    {value.name_store}
-                  </span>
+             </div>
+            ):(
+
+            <div className=" w-full gap-6 flex justify-center  pr-7 flex-col items-center" onClick={() => {
+              window.location.href = `/Offers/${value.id_store}`;
+            }}>
+              
+                
+             
+              <div className="">
+                <div className="rounded-full overflow-hidden imgMalls object-cover mb-5 boxShadow">
+                  <img
+                    className=""
+                    src={value.img_store}
+                    alt=""
+                  />
                 </div>
+              
+              <span className="flex justify-center mt-4 text-gray-700 text-lg">
+                {value.name_store}
+              </span>
               </div>
+              </div>
+           
             )}
           </div>
         );

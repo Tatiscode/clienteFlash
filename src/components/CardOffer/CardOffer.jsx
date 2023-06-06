@@ -77,14 +77,14 @@ const CardOffer = () => {
   return (
     <>
       <ToastContainer />
-      <div className="  grid gap-4 grid-cols-4 grid-rows-3">
+      <div className="  grid gap-4 grid-cols-5 grid-rows-3">
         {/* <Slider {...settings}> */}
         {product.length > 0 ? (
           product.map((productItems) => {
             return (
               <div className=" ">
                 {
-                  load   === false?(
+                  load   ?(
                     <div className="product border m-1 ">
                     <div className="flex justify-between p-2">
                       <div className="disponible">

@@ -41,12 +41,12 @@ const FlashCard = () => {
 
   const navigate = useNavigate();
 
-  let limite = 12;
-  let code = 0;
-  let token = localStorage.getItem("token");
-  useEffect(() => {
-    (async () => {
-      setLoad(true);
+  let limite = 15
+  let code = 0
+  let token =localStorage.getItem("token")
+  useEffect (()=>{
+    (async()=>{
+      setLoad(true)
       const response = await TodoGetApis.GetProduct(limite, code);
       setProduct(response.data.rows);
       setLoad(false);
@@ -59,7 +59,7 @@ const FlashCard = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     // nextArrow: <SampleNextArrow />,
     // prevArrow: <SamplePrevArrow />,
@@ -100,7 +100,7 @@ const FlashCard = () => {
 
   return (
     <>
-      <ToastContainer />
+     <ToastContainer />
       <div className=" grid gap-4 grid-cols-4 grid-rows-3">
         {/* <Slider {...settings}> */}
 
