@@ -1,50 +1,75 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CChart } from '@coreui/react-chartjs'
+import { TodoGetApis } from '../Apis/Apis';
+import moment from 'moment-with-locales-es6';
 
 
 
 function GraficaAdmin() {
+  const [buys, setBuys] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await TodoGetApis.GetStoreGrafic();
+      setBuys(response.data.rows);
+      console.log("graficaaaaaaaaaaa",response);
+    })();
+  }, []);
+
+  const getTotal = buys.map(i => i.total)
+  console.log("precio",getTotal);
+
+  const getPrices= buys.map(i=> i.price_product)
+  console.log("total:", getPrices);
+
+  const getNameStore = buys.map(i => i.nombre_tienda)
+  console.log("nombre tienda:", getNameStore);
+
+  const getAmountProduct = buys.map(i=> i.amount_product)
+  console.log(getAmountProduct);
+
+
   return (
    <>
-   <div className="flex w-[1500px] justify-center">
-   <div className="w-[600px] shadow-lg border m-3 rounded-md ">
+   <div className="flex flex-col justify-center">
+   <div className="w-[60rem] mx-auto  shadow-lg border m-3 rounded-md ">
 
    
    <CChart
   type="line" 
   data={{
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: getNameStore,
     datasets: [
       {
-        label: "Movimientos",
+        label: "Ventas",
         backgroundColor: "rgba(220, 220, 220, 0.2)",
         borderColor: "rgba(220, 220, 220, 1)",
         pointBackgroundColor: "rgba(220, 220, 220, 1)",
         pointBorderColor: "#fff",
-        data: [40, 20, 12, 39, 10, 40, 39, 80, 40]
+        data: getTotal
       },
       {
-        label: "Reportes",
+        label: "Precios",
         backgroundColor: "rgba(151, 187, 205, 0.2)",
         borderColor: "rgba(151, 187, 205, 1)",
         pointBackgroundColor: "rgba(151, 187, 205, 1)",
         pointBorderColor: "#fff",
-        data: [50, 12, 28, 29, 7, 25, 12, 70, 60]
+        data: getPrices
       },
     ],
   }}
 />
 </div>
-<div className="w-[600px] shadow-lg border m-3 rounded-md ">
+<div className="w-[60rem] mx-auto shadow-lg border m-3 rounded-md ">
 <CChart
   type="bar"
   data={{
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: getNameStore,
     datasets: [
       {
-        label: 'GitHub Commits',
+        label: 'Productos',
         backgroundColor: '#f87979',
-        data: [40, 20, 12, 39, 10, 40, 39, 80, 40],
+        data: getAmountProduct,
       },
     ],
   }}
