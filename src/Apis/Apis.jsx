@@ -341,5 +341,14 @@ export const TodoGetApis = {
       headers:{
         token,
       }
+    }),
+
+    GetStoreGrafic:async ()=>
+    await axios.get(`${urlServerBuy}/buyStoreGrafic`,{
+      headers:{
+        token,
+      }
     })
+
+    
 };
