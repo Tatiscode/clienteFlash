@@ -151,10 +151,10 @@ export const TodoGetApis = {
       }
     ),
 
-  GetStores: async () =>
-    await axios.get(`${urlServerStores}/consultationStore`),
+  GetStores: async (limit) =>
+    await axios.get(`${urlServerStores}/consultationStore/${limit}`),
 
-  GetMalls: async () => await axios.get(`${urlServerUser}/getSmall`),
+  GetMalls: async (limit) => await axios.get(`${urlServerUser}/getSmall/${limit}`),
 
   getStoresAdmin: async () =>
     await axios.get(`${urlServerStores}/getStoreAdmin`, {

@@ -300,16 +300,16 @@ const DCard = () => {
                         </h3>
                       </div>
                       <div className="flex justify-between item-center mt-4">
-                        <div className="truncate ">
+                        <div className=" ">
                           <span
-                            className="compra pink text-white rounded-md inline-block truncate i"
+                            className="compra pink text-white rounded-md inline-block  i"
                             onClick={() => {
                               navigate(
                                 `/CardProducts/${productItems.id_product}`
                               );
                             }}
                           >
-                            Comprar Ahora
+                            Ver más
                           </span>
                         </div>
                         <div className="">

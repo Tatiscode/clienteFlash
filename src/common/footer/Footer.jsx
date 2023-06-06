@@ -6,35 +6,34 @@ const Footer = () => {
     <>
       <footer>
         <div className='container grid2 '>
-          <div className='box'>
+          <div className='box '>
             <h1>Flash</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor libero id et, in gravida. Sit diam duis mauris nulla cursus. Erat et lectus vel ut sollicitudin elit at amet.</p>
+            <p>Una plataforma web que te ofrece miles de ofertas y servicios de los mejores locales ubicados en los centros comerciales de tu ciudad.</p>
+          </div>
+
+         
+          <div className='box flex items-center justify-center'>
+            <ul>
+              <li>Sena Galan - Centro de Comercio y Turismo</li>
+              <li>Email: 2022.flash.sale@gmail.com</li>
+              <li>Telefono: +1 1123 456 780</li>
+              
+            </ul>
+          </div>
+          <div className='box flex items-center justify-center' >
+            <ul>
+
+              <li>Zharick Bautista</li>
+              <li>Pedro Bermudez</li>
+              <li>Tatiana Barrera</li>
+            </ul>
           </div>
 
           <div className='box'>
             <ul>
-              <li>Careers</li>
-              <li>Our Stores</li>
-              <li>Our Cares</li>
-              <li>Terms & Conditions</li>
-              <li>Privacy Policy</li>
-            </ul>
-          </div>
-          <div className='box'>
-            <ul>
-              <li>Help Center </li>
-              <li>How to Buy </li>
-              <li>Track Your Order </li>
-              <li>Corporate & Bulk Purchasing </li>
-              <li>Returns & Refunds </li>
-            </ul>
-          </div>
-          <div className='box'>
-            <ul>
-              <li>70 Washington Square South, New York, NY 10012, United States </li>
-              <li>Email: uilib.help@gmail.com</li>
-              <li>Phone: +1 1123 456 780</li>
-              <li>zharick bautista</li>
+
+          
+              <li>&copy; FLASH 2023</li>
             </ul>
           </div>
         </div>

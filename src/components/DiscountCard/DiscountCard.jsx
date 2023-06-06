@@ -174,7 +174,7 @@ function DiscountCard() {
                               );
                             }}
                           >
-                            Comprar Ahora
+                            Ver más
                           </span>
                           {/* </NavLink> */}
                         </div>

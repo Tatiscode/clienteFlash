@@ -28,7 +28,7 @@ function UserBefore() {
                 className="closeSection"
                 onClick={() => setIsOpen(!isOpen)}
               >
-                <Link to="/Login">Iniciar Sesión</Link>
+                <Link to="/Login">Iniciar sesión</Link>
               </button>
               <button
                 className="closeSection"

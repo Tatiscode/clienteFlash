@@ -36,7 +36,7 @@ function UserAfter() {
                 <p onClick={ () => setIsOpen(!isOpen)}><Link to='/PageUser'>Mi cuenta</Link></p>
                 
                 </div>
-                <button className='closeSection'  onClick={ () => setIsOpen(!isOpen)}><span  onClick={handdleCloseAccount}>Cerrar Sesion</span></button>
+                <button className='closeSection'  onClick={ () => setIsOpen(!isOpen)}><span  onClick={handdleCloseAccount}>Cerrar sesión</span></button>
             </div> 
             </div>
                 

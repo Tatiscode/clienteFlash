@@ -176,7 +176,7 @@ const CardOffer = () => {
                             );
                           }}
                         >
-                          Comprar Ahora
+                          Ver más
                         </span>
                       </div>
                       <div className="">

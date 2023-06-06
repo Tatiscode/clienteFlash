@@ -6,6 +6,7 @@ const Catg = () => {
   const { code } = useParams();
   const [stores, setStores] = useState([]);
   const [idStore, setIdStore] = useState(0);
+  const [name, setName] = useState ()
 
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const Catg = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (idStore !== 0) {
-        navigate(`/OfficialStores/${code}/${idStore}`);
+        navigate(`/OfficialStores/${code}/${idStore}/${name}`);
       }
     };
     fetchData();
@@ -39,6 +40,9 @@ const Catg = () => {
                   className="flex w-[100%] items-center"
                   onClick={() => {
                     setIdStore(y.id_store);
+                    setName(y.name_store)
+                    
+
                   }}
                 >
                   <div className="w-[70px] my-3">

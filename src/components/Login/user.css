@@ -79,7 +79,7 @@ p{
   width: 30%;
 }
 .pink{
-  width:80% ;
+  width:auto ;
       background: linear-gradient(to left,#FF13CB,#F6761A) ;
       border: none;
       font-size: 15px;
