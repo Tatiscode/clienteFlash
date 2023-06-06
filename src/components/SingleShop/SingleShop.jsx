@@ -20,7 +20,6 @@ function SingleShop() {
     currency: "COP",
     minimumFractionDigits: 2,
   });
-  console.log(products);
   return (
     <>
       {store.length > 0 ? (

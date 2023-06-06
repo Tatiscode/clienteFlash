@@ -72,6 +72,8 @@ import RegisterSales from "./components/FormsEmployed/RegisterSales/RegisterSale
 import PageDiscountAll from "./pages/PageDiscountAll"
 import Buy from "./components/FormBuy/Buy"
 import PageBuy from "./pages/PageBuy"
+import PageAllStore from "./pages/PageAllStore"
+import PageAllMalls from "./pages/PageAllMalls"
 
 
 function App() {
@@ -117,8 +119,9 @@ function App() {
           <Route path="/" element={<Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
           <Route path='/Login' element={<PageLogin />} />
           <Route path='/Register' element={<PageRegister />} />
-          <Route path='/Offers/:code' element={<PageOffer />} />
-          <Route path='/OfficialStores/:code/:idStore' element={<PageStores />}>
+          <Route path='/Offers/:code/:name' element={<PageOffer />} />
+          <Route path='/AllStores' element={<PageAllStore />} />
+          <Route path='/OfficialStores/:code/:idStore/:name' element={<PageStores />}>
             <Route path="tienda" element={<PageStores addToCart={addToCart} shopItems={shopItems} />} />
           </Route>
           <Route path='/NewProducts' element={<PageNewProduct productItems={productItems} addToCart={addToCart} />} />
@@ -183,6 +186,7 @@ function App() {
           <Route path="/DiscountCard" element={<PageDiscountAll />} />
           <Route path="/RegistreSales" element={<PageBuy />} />
           <Route path="/Buy/:idP/:price/:amount" element={<Buy/>}/>
+          <Route path="/AllMalls" element={<PageAllMalls />} />
         </Routes>
       </UseContextShop>
 

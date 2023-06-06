@@ -15,7 +15,6 @@ function MenuEmployed() {
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetStore();
-      console.log(response);
       setStore(response.data.data);
     })();
   }, []);
@@ -127,7 +126,7 @@ function MenuEmployed() {
                         />
                         <path fill="none" d="M0 0h36v36H0z" />
                       </svg>
-                      <span className="pl-4 whitespace-nowrap">Compras Registradas</span>
+                      <span className="pl-4 whitespace-nowrap">Ventas Presenciales</span>
                     </Link>
                   </li>
                   <li>

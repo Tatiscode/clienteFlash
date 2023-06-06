@@ -151,10 +151,10 @@ export const TodoGetApis = {
       }
     ),
 
-  GetStores: async () =>
-    await axios.get(`${urlServerStores}/consultationStore`),
+  GetStores: async (limit) =>
+    await axios.get(`${urlServerStores}/consultationStore/${limit}`),
 
-  GetMalls: async () => await axios.get(`${urlServerUser}/getSmall`),
+  GetMalls: async (limit) => await axios.get(`${urlServerUser}/getSmall/${limit}`),
 
   getStoresAdmin: async () =>
     await axios.get(`${urlServerStores}/getStoreAdmin`, {
@@ -328,17 +328,16 @@ export const TodoGetApis = {
       },
     }),
 
-    BuyStore: async () =>
-    await axios.get(`${urlServerBuy}/buyStore`,{
+  BuyStore: async () =>
+    await axios.get(`${urlServerBuy}/buyStore`, {
       headers: {
         token,
       },
-
     }),
 
-    BuyCustumer: async () =>
-    await axios.get (`${urlServerBuy}/buyCustomer`,{
-      headers:{
+  BuyCustumer: async () =>
+    await axios.get(`${urlServerBuy}/buyCustomer`, {
+      headers: {
         token,
       }
     }),
@@ -347,8 +346,7 @@ export const TodoGetApis = {
     await axios.get(`${urlServerBuy}/buyStoreGrafic`,{
       headers:{
         token,
-      }
-    })
-
-    
+      },
+    }),
 };
+

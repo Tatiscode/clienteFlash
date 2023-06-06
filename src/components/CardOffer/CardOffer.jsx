@@ -64,6 +64,9 @@ const CardOffer = () => {
         nameProduct: data.name_product,
         code: data.id_store_product,
         price: data.price_product,
+        img: data.img_product,
+        description: data.description_product,
+        discount: data.dicount,
         amount: 1,
       };
 
@@ -74,7 +77,7 @@ const CardOffer = () => {
   return (
     <>
       <ToastContainer />
-      <div className="  grid gap-4 grid-cols-4 grid-rows-3">
+      <div className="  grid gap-4 grid-cols-5 grid-rows-3">
         {/* <Slider {...settings}> */}
         {product.length > 0 ? (
           product.map((productItems) => {
@@ -173,7 +176,7 @@ const CardOffer = () => {
                             );
                           }}
                         >
-                          Comprar Ahora
+                          Ver más
                         </span>
                       </div>
                       <div className="">

@@ -29,6 +29,7 @@ function SlideCard() {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
+        <div className="bg-red-200 ">
         <div className="">
           <SwiperSlide className="hadow_slider">
             <div className="relative   w-full flex flex-col">
@@ -68,8 +69,11 @@ function SlideCard() {
             />
             <h1 className="shadow_slider3">.</h1>
           </div>
+          
         </SwiperSlide>
+        </div>
       </Swiper>
+      
     </>
   );
 }

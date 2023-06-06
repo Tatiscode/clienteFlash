@@ -55,7 +55,6 @@ function DiscountCard() {
       setLoad(true)
       const response = await TodoGetApis.GetProductDiscount();
       setProduct(response.data.data);
-      console.log(response);
       setLoad(false)
     })();
   }, []);
@@ -63,15 +62,16 @@ function DiscountCard() {
   return (
     <>
       <ToastContainer />
-      Hola
+      
       <div className="">
-        <div className="  grid gap-4 grid-cols-4 grid-rows-3">
+        <div className="  grid gap-4 grid-cols-5 grid-rows-3">
           {product.length > 0 ? (
             product.map((productItems) => {
               return (
                 <div className="  ">
                   {
-                    load ? (
+                    load 
+                    ? (
                       <div className="product border m-1 ">
                       <div className="flex justify-between p-2">
                         <div className="disponible">
@@ -174,7 +174,7 @@ function DiscountCard() {
                               );
                             }}
                           >
-                            Comprar Ahora
+                            Ver más
                           </span>
                           {/* </NavLink> */}
                         </div>

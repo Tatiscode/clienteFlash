@@ -35,7 +35,7 @@ const DCard = () => {
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
   };
@@ -68,10 +68,8 @@ const DCard = () => {
         description: data.description_product,
         discount: data.dicount,
       };
-      // console.log(carrito);
 
       const response = await postProductCar(carrito);
-      // console.log(response);
     }
   };
 
@@ -80,7 +78,7 @@ const DCard = () => {
       {
         load  ? (
           <>
-<div className=" w-[1700px] flex items-center justify-center ">
+<div className=" w-full  flex items-center justify-center ">
           <div className="flex   gap-20">
           <div className="product border m-1 ">
             <div className="flex justify-between p-2">
@@ -254,7 +252,7 @@ const DCard = () => {
             product.map((productItems) => {
               return (
                 <div className="  ">
-                  <div className="product border m-1 ">
+                  <div className="product border m-1  ">
                     <div className="flex justify-between p-2">
                       <p className="disponible">
                         {productItems.availability_product === "available"
@@ -289,7 +287,7 @@ const DCard = () => {
                         {productItems.description_product}
                       </p>
                       <div className="price ">
-                        <h4 className="font-bold line-through text-red-600">
+                        <h4 className="font-bold line-through text-red-600 text-sm">
                           {money.format(productItems.price_product)}
                         </h4>
                         <h3 className="text-black font-bold">
@@ -302,16 +300,16 @@ const DCard = () => {
                         </h3>
                       </div>
                       <div className="flex justify-between item-center mt-4">
-                        <div className="truncate ">
+                        <div className=" ">
                           <span
-                            className="compra pink text-white rounded-md inline-block truncate i"
+                            className="compra pink text-white rounded-md inline-block  i"
                             onClick={() => {
                               navigate(
                                 `/CardProducts/${productItems.id_product}`
                               );
                             }}
                           >
-                            Comprar Ahora
+                            Ver más
                           </span>
                         </div>
                         <div className="">

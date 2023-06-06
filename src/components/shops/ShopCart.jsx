@@ -3,13 +3,17 @@ import { TodoGetApis } from "../../Apis/Apis";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContextShopCar } from "../../Hook/UseContextShop";
 import { ToastContainer, toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const ShopCart = () => {
-  const { code, idStore } = useParams();
+  const { code, idStore,name } = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [pageReloaded, setPageReloaded] = useState(true);
   const { postProductCar } = useContextShopCar();
+  const [load, setLoad] = useState(false);
+
 
   let token = localStorage.getItem("token");
 
@@ -21,11 +25,14 @@ const ShopCart = () => {
 
   useEffect(() => {
     (async () => {
+      setLoad(true)
       const response = await TodoGetApis.GetProductsStoresMall(
         code,
         parseInt(idStore)
       );
+      const response1 = await TodoGetApis.GetStores(0)
       setProducts(response.data.rows);
+      setLoad(false)
     })();
   }, [code, idStore]);
 
@@ -65,12 +72,17 @@ const ShopCart = () => {
   return (
     <>
       <ToastContainer />
-      <div className="grid gap-4 grid-cols-3 grid-rows-3">
+      <div className="grid gap-4 grid-cols-4 grid-rows-3">
         {products.length > 0 ? (
           <>
             {products.map((productItems) => {
               return (
                 <div className="" key={productItems.id_product}>
+                    {
+                      load ? (
+                        <Skeleton/>
+                      ):(
+
                   <div className="product border m-1">
                     <div className="flex justify-between">
                       <p className="disponible">
@@ -78,13 +90,14 @@ const ShopCart = () => {
                           ? "Disponible"
                           : "Agotado"}
                       </p>
-                      <p>
-                        {productItems.dicount !== 0 && (
-                          <p>{productItems.dicount + "%"}</p>
-                        )}
-                      </p>
+
+                      {productItems.dicount !== 0 ? (
+                        <p className="bg-pink-500 text-white p-1 px-2 rounded">
+                          {productItems.dicount} %
+                        </p>
+                      ) : null}
                     </div>
-                    <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center mt-3">
                       <img
                         className="w-[200px] object-cover"
                         src={productItems.img_product}
@@ -112,7 +125,7 @@ const ShopCart = () => {
                           </h4>
                         ) : (
                           <div className="flex justify-between">
-                            <h4 className="font-bold line-through text-red-600">
+                            <h4 className="font-bold text-sm line-through text-red-600">
                               {money.format(productItems.price_product)}
                             </h4>
                             <h3 className="text-black font-bold">
@@ -165,12 +178,14 @@ const ShopCart = () => {
                       </div>
                     </div>
                   </div>
+                      )
+                    }
                 </div>
               );
             })}
           </>
         ) : (
-          <h1>No hay data</h1>
+          <h1></h1>
         )}
       </div>
     </>

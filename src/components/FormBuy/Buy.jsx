@@ -7,7 +7,6 @@ import "../Login/user.css";
 function Buy() {
   const { idP, price, amount } = useParams();
   const [form, setForm] = useState([]);
-  console.log(form);
 
   const data = async () => {
     const datas = {

@@ -12,15 +12,13 @@ import "react-loading-skeleton/dist/skeleton.css";
 const TopCart = () => {
   const [store, setStores] = useState([]);
   const [load, setLoad] = useState(false);
-  console.log("tiendas", store);
 
   useEffect(() => {
     (async () => {
-      setLoad(true)
-      const response = await TodoGetApis.GetStores();
-      console.log("respuesta", response);
+      setLoad(true);
+      const response = await TodoGetApis.GetStores(10);
       setStores(response.data.data);
-      setLoad(false)
+      setLoad(false);
     })();
   }, []);
 
@@ -36,7 +34,7 @@ const TopCart = () => {
       {/* <Slider {...settings}> */}
       {store.map((value) => {
         return (
-          <div className="">
+          <div className="my-10">
             {load  ?(
                <div className="flex justify-center items-center  my-10 ">
                
@@ -52,26 +50,27 @@ const TopCart = () => {
              </div>
             ):(
 
-            <div className="storesResponsive" onClick={() => {
-              window.location.href = `/Offers/${value.id_store}`;
+            <div className=" w-full gap-6 flex justify-center  pr-7 flex-col items-center" onClick={() => {
+              window.location.href = `/Offers/${value.id_store}/${value.name_store}`;
             }}>
-              <div className="stoeeee">
-                {/* <div className="">{value.location_store}</div> */}
+              
+                
              
-              <div className="homeStoreMalls  p-4 h-[200px] w-[200px] flex items-center justify-center">
-                <div className="rounded-full overflow-hidden">
+              <div className="">
+                <div className="rounded-full overflow-hidden imgMalls object-cover mb-5 boxShadow">
                   <img
-                    className="h-full w-full object-cover"
+                    className=""
                     src={value.img_store}
                     alt=""
                   />
                 </div>
-              </div>
-              <span className="flex justify-center text-gray-600 font-bold">
+              
+              <span className="flex justify-center mt-4 text-gray-700 text-lg">
                 {value.name_store}
               </span>
               </div>
-            </div>
+              </div>
+           
             )}
           </div>
         );

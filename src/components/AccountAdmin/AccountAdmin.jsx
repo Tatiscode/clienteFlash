@@ -13,7 +13,6 @@ function AccountAdmin() {
     const fetchData = async () => {
       if (stop) {
         const response = await TodoGetApis.GetAccountAdmin();
-        console.log(response);
         setAccount(response.data.rows);
         setStop(false);
       }

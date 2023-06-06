@@ -16,7 +16,6 @@ function FormPorfileUser() {
   useEffect(() => {
     (async() => {
       const response = await TodoGetApis.GetAccountCustomer();
-      console.log("11111",response);
       setCustomer(response.data.rows);
     })()
 

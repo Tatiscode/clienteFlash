@@ -46,7 +46,7 @@ function Cart() {
 
   const respons = addCard.map((i) =>
     i.discount !== 0
-      ? total + (i.price_product * i.discount) / 100
+      ? total + ((i.price_product * i.discount) / 100 - i.price_product) * -1
       : total + i.price_product
   );
 
@@ -62,6 +62,25 @@ function Cart() {
     totalBuy += respons[x] * amount[x];
   }
 
+  // const handdleBuy = async (dataUser) => {
+  //   const responseApi = await TodoGetApis.PostBuy(dataUser, 0, totalBuy)
+
+  //   if (responseApi.status === 200) {
+  //     swal.fire({
+  //       icon: "success",
+  //       title: "Compra realizada con exito",
+  //       showConfirmButton: false,
+  //       timer: 1500,
+  //     });
+  //     navigate("/");
+  //   } else {
+  //     swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: "Algo salio mal, intenta de nuevo",
+  //     });
+  //   }
+  // };
   const handdleBuy = async (dataUser) => {
     const responseApi = await TodoGetApis.PostBuy(dataUser, 0, totalBuy);
     window.location.reload()
@@ -71,16 +90,14 @@ function Cart() {
     <>
       <Header />
 
-      <div class="h-screen bg-gray-100 pt-10">
+      <div class="h-screen bg-white pt-10">
         <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
           <div class="rounded-lg md:w-2/3">
             {addCard.map((i) => (
           
               <>
-                <div class="justify-between mb-6 relative rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-                  {i.discount > 0 ? (
-                    <p className="font-bold">{i.discount} % Off</p>
-                  ) : null}
+                <div class="justify-between mb-6 relative rounded-lg  p-6 shadow-2xl border sm:flex sm:justify-start">
+                 
                   <img
                     className="w-32 rounded-md"
                     src={i.img_producto}
@@ -88,15 +105,22 @@ function Cart() {
                   />
                   <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                     <div class="mt-5 sm:mt-0">
-                      <h2 class="text-lg font-bold text-gray-900">
+                     <div className="flex items-center gap-3" >
+                     <h2 class="text-lg font-bold text-gray-900">
                         {i.name_product}
                       </h2>
+                      {i.discount > 0 ? (
+                    <p className="font-bold  text-red-500 text-sm pt-1 ">{i.discount} % Off</p>
+                  ) : null}
+                     </div>
                       <p class="mt-1 text-xs text-gray-700">
                         {i.description_product}
                       </p>
                     </div>
                     <div class="mt-4 flex justify-between im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                      <div class="flex items-center border-gray-100">
+                     
+                      <div class="flex items-center space-x-4 flex-col mt-8">
+                      <div class="flex items-center mt-2 border-gray-100">
                         <span
                           class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500
                          hover:text-blue-50"
@@ -107,7 +131,7 @@ function Cart() {
                           {" "}
                           -{" "}
                         </span>
-                        <div className="h-8 w-8 border bg-white text-center text-xs outline-none ">
+                        <div className="h-8 w-8 border bg-white text-center text-xs outline-none  my-5">
                           <span className="mt-2 block">{i.amount_Product}</span>
                         </div>
 
@@ -121,7 +145,7 @@ function Cart() {
                           +{" "}
                         </span>
                       </div>
-                      <div class="flex items-center space-x-4">
+                      <div className="di">
                         <p class="text-sm">
                           {i.discount > 0 ? (
                             <div className="flex flex-col">
@@ -140,6 +164,7 @@ function Cart() {
                             <p>{money.format(i.price_product)}</p>
                           )}
                         </p>
+                        </div>
                         <div
                           className="absolute top-2 right-3 bg-gray-100 rounded-full p-1"
                           onClick={() => DeleteProductCar(i.id_product)}
@@ -265,13 +290,34 @@ function Cart() {
                   cancelButtonText: "No, cancelar",
                   confirmButtonColor: "#3085d6",
                   cancelButtonColor: "#d33",
-                  preConfirm: () => {
+                  preConfirm: async () => {
                     let data = {
                       adress: document.getElementsByName("adress")[0].value,
                       phone: document.getElementsByName("phone")[0].value,
                       id: document.getElementsByName("id")[0].value,
+                      venta: "virtual"
                     };
-                    return handdleBuy(data);
+                    const responseApi = await TodoGetApis.PostBuy(
+                      data,
+                      0,
+                      totalBuy
+                    );
+                      navigate("/");
+                    console.log(responseApi);
+                    // if (responseApi.status === 200) {
+                    //   swal.fire({
+                    //     icon: "success",
+                    //     title: "Compra realizada con exito",
+                    //     showConfirmButton: false,
+                    //     timer: 1500,
+                    //   });
+                    // } else {
+                    //   swal.fire({
+                    //     icon: "error",
+                    //     title: "Oops...",
+                    //     text: "Algo salio mal, intenta de nuevo",
+                    //   });
+                    // }
                   },
                 });
               }}

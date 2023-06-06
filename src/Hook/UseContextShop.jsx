@@ -10,7 +10,6 @@ export const UseContextShop = ({ children }) => {
   const getProductCar = async () => {
     try {
       const response = await TodoGetApis.GetCar();
-      console.log("jjjj", response);
       setAddCard(response.data.data);
       return response;
     } catch (error) {

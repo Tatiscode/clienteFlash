@@ -206,7 +206,7 @@ function DataTableProducts({ data }) {
   }, []);
   return (
     <div>
-       <div className="flex justify-between  max-w-4xl mx-auto">
+       <div className="flex justify-between  max-w-7xl mx-auto">
         <div className="g">
 
        <h1 className="text-center block p-2 text-3xl text-gray-700 font-bold">Productos</h1>
@@ -231,7 +231,7 @@ function DataTableProducts({ data }) {
       <div
          className="ag-theme-alpine shadow-md mx-auto w-[50%] rounded-md overflow-hidden shadow-lg"
          id="myGrid"
-         style={{ height: 500, width: "92%" }}
+         style={{ height: 800, width: "92%" }}
       >
         <AgGridReact
         ref={gridRef}

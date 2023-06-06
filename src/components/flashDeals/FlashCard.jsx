@@ -1,12 +1,12 @@
-import React, { useState,useEffect } from "react"
-import Slider from "react-slick"
- import "slick-carousel/slick/slick.css"
- import "slick-carousel/slick/slick-theme.css"
- import './style.css'
- import { TodoGetApis } from "../../Apis/Apis"
- import { ToastContainer, toast } from "react-toastify";
- import { useContextShopCar } from "../../Hook/UseContextShop";
-import { useNavigate } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./style.css";
+import { TodoGetApis } from "../../Apis/Apis";
+import { ToastContainer, toast } from "react-toastify";
+import { useContextShopCar } from "../../Hook/UseContextShop";
+import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -32,41 +32,38 @@ import "react-loading-skeleton/dist/skeleton.css";
 //   )
 // }
 const FlashCard = () => {
-  const [count, setCount] = useState(0)
-  const [product, setProduct ] = useState([])
-  const [productShop, setProductShop] =useState([])
-  const {postProductCar, addCard, getProductCar}=useContextShopCar();
-  
+  const [count, setCount] = useState(0);
+  const [product, setProduct] = useState([]);
+  const [productShop, setProductShop] = useState([]);
+  const { postProductCar, addCard, getProductCar } = useContextShopCar();
+
   const [load, setLoad] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  let limite = 12
+  let limite = 15
   let code = 0
   let token =localStorage.getItem("token")
   useEffect (()=>{
     (async()=>{
       setLoad(true)
       const response = await TodoGetApis.GetProduct(limite, code);
-      console.log(response);
       setProduct(response.data.rows);
-      setLoad(false)
-      
-    }
-    )()
-  },[])
+      setLoad(false);
+    })();
+  }, []);
   const increment = () => {
-    setCount(count + 1)
-  }
+    setCount(count + 1);
+  };
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     // nextArrow: <SampleNextArrow />,
     // prevArrow: <SamplePrevArrow />,
-  }
+  };
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
     currency: "COP",
@@ -93,170 +90,163 @@ const FlashCard = () => {
         price: data.price_product,
         amount: 1,
         img: data.img_product,
-        description:data.description_product
+        description: data.description_product,
+        discount: data.dicount,
       };
-      console.log(carrito);
 
       const response = await postProductCar(carrito);
-      console.log(response);
     }
   };
 
- console.log("Imprimir Producto",product );
   return (
     <>
      <ToastContainer />
-      <div className=" grid gap-4 grid-cols-4 grid-rows-3">
+      <div className=" grid gap-4 grid-cols-5 grid-rows-3">
         {/* <Slider {...settings}> */}
-        
-    
-        {  product.length > 0 ? (
+
+        {product.length > 0 ? (
           <>
           {product.map((productItems) => {
             return (
               <div className=" ">
-                {
-                  load  ? (
-
-         
-          
-        
-        
-          <div className="product border m-1 ">
-            <div className="flex justify-between p-2">
-              <div className="disponible">
-              <Skeleton width={80}/>
-              </div>
-              <div className="">
-                <Skeleton width={30}/>
-              </div>
-            </div>
-          <div className="flex justify-center items-center">
-          <Skeleton width={220} height={180}/>
-
-          </div>
-          <div className="product-details p-4">
-                      <div className="info">
-                       <Skeleton width={100}/>
-                        <Skeleton width={90}/>
-                      </div>
-                      <div className="div">
-<Skeleton width={150}/>
-                      </div>
-                     
-                      <div className="price">
-                        
-                          <Skeleton width={100}/>
-                        <Skeleton width={100}/>
-                       
-                  
-                      </div>
-                      <div className="flex justify-between item-center mt-4">
-                       <div className="div">
-                        <Skeleton width={90} height={30}/>
-
-                       </div>
-                       <div className="div">
-                        <Skeleton width={60} height={30}/>
-                       </div>
+                {load ? (
+                  <>
+                    <div className="product border m-1 ">
+                      <div className="flex justify-between p-2">
+                        <div className="disponible">
+                          <Skeleton width={80} />
+                        </div>
+                        <div className="">
+                          <Skeleton width={30} />
+                        </div>
                       </div>
                     </div>
-          </div>
-          
-         
-                  ):(
+                    <div className="flex justify-center items-center">
+                      <Skeleton width={220} height={180} />
+                    </div>
+                    <div className="product-details p-4">
+                      <div className="info">
+                        <Skeleton width={100} />
+                        <Skeleton width={90} />
+                      </div>
+                      <div className="flex justify-center items-center">
+                        <Skeleton width={220} height={180} />
+                      </div>
+                      <div className="product-details p-4">
+                        <div className="info">
+                          <Skeleton width={100} />
+                          <Skeleton width={90} />
+                        </div>
+                        <div className="div">
+                          <Skeleton width={150} />
+                        </div>
 
-                <div className="product border m-1 ">
-                  <div className="">
-                    <p className="disponible">
-                      {productItems.availability_product === "available"
-                        ? "Disponible"
-                        : "No Disponible"}
-                    </p>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <img
-                      className=" w-[200px] object-cover"
-                      src={productItems.img_product}
-                      alt=""
-                    />
-                  </div>
-                  <div className="product-details p-4">
-                    <div className="info">
-                      <h3>{productItems.name_product}</h3>
-                      <p>
-                        {("" + productItems.amount_poduct).replace(
-                          /(\d)(?=(\d\d\d)+(?!\d))/g,
-                          "$1."
-                        )}{" "}
-                        Unidades
+                        <div className="price">
+                          <Skeleton width={100} />
+                          <Skeleton width={100} />
+                        </div>
+                        <div className="flex justify-between item-center mt-4">
+                          <div className="div">
+                            <Skeleton width={90} height={30} />
+                          </div>
+                          <div className="div">
+                            <Skeleton width={60} height={30} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="product border m-1 ">
+                    <div className="">
+                      <p className="disponible">
+                        {productItems.availability_product === "available"
+                          ? "Disponible"
+                          : "No Disponible"}
                       </p>
                     </div>
-                    <p className="truncate">
-                      {productItems.description_product}
-                    </p>
-                    <div className="price">
-                      <h4 className="text-black font-bold">
-                        {money.format(productItems.price_product)}{" "}
-                      </h4>
+                    <div className="flex justify-center items-center">
+                      <img
+                        className=" w-[200px] object-cover"
+                        src={productItems.img_product}
+                        alt=""
+                      />
+                    </div>
+                    <div className="product-details p-4">
+                      <div className="info">
+                        <h3>{productItems.name_product}</h3>
+                        <p>
+                          {("" + productItems.amount_poduct).replace(
+                            /(\d)(?=(\d\d\d)+(?!\d))/g,
+                            "$1."
+                          )}{" "}
+                          Unidades
+                        </p>
+                      </div>
+                      <p className="truncate">
+                        {productItems.description_product}
+                      </p>
+                      <div className="price">
+                        <h4 className="text-black font-bold">
+                          {money.format(productItems.price_product)}{" "}
+                        </h4>
 
-                      {/* step : 3  
+                        {/* step : 3  
                      if hami le button ma click garryo bahne 
                     */}
-                    </div>
-
-                    <div className="flex justify-between item-center mt-4">
-                      <div className="truncate ">
-                        <span
-                          className="text-white compra pink text-white rounded-md inline-block truncate i"
-                          onClick={() => {
-                            navigate(
-                              `/CardProducts/${productItems.id_product}`
-                            );
-                          }}
-                        >
-                          Comprar Ahora
-                        </span>
                       </div>
-                      <div className="">
-                        <button className="bg-gray-100 py-1 px-3  border border-2 rounded-md"
-                        onClick={()=> handdleCarShop(productItems) }>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="30"
-                            height="30"
-                            viewBox="0 0 48 48"
+
+                      <div className="flex justify-between item-center mt-4">
+                        <div className="truncate ">
+                          <span
+                            className="text-white compra pink text-white rounded-md inline-block truncate i"
+                            onClick={() => {
+                              navigate(
+                                `/CardProducts/${productItems.id_product}`
+                              );
+                            }}
                           >
-                            <g fill="none" stroke="#475569" stroke-width="4">
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M5 7h6l7 17h17.5L43 10m-22 2h12m-6-6v12m-9 6l-4 6h26"
-                              />
-                              <circle cx="19" cy="39" r="3" />
-                              <circle cx="35" cy="39" r="3" />
-                            </g>
-                          </svg>
-                        </button>
+                            Ver más
+                          </span>
+                        </div>
+                        <div className="">
+                          <button
+                            className="bg-gray-100 py-1 px-3  border border-2 rounded-md"
+                            onClick={() => handdleCarShop(productItems)}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="30"
+                              height="30"
+                              viewBox="0 0 48 48"
+                            >
+                              <g fill="none" stroke="#475569" stroke-width="4">
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M5 7h6l7 17h17.5L43 10m-22 2h12m-6-6v12m-9 6l-4 6h26"
+                                />
+                                <circle cx="19" cy="39" r="3" />
+                                <circle cx="35" cy="39" r="3" />
+                              </g>
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                  )
-                }
+                )}
               </div>
             );
-          })}
-          {/* </Slider> */}
-        </>
+            })}
+            {/* </Slider> */}
+          </>
         ) : (
           <h1>No hay data</h1>
-        )
-        }
-        
+        )}
       </div>
     </>
   );
-}
+};
 
-export default FlashCard
+export default FlashCard;
