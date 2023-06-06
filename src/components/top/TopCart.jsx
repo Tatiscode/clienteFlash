@@ -16,7 +16,7 @@ const TopCart = () => {
   useEffect(() => {
     (async () => {
       setLoad(true);
-      const response = await TodoGetApis.GetStores();
+      const response = await TodoGetApis.GetStores(10);
       setStores(response.data.data);
       setLoad(false);
     })();
@@ -51,7 +51,7 @@ const TopCart = () => {
             ):(
 
             <div className=" w-full gap-6 flex justify-center  pr-7 flex-col items-center" onClick={() => {
-              window.location.href = `/Offers/${value.id_store}`;
+              window.location.href = `/Offers/${value.id_store}/${value.name_store}`;
             }}>
               
                 

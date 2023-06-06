@@ -3,13 +3,17 @@ import { TodoGetApis } from "../../Apis/Apis";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContextShopCar } from "../../Hook/UseContextShop";
 import { ToastContainer, toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const ShopCart = () => {
-  const { code, idStore } = useParams();
+  const { code, idStore,name } = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [pageReloaded, setPageReloaded] = useState(true);
   const { postProductCar } = useContextShopCar();
+  const [load, setLoad] = useState(false);
+
 
   let token = localStorage.getItem("token");
 
@@ -21,11 +25,14 @@ const ShopCart = () => {
 
   useEffect(() => {
     (async () => {
+      setLoad(true)
       const response = await TodoGetApis.GetProductsStoresMall(
         code,
         parseInt(idStore)
       );
+      const response1 = await TodoGetApis.GetStores(0)
       setProducts(response.data.rows);
+      setLoad(false)
     })();
   }, [code, idStore]);
 
@@ -72,6 +79,11 @@ const ShopCart = () => {
             {products.map((productItems) => {
               return (
                 <div className="" key={productItems.id_product}>
+                    {
+                      load ? (
+                        <Skeleton/>
+                      ):(
+
                   <div className="product border m-1">
                     <div className="flex justify-between">
                       <p className="disponible">
@@ -167,12 +179,14 @@ const ShopCart = () => {
                       </div>
                     </div>
                   </div>
+                      )
+                    }
                 </div>
               );
             })}
           </>
         ) : (
-          <h1>No hay data</h1>
+          <h1></h1>
         )}
       </div>
     </>

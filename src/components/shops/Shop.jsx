@@ -3,8 +3,10 @@ import Catg from "./Catg";
 import ShopCart from "./ShopCart";
 import "./style.css";
 import Pagination from "../Pagination/Pagination";
+import { useParams } from "react-router-dom";
 
 const Shop = () => {
+  const {name}=useParams()
   return (
     <>
       <section className="shop background pt-10">
@@ -12,8 +14,9 @@ const Shop = () => {
           <Catg />
           <div className="contentWidth">
             <div className="heading d_flex">
-              <div className="heading-left row  f_flex my-5 ">
-                <h2 className="text-black text-bold">Te puede gustar</h2>
+              <div className="heading-left  flex flex-col f_flex my-5 ">
+                <p className="text-3xl font-bold mb-3">{name}</p>
+                <h2 className="text-black ">Te puede gustar</h2>
               </div>
             </div>
             <div className="product-content ">

@@ -101,7 +101,7 @@ const FlashCard = () => {
   return (
     <>
      <ToastContainer />
-      <div className=" grid gap-4 grid-cols-4 grid-rows-3">
+      <div className=" grid gap-4 grid-cols-5 grid-rows-3">
         {/* <Slider {...settings}> */}
 
         {product.length > 0 ? (
@@ -206,7 +206,7 @@ const FlashCard = () => {
                               );
                             }}
                           >
-                            Comprar Ahora
+                            Ver más
                           </span>
                         </div>
                         <div className="">
