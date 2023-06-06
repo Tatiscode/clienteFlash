@@ -3,7 +3,6 @@ import { ToastContainer, toast } from "react-toastify";
 import swal from "sweetalert2";
 
 import MenuEmployed from "../components/MenuEmployed/MenuEmployed";
-import { useContextShopCar } from "../Hook/UseContextShop";
 import DataTableBuy from "../Table/DataTableBuy";
 import { TodoGetApis } from "../Apis/Apis";
 import "../components/Login/user.css";
@@ -17,7 +16,6 @@ function PageBuy() {
   const [dataTable, setDataTable] = useState([]);
   const [products, setProducts] = useState([]);
   const [employee, setEmployee] = useState([]);
-  const { postProductCar } = useContextShopCar();
   let suggestions = getSuggestions(select);
 
   function getSuggestions(data) {
@@ -52,6 +50,7 @@ function PageBuy() {
           quantity: counter,
           total: counter * product.price_product,
           dicount: product.dicount,
+          store: product.id_store_product
         };
         setTotal(total + data.total);
         setCounter(0);
@@ -86,6 +85,7 @@ function PageBuy() {
     currency: "COP",
     minimumFractionDigits: 2,
   });
+
   const handdleShopping = () => {
     if (dataTable.length === 0) {
       toast.warn("No hay productos en la lista", {
@@ -176,31 +176,14 @@ function PageBuy() {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         preConfirm: async () => {
-          for (let x = 0; x < dataTable.length; x++) {
-            let carrito = {
-              idProduct: dataTable[x].id_product,
-              nameProduct: dataTable[x].name_product,
-              code: dataTable[x].id_store_product,
-              price: dataTable[x].price_product,
-              amount: dataTable[x].quantity,
-              img: dataTable[x].img_product,
-              description: dataTable[x].description_product,
-              discount: dataTable[x].dicount,
-            };
-            const response = await postProductCar(carrito);
-          }
-
-
           let data = {
             adress: document.getElementsByName("adress")[0].value,
             phone: document.getElementsByName("phone")[0].value,
             id: document.getElementsByName("id")[0].value,
             total,
-            venta: "presencial",
-            products: dataTable
+            venta: "presencial"
           };
-          
-          const responseApi = await TodoGetApis.PostBuy(data, 0, 0);
+          handdleBuy(data);
         },
       });
     } else {
@@ -215,6 +198,33 @@ function PageBuy() {
       });
     }
   };
+
+  const handdleBuy = async (info) => {
+    
+    for (let x = 0; x < dataTable.length; x++) {
+      let data = {
+        emailCustomer: "CompraDirecta@flash.com",
+        idProduct: dataTable[x].id_product,
+        store: dataTable[x].store,
+        price: dataTable[x].price_product,
+        quantity: dataTable[x].quantity,
+        adress: info.adress,
+        phone: info.phone,
+        total,
+        nameCustomer: 'directa',
+        idCustomer: info.id,
+        product: dataTable[x].name_product,
+        venta: 'Directa'
+      };
+      console.log("_____________",data);
+      // const responseApi = await TodoGetApis.PostBuy(data, 0, 0);
+      
+    }
+    setDataTable([]);
+    setTotal(0);
+    setBack(0);
+    setSubTotal(0);
+  }
 
   const handdleDelete = (data) => {
     setDataTable(dataTable.filter((x) => x.id_product !== data.id_product));
