@@ -143,7 +143,7 @@ function App() {
           <Route path='/AccountAdmin' element={<PageAccountAdmin />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/SingleShop' element={<PageSingleShop productItems={productItems} addToCart={addToCart} />} />
-          <Route path='/SingleCategory' element={<CategoryUnitarie productItems={productItems} addToCart={addToCart} />} />
+          <Route path='/SingleCategory/:code/:name' element={<CategoryUnitarie />} />
           <Route path='/Employed' element={<PageEmployed />} />
 
           <Route path='/CreateAdmin' element={<PageCreateAdmin />} />

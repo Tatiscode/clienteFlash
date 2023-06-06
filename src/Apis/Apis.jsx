@@ -154,7 +154,8 @@ export const TodoGetApis = {
   GetStores: async (limit) =>
     await axios.get(`${urlServerStores}/consultationStore/${limit}`),
 
-  GetMalls: async (limit) => await axios.get(`${urlServerUser}/getSmall/${limit}`),
+  GetMalls: async (limit) =>
+    await axios.get(`${urlServerUser}/getSmall/${limit}`),
 
   getStoresAdmin: async () =>
     await axios.get(`${urlServerStores}/getStoreAdmin`, {
@@ -289,6 +290,8 @@ export const TodoGetApis = {
     await axios.get(
       `${urlServerProducts}/productsConsultation/${limit}/${code}`
     ),
+  GetProductCategory: async (code) =>
+    await axios.get(`${urlServerProducts}/getProductCategory/${code}`),
 
   GetProductsStore: async () =>
     await axios.get(`${urlServerProducts}/getProductsStore`, {
