@@ -5,10 +5,10 @@ const Footer = () => {
   return (
     <>
       <footer>
-        <div className='container grid2 '>
+        <div className='container grid2 text-white '>
           <div className='box '>
-            <h1>Flash</h1>
-            <p>Una plataforma web que te ofrece miles de ofertas y servicios de los mejores locales ubicados en los centros comerciales de tu ciudad.</p>
+            <h1 className=' text-white '>Flash</h1>
+            <p className=' text-white '> Una plataforma web que te ofrece miles de ofertas y servicios de los mejores locales ubicados en los centros comerciales de tu ciudad.</p>
           </div>
 
          

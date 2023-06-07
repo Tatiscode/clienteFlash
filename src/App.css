@@ -106,14 +106,15 @@ button {
   background-color: white;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
     rgba(17, 17, 26, 0.05) 0px 8px 32px;
-  width: 65%;
+  width: auto;
+  left: 0;
   margin: auto;
   padding: 15px 0;
   border-radius: 5px;
   margin-top: -3rem;
   z-index: 1000;
   position: relative;
-  overflow-x: auto
+
 }
 .categoryBi {
   background-color: white;
@@ -354,5 +355,5 @@ button {
 }
 input,
 input::placeholder {
-    font: 1.40rem sans-serif;
+    font: 1rem sans-serif;
 }

@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { Link, NavLink, useParams, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { TodoGetApis } from "../../Apis/Apis";
+import Header from "../../common/header/Header";
 
 function CodeRecoverPassword() {
   const { id } = useParams();
@@ -13,6 +14,8 @@ function CodeRecoverPassword() {
   
 
   return (
+    <>
+    <Header/>
     <div className="form-register">
       <ToastContainer />
       <Formik
@@ -78,9 +81,10 @@ function CodeRecoverPassword() {
           }
         }}
       >
-        <Form>
-          <div className="container-flecha">
-            <Link to="/RecoverPassword">
+        <div className="formAll flex">
+          <div className="img border-r-2">
+<div className="container-flecha">
+            <Link to="/">
             <svg
               className="flecha"
               xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +99,11 @@ function CodeRecoverPassword() {
             </svg>
             </Link>
           </div>
-          <h1>Codigo</h1>
+          <img className="w-[500px]" src="https://res.cloudinary.com/anonimous/image/upload/v1686140215/Mobile-login_wosqea.jpg" alt="" />
+</div>
+        <Form className=" w-[40rem] ">
+            <div className="flex flex-col items-center justify-center">
+          <h1 className="pb-3 text-2xl font-bold text-gray-700 mb-6">Codigo</h1>
 
           {/* <div className="campus">
             <span className="icons-forms">
@@ -148,13 +156,15 @@ function CodeRecoverPassword() {
 
             ): (
               
-              <button className="pink">Enviar Codigo</button>
+              <button className="buttonsAll">Enviar Codigo</button>
             )
           }
-
+</div>
         </Form>
+        </div>
       </Formik>
     </div>
+    </>
   );
 }
 

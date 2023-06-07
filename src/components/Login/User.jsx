@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import "./user.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -5,6 +6,7 @@ import * as Yup from "yup";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
 import { ToastContainer, toast } from "react-toastify";
+import Header from "../../common/header/Header";
 
 export default function User() {
   const [loading,setLoading]=useState(false);
@@ -12,6 +14,9 @@ export default function User() {
   
   const [status, setStatus] = useState(false);
   return (
+    <>
+    <Header/>
+ 
     <div className="form-register">
       <ToastContainer />
       <Formik
@@ -85,8 +90,13 @@ export default function User() {
           }
         }}
       >
-        <Form>
-          <div className="container-flecha">
+
+<div className="formAll flex">
+
+
+
+<div className="img border-r-2">
+<div className="container-flecha">
             <Link to="/">
             <svg
               className="flecha"
@@ -102,7 +112,13 @@ export default function User() {
             </svg>
             </Link>
           </div>
-          <h1>Inicio de Sesión</h1>
+          <img className="w-[500px]" src="https://res.cloudinary.com/anonimous/image/upload/v1686140215/Mobile-login_wosqea.jpg" alt="" />
+</div>
+          
+        <Form className=" w-[40rem] ">
+          <div className="flex flex-col items-center justify-center">
+         
+          <h1 className="pb-3 text-2xl font-bold text-gray-700 mb-6">Inicio de sesión</h1>
           <div className="campus">
             <span className="icons-from">
               <svg
@@ -186,20 +202,25 @@ export default function User() {
               
             ):(
 
-              <button className="pink">Iniciar Sesión</button>
+              <button className="buttonsAll">Iniciar sesión</button>
             )
           }
           <NavLink to="/RecoverPassword">
-            <span className="blue pass">¿Olvidaste tu contraseña?</span>
+            <span className="blue pass  text-xl">¿Olvidaste tu contraseña?</span>
           </NavLink>
-          <p>
+          <p className="text-[15px]">
             ¿No tienes una cuenta?{" "}
             <NavLink to="/Register">
               <span className="blue">Registrate</span>
             </NavLink>{" "}
           </p>
+          </div>
         </Form>
+        </div>
       </Formik>
+      
     </div>
+    </>
+   
   );
 }

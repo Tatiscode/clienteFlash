@@ -5,11 +5,15 @@ import * as Yup from "yup";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
 import { ToastContainer, toast } from "react-toastify";
+import Header from "../../common/header/Header";
 
 function RecoverPasword() {
   const navigate = useNavigate();
   const [loading,setLoading]=useState(false);
   return (
+    <>
+    <Header/>
+  
     <div className="form-register1">
       <ToastContainer />
       <Formik
@@ -69,9 +73,14 @@ function RecoverPasword() {
           }
         }}
       >
-        <Form className="form-horizontal"> 
-          <div className="container-flecha">
-            <Link to="/Login">
+
+<div className="formAll flex">
+
+
+
+<div className="img border-r-2">
+<div className="container-flecha">
+            <Link to="/">
             <svg
               className="flecha"
               xmlns="http://www.w3.org/2000/svg"
@@ -86,8 +95,13 @@ function RecoverPasword() {
             </svg>
             </Link>
           </div>
-          <h1>Recuperar Contraseña</h1>
-          <p className="m-2 text-center">Ingrese la dirección de correo electrónico verificada de su cuenta de usuario y le enviaremos un enlace para restablecer la contraseña.</p>
+          <img className="w-[500px]" src="" alt="Image Recover you Password" />
+</div>
+        <Form className=" w-[40rem] "> 
+        <div className="flex flex-col items-center justify-center">
+         
+          <h1 className="pb-3 text-2xl font-bold text-gray-700 mb-4">Recuperar Contraseña</h1>
+          <p className="m-2 text-center text-[15px]">Ingrese la dirección de correo electrónico verificada de su cuenta de usuario y le enviaremos un enlace para restablecer la contraseña.</p>
           <ErrorMessage component="p" name="email" className="error" />
           <div className="campus">
             <span className="icons-from">
@@ -118,15 +132,17 @@ function RecoverPasword() {
              </div>
             ):(
               
-              <button className="pink" style={{ color: "white" }}>
+              <button className="buttonsAll" style={{ color: "white" }}>
                 Enviar
               </button>
               )
           }
-          
+           </div>
         </Form>
+        </div>
       </Formik>
     </div>
+    </>
   );
 }
 

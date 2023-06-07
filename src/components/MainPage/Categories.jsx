@@ -1,8 +1,17 @@
-import React,{useEffect, useState} from "react";
-import { NavLink } from "react-router-dom";
-import { TodoGetApis } from "../../Apis/Apis";
+import React, { useRef, useState,useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { TodoGetApis } from "../../Apis/Apis";
+
+import "./styles.css";
+
+import { Autoplay, Pagination, Navigation } from "swiper";
+
+
 
 const Categories = () => {
   const [category, setCategory]=useState([])
@@ -36,24 +45,47 @@ const Categories = () => {
           <Skeleton width={95} height={25} count={1} />
         </div>
       ) : category.length > 0 ? (
-        <div className="boxBigCategory ">
-          <div className="category flex ">
+        <div className="slider-category max-w-7xl mx-auto shadow-xl border-2 rounded-md mt-[-3rem] mb-6">
+
+        
+        <Swiper
+        slidesPerView={
+          9
+        }
+        spaceBetween={0}
+        centeredSlides={false}
+        autoplay={{
+          delay: 1000,
+          disableOnInteraction: false,
+        }}
+       
+        navigation={false}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper "
+      >
+
             {category.map((items) => (
-              
+              <div >
+
+              <SwiperSlide >
                 <div
-                  className="box f_flex"
+                  className="box f_flex relative  "
                   onClick={()=>{
                     window.location.href =
                       "/SingleCategory/" + items.id_category+"/" + items.name_category;
                   }}
                 >
                   {/* <img src="" alt="" /> */}
-                  <span>{items.name_category}</span>
+                  <span className=" hover:bg-gray-100 p-4 truncate cursor-pointer">{items.name_category}
+                  
+                  </span>
+                  
                 </div>
-            
+                </SwiperSlide>
+              </div>
             ))}
-          </div>
-        </div>
+            </Swiper>
+            </div>
       ) : (
         <h1>No hay categorias</h1>
       )}

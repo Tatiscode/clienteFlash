@@ -59,7 +59,7 @@ import Products from "./components/SubCategorys/Products"
 // import EditCategory from "./components/FormsEmployed/EditCategory/EditCategory"
 import PageEmployed from "./components/MenuEmployed/PageEmployed"
 import CardProductBig from "./components/CardProductBig/CardProductBig"
-// import NewPassword from "./components/NewPassword/NewPassword.jsx"
+import NewPassword from "./components/NewPassword/NewPassword.jsx"
 import PageViewOverAdmin from "./pages/PageViewOverAdmin"
 import FormPorfileUser from "./components/MenuUser/FormPorfileUser"
 import DataTableBuysUser from "./components/MenuUser/DataTableBuysUser"
@@ -177,7 +177,7 @@ function App() {
           <Route path='/DeleteSubcategory' element={<DeleteSubcategory />} />
           <Route path='/SubCategorys' element={<PageSubcategorys />} />
           <Route path='/ProductsCategorys' element={<Products productItems={productItems} addToCart={addToCart} />} />
-          {/* <Route path="/NewPassword/:id" element={<NewPassword />} /> */}
+          <Route path="/NewPassword/:id" element={<NewPassword />} />
           <Route path="/overAdmin" element={<PageViewOverAdmin />} />
 
           <Route path="/PageUser" element={<DasboharUser />} />
