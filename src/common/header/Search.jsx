@@ -6,6 +6,7 @@ import UserAfter from "./UserAfter";
 import UserBefore from "./UserBefore";
 import { useContextShopCar } from "../../Hook/UseContextShop";
 import { TodoGetApis } from "../../Apis/Apis";
+import SearchProduct from "../../components/SearchProduct/SearchProduct";
 
 const Search = ({ CartItem }) => {
   const [stop, setStop] = useState(true);
@@ -25,7 +26,7 @@ const Search = ({ CartItem }) => {
   let getRol = localStorage.getItem("rol");
   return (
     <>
-      <section className="search">
+      <section className="search sticky top-0">
         <div className="container c_flex">
          
           <div className="logo width ">
@@ -38,21 +39,9 @@ const Search = ({ CartItem }) => {
           </div>
          
 
-          <div className="search-box">
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 32 32"
-              >
-                <path
-                  fill="gray"
-                  d="m29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9a9.01 9.01 0 0 1-9-9Z"
-                />
-              </svg>
-            </span>
-            <input type="text" placeholder="Buscar" />
+          <div className="">
+            <SearchProduct/>
+            
           </div>
           
 
