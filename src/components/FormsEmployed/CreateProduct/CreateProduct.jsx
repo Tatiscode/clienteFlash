@@ -9,18 +9,22 @@ import MenuEmployed from "../../MenuEmployed/MenuEmployed";
 
 function CreateProduct() {
   const [category, setCategory] = useState([]);
-  const [id, setId] = useState("");
+  const [id, setId] = useState();
   const [image, setImage] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const response =  await TodoGetApis.getCategoryStore();
+      const response = await TodoGetApis.getCategoryStore();
       setCategory(response.data.data);
     })();
   }, []);
+  console.log("categoria", id);
+  console.log(category);
 
-  
+  const handdleCategory = (evenet) => {
+    setId(evenet.target.value);
+  };
 
   return (
     <>
@@ -36,7 +40,7 @@ function CreateProduct() {
             priceProduct: "",
             imgProduct: "",
             categoryProduct: "",
-            discount:""
+            discount: "",
           }}
           // validationSchema={Yup.object({
           //   nameProduct: Yup.string().required("Campo Obligatorio"),
@@ -50,7 +54,7 @@ function CreateProduct() {
 
           onSubmit={async (values) => {
             setLoading(true);
-            
+
             const data = {
               name: values.nameProduct,
               description: values.descriptionProduct,
@@ -58,15 +62,14 @@ function CreateProduct() {
               amount: values.amountProduct,
               price: values.priceProduct,
               image,
-              category: values.category,
-              discount:values.discount
+              // category: values.category,
+              discount: values.discount,
+              category: id
             };
-
-            alert(values);
 
             try {
               const response = await TodoGetApis.CreateProduct(data);
-              
+
               setLoading(false);
               if (response.status === 200) {
                 toast.success("Producto creado con exito", {
@@ -275,28 +278,21 @@ function CreateProduct() {
                   />
                 </svg>
                 {category.length > 0 ? (
-                  <>
-                    {
-                      <Field
-                        name="categoryProduct"
-                        id="categoryId"
-                        className="input_forms outline-none"
-                        type="text"
-                        placeholder="Categorias"
-                        as="select"
-                      >
-                        {category.map((i) => (
-                          <option
-                            value={i.id_category}
-                            className="bg-gray-200 p-2 m-1 cursor-pointer"
-                            onClick={() => setId(i.id_category)}
-                          >
-                            {i.name_category}
-                          </option>
-                        ))}
-                      </Field>
-                    }
-                  </>
+                  <Field
+                    className="input_forms"
+                    type="text"
+                    name="categoryProduct"
+                    placeholder="Categoria"
+                    as="select"
+                    onChange={handdleCategory}
+                  >
+                    <option value="">Seleccione una categoria</option>
+                    {category.map((items) => (
+                      <option value={items.id_category}>
+                        {items.name_category}
+                      </option>
+                    ))}
+                  </Field>
                 ) : (
                   <h6
                     className="pl-1 truncate whitespaces-nowrap "

@@ -19,43 +19,38 @@ const Categories = () => {
 
   return (
     <>
-     {load  ? ( 
-       <div className="category flex">
-          
-       <Skeleton width={95} height={25} count={1}/>
-       
-       
-       <Skeleton width={95} height={25}count={1}/>
-       
-       
-       <Skeleton width={95} height={25} count={1}/>
-       
-       
-       <Skeleton width={95} height={25} count={1}/>
-       
-       
-       <Skeleton width={95} height={25} count={1}/>
-       
-       
-       <Skeleton width={95} height={25} count={1}/>
-       
-       
-       <Skeleton width={95} height={25}count={1}/>
-       
-      
-       
-       </div>
-       
-      ) :category.length > 0 ? (
+      {load ? (
+        <div className="category flex">
+          <Skeleton width={95} height={25} count={1} />
+
+          <Skeleton width={95} height={25} count={1} />
+
+          <Skeleton width={95} height={25} count={1} />
+
+          <Skeleton width={95} height={25} count={1} />
+
+          <Skeleton width={95} height={25} count={1} />
+
+          <Skeleton width={95} height={25} count={1} />
+
+          <Skeleton width={95} height={25} count={1} />
+        </div>
+      ) : category.length > 0 ? (
         <div className="boxBigCategory ">
           <div className="category flex ">
             {category.map((items) => (
-              <NavLink to="/SingleCategory">
-                <div className="box f_flex">
+              
+                <div
+                  className="box f_flex"
+                  onClick={()=>{
+                    window.location.href =
+                      "/SingleCategory/" + items.id_category+"/" + items.name_category;
+                  }}
+                >
                   {/* <img src="" alt="" /> */}
                   <span>{items.name_category}</span>
                 </div>
-              </NavLink>
+            
             ))}
           </div>
         </div>
