@@ -342,14 +342,19 @@ export const TodoGetApis = {
     await axios.get(`${urlServerBuy}/buyCustomer`, {
       headers: {
         token,
-      }
+      },
     }),
 
-    GetStoreGrafic:async ()=>
-    await axios.get(`${urlServerBuy}/buyStoreGrafic`,{
-      headers:{
+  GetStoreGrafic: async () =>
+    await axios.get(`${urlServerBuy}/buyStoreGrafic`, {
+      headers: {
         token,
       },
     }),
+  GetEmployee: async () => await axios.get(`${urlServerUser}/getEmployee`, {
+    headers: {
+      token,
+    }
+  }),
 };
 

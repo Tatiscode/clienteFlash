@@ -19,6 +19,7 @@ function PageBuy() {
   let suggestions = getSuggestions(select);
 
   function getSuggestions(data) {
+    console.log(products);
     let options = [];
     if (data) {
       options = products.filter((product) =>
@@ -50,7 +51,7 @@ function PageBuy() {
           quantity: counter,
           total: counter * product.price_product,
           dicount: product.dicount,
-          store: product.id_store_product
+          store: product.id_store_product,
         };
         setTotal(total + data.total);
         setCounter(0);
@@ -181,7 +182,7 @@ function PageBuy() {
             phone: document.getElementsByName("phone")[0].value,
             id: document.getElementsByName("id")[0].value,
             total,
-            venta: "presencial"
+            venta: "presencial",
           };
           handdleBuy(data);
         },
@@ -200,7 +201,6 @@ function PageBuy() {
   };
 
   const handdleBuy = async (info) => {
-    
     for (let x = 0; x < dataTable.length; x++) {
       let data = {
         emailCustomer: "CompraDirecta@flash.com",
@@ -211,20 +211,18 @@ function PageBuy() {
         adress: info.adress,
         phone: info.phone,
         total,
-        nameCustomer: 'directa',
+        nameCustomer: "directa",
         idCustomer: info.id,
         product: dataTable[x].name_product,
-        venta: 'Directa'
+        venta: "Directa",
       };
-      console.log("_____________",data);
-      // const responseApi = await TodoGetApis.PostBuy(data, 0, 0);
-      
+      const responseApi = await TodoGetApis.PostBuy(data, 0, 0);
     }
     setDataTable([]);
     setTotal(0);
     setBack(0);
     setSubTotal(0);
-  }
+  };
 
   const handdleDelete = (data) => {
     setDataTable(dataTable.filter((x) => x.id_product !== data.id_product));
