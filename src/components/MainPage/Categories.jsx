@@ -45,36 +45,47 @@ const Categories = () => {
           <Skeleton width={95} height={25} count={1} />
         </div>
       ) : category.length > 0 ? (
+        <div className="slider-category max-w-7xl mx-auto shadow-xl border-2 rounded-md mt-[-3rem] mb-6">
+
+        
         <Swiper
+        slidesPerView={
+          9
+        }
         spaceBetween={0}
-        centeredSlides={true}
+        centeredSlides={false}
         autoplay={{
-          delay: 2500,
+          delay: 1000,
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
+       
+        navigation={false}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
+        className="mySwiper "
       >
 
             {category.map((items) => (
-              <SwiperSlide>
+              <div >
+
+              <SwiperSlide >
                 <div
-                  className="box f_flex"
+                  className="box f_flex relative  "
                   onClick={()=>{
                     window.location.href =
                       "/SingleCategory/" + items.id_category+"/" + items.name_category;
                   }}
                 >
                   {/* <img src="" alt="" /> */}
-                  <span>{items.name_category}</span>
+                  <span className=" hover:bg-gray-100 p-4 truncate cursor-pointer">{items.name_category}
+                  
+                  </span>
+                  
                 </div>
                 </SwiperSlide>
+              </div>
             ))}
             </Swiper>
+            </div>
       ) : (
         <h1>No hay categorias</h1>
       )}
