@@ -18,26 +18,25 @@
   width: 350px;
 
 }
-
-/* Form{
+.formAll{
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-  width: 500px;
-  display: flex;
+  width: max-content;
+
   padding: 30px;
   align-items: center;
-  flex-direction: column;
+  
+  
   inset: 0;
   margin:auto;
   height:fit-content;
   margin-bottom: 8rem;
-  border-radius: 10px; position:absolute;
+  border-radius: 10px; 
+  position:absolute;
   inset: 0;
   margin: auto;
   border: 1px solid #eee;
+}
 
-
-
-} */
 .input_forms{
   margin-left: 10px;
 }
@@ -66,7 +65,7 @@ p{
   padding:10px;
   
   align-items: center;
-  width: 100%;
+  width: 80%;
 
   display: flex;
   
@@ -78,6 +77,17 @@ p{
  
   width: 30%;
 }
+.buttonsAll{
+  width:440px ;
+  background: linear-gradient(to left,#FF13CB,#F6761A) ;
+  border: none;
+  font-size: 17px;
+  padding: 10px;
+  color: aliceblue;
+  margin-bottom: 10px;
+
+}
+
 .pink{
   width:auto ;
       background: linear-gradient(to left,#FF13CB,#F6761A) ;
@@ -91,7 +101,7 @@ p{
 
 .blue{
   color: blue;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .pass{

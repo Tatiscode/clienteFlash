@@ -1,8 +1,17 @@
-import React,{useEffect, useState} from "react";
-import { NavLink } from "react-router-dom";
-import { TodoGetApis } from "../../Apis/Apis";
+import React, { useRef, useState,useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { TodoGetApis } from "../../Apis/Apis";
+
+import "./styles.css";
+
+import { Autoplay, Pagination, Navigation } from "swiper";
+
+
 
 const Categories = () => {
   const [category, setCategory]=useState([])
@@ -36,10 +45,23 @@ const Categories = () => {
           <Skeleton width={95} height={25} count={1} />
         </div>
       ) : category.length > 0 ? (
-        <div className="boxBigCategory ">
-          <div className="category flex ">
+        <Swiper
+        spaceBetween={0}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
+      >
+
             {category.map((items) => (
-              
+              <SwiperSlide>
                 <div
                   className="box f_flex"
                   onClick={()=>{
@@ -50,10 +72,9 @@ const Categories = () => {
                   {/* <img src="" alt="" /> */}
                   <span>{items.name_category}</span>
                 </div>
-            
+                </SwiperSlide>
             ))}
-          </div>
-        </div>
+            </Swiper>
       ) : (
         <h1>No hay categorias</h1>
       )}

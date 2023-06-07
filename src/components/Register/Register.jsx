@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import {TodoGetApis} from '../../Apis/Apis'
+import Header from '../../common/header/Header'
 
 function Register() {
   const [loading, setLoading]=useState(false);
@@ -12,22 +13,24 @@ function Register() {
 
   const navigate = useNavigate()
   return (
+    <>
+    <Header/>
+   
     <div className="form-register">
     
     <Formik 
-     
      initialValues={{
-      nameUser:'',
-      email:'',
-      password:'',
-     }}
+       nameUser:'',
+       email:'',
+       password:'',
+      }}
      validationSchema={Yup.object({
-      nameUser:Yup.string().required('Campo obligatorio') ,
-      email:Yup.string().email('Email no valido').required('Campo obligatorio'),
-      password:Yup.string().required('Campo obligatorio'),
-     })}
+       nameUser:Yup.string().required('Campo obligatorio') ,
+       email:Yup.string().email('Email no valido').required('Campo obligatorio'),
+       password:Yup.string().required('Campo obligatorio'),
+      })}
      onSubmit={async (values)=>{
-      setLoading(true);
+       setLoading(true);
       try {
         const response= await TodoGetApis.CreateCustomer(values)
         setLoading(false);
@@ -43,7 +46,7 @@ function Register() {
           theme: "light",
           });
           setTimeout(()=>{
-
+            
             navigate("/Login")
           },2000)
 
@@ -59,22 +62,37 @@ function Register() {
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
+          });
           }
     
      }}
 
     >
-      <Form>
-        <div className="div">
-          <img src="" alt="" />
-        </div>
-      <div className="container-flecha">
-        <Link to="/">
-      <svg className='flecha' xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="gray" d="m10.875 19.3l-6.6-6.6q-.15-.15-.213-.325T4 12q0-.2.063-.375t.212-.325l6.6-6.6q.275-.275.688-.287t.712.287q.3.275.313.688T12.3 6.1L7.4 11h11.175q.425 0 .713.288t.287.712q0 .425-.287.713t-.713.287H7.4l4.9 4.9q.275.275.288.7t-.288.7q-.275.3-.7.3t-.725-.3Z"/></svg>
-      </Link>
-        </div>
-      <h1>Registrate</h1>
+      
+          <div className="flex formAll">
+      <div className="img border-r-2">
+<div className="container-flecha">
+            <Link to="/">
+            <svg
+              className="flecha"
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="gray"
+                d="m10.875 19.3l-6.6-6.6q-.15-.15-.213-.325T4 12q0-.2.063-.375t.212-.325l6.6-6.6q.275-.275.688-.287t.712.287q.3.275.313.688T12.3 6.1L7.4 11h11.175q.425 0 .713.288t.287.712q0 .425-.287.713t-.713.287H7.4l4.9 4.9q.275.275.288.7t-.288.7q-.275.3-.7.3t-.725-.3Z"
+              />
+            </svg>
+            </Link>
+          </div>
+          <img className="w-[500px]" src="https://res.cloudinary.com/anonimous/image/upload/v1686140215/Mobile-login_wosqea.jpg" alt="" />
+</div>
+      <Form className=" w-[40rem]">
+      <div className="flex flex-col items-center justify-center">
+     
+      <h1 className="pb-3 text-2xl font-bold text-gray-700 mb-6">Registrate</h1>
     <div className="campus">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4Z"/></svg>
         <Field  className='input_forms' type='text' name='nameUser' placeholder='Nombre'  />
@@ -148,17 +166,19 @@ function Register() {
              
             ):(
               
-              <button className='pink' >Registrate</button>
+              <button className='buttonsAll' >Registrate</button>
 
             )
           }
-         <p>¿Ya tienes una cuenta? <NavLink to='/Login'><span className='blue'>Iniciar Sesión</span></NavLink></p>
+         <p className="text-[15px]">¿Ya tienes una cuenta? <NavLink to='/Login'><span className='blue'>Iniciar sesión</span></NavLink></p>
 
-
+         </div>
       </Form>
+      </div>
     </Formik>
    
    </div>
+   </>
 
   )
 }
