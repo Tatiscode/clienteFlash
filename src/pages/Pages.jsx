@@ -11,6 +11,7 @@ import TopCate from "../components/top/TopCate"
 import Footer from "../common/footer/Footer"
 import Malls from "../components/Malls/Malls"
 
+
 const Pages = ({ productItems, addToCart, CartItem, shopItems }) => {
   return (
     <>

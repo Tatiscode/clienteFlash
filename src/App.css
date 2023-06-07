@@ -352,3 +352,7 @@ button {
 
   }
 }
+input,
+input::placeholder {
+    font: 1.40rem sans-serif;
+}

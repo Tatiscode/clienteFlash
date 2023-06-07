@@ -74,6 +74,7 @@ import Buy from "./components/FormBuy/Buy"
 import PageBuy from "./pages/PageBuy"
 import PageAllStore from "./pages/PageAllStore"
 import PageAllMalls from "./pages/PageAllMalls"
+import FilterProduct from "./components/FilterProduct/FilterProduct"
 
 
 function App() {
@@ -132,6 +133,7 @@ function App() {
           <Route path='/Category' element={<CategoryUnitarie />} />
           <Route path='/Account' element={<Account />} />
           {/* <Route path='/CardProduct' element={<CardProduct />} /> */}
+          <Route path="/search" element={<FilterProduct/>}/>
           <Route path='/Admin' element={<PageAdmin />} />
           <Route path='/StoresInfo' element={<PageStoreInfo />} />
           <Route path='/CreateStore' element={<PageCreateStore />} />

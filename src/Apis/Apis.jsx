@@ -83,12 +83,23 @@ export const TodoGetApis = {
     });
   },
 
-  GetCar: async () =>
-    await axios.get(`${urlServerCard}/getCard`, {
+  GetCar: async () =>{
+   try {
+    const response =  await axios.get(`${urlServerCard}/getCard`, {
       headers: {
         token,
       },
-    }),
+      
+    })
+    return response
+   } catch (error) {
+    localStorage.removeItem("token")
+        localStorage.removeItem("rol")
+       
+    
+   }
+  },
+
 
   GetAccountCustomer: async () =>
     await axios.get(`${urlServerUser}/gatDataCustomer`, {
