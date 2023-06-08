@@ -33,8 +33,8 @@ function AccountAdmin() {
       })}
       onSubmit={async (values) => {}}
     >
-      <div className="flex bg-black">
-        <Form>
+      <div className="formAll">
+        <Form className="w-[600px]">
           <div className="flex w-full  items-center ">
             <div className="boxAccount">
               {account.length > 0 ? (

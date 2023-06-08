@@ -29,7 +29,8 @@ function EditStore() {
       })}
       onSubmit={async (values) => {}}
     >
-      <Form className="formRegister w-[650px]">
+      <div className="formAll">
+      <Form className="w-[600px]">
         <div className="flex w-full justify-around ">
           <div className="boxAccount">
             {account.length > 0 ? (
@@ -519,6 +520,7 @@ function EditStore() {
         )} */}
         </div>
       </Form>
+      </div>
     </Formik>
   );
 }
