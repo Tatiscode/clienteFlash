@@ -16,6 +16,7 @@ function Buy() {
       adress: form.adress,
       phone: form.phone,
       id: form.id,
+      venta: "virtual",
     };
     const response = await TodoGetApis.PostBuy(datas, idP, 0)
     // if (response.status === 200) {

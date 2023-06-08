@@ -215,6 +215,7 @@ function PageBuy() {
         idCustomer: info.id,
         product: dataTable[x].name_product,
         venta: "Directa",
+        employee,
       };
       const responseApi = await TodoGetApis.PostBuy(data, 0, 0);
     }
