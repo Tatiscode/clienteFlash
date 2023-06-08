@@ -114,8 +114,11 @@ function CreateMalls() {
             });
           }}
         >
-          <Form>
-            <h1>Crear centro comercial</h1>
+          <div className="formAll">
+          <Form  className=" w-[40rem]">
+          <div className="flex flex-col items-center justify-center">
+     
+            <h1  className="pb-3 text-2xl font-bold text-gray-700 mb-6">Crear centro comercial</h1>
 
             <div className="campus">
               <svg
@@ -168,7 +171,9 @@ function CreateMalls() {
                   onChange={(e) => {setImage(e.target.files[0])}}
                 />
               </div>
-              <div className="icon  w-full z-10 bg-gray-100 inset-0 h-full flex justify-center items-center py-2 border border-gray-300 rounded-sm">
+              <div className="flex w-full   justify-center">
+              <div className="icon w-[80%] z-10 bg-gray-100 inset-0 h-full flex justify-center items-center py-2 border border-gray-300 rounded-sm">
+                
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -236,10 +241,11 @@ function CreateMalls() {
                 </svg>
                 <span>Subir Imagen</span>
               </div>
+              </div>
             </div>
 
             {loading === true ? (
-              <div className="pink flex justify-center">
+              <div className="buttonsAll flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -285,11 +291,13 @@ function CreateMalls() {
                 </svg>
               </div>
             ) : (
-              <button className="pink mt-4" type="submit">
+              <button className="buttonsAll mt-4" type="submit">
                 Crear
               </button>
             )}
+            </div>
           </Form>
+          </div>
         </Formik>
       </div>
     </>

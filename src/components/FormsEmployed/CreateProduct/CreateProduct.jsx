@@ -30,7 +30,7 @@ function CreateProduct() {
     <>
       <ToastContainer />
       <MenuEmployed />
-      <div className="form-register ml-[15%] absolute inset-0 ">
+      <div className="formAll ml-[15%] absolute inset-0 ">
         <Formik
           initialValues={{
             nameProduct: "",
@@ -112,7 +112,8 @@ function CreateProduct() {
             }
           }}
         >
-          <Form className="">
+          <Form className="w-[45rem]">
+          <div className="flex flex-col items-center justify-center">
             <h1 className="pb-3 text-2xl font-bold text-gray-700">
               Crear Producto
             </h1>
@@ -396,7 +397,7 @@ function CreateProduct() {
               />
             </div>
             {loading === true ? (
-              <div className="pink flex justify-center">
+              <div className="buttonsAll flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -442,8 +443,9 @@ function CreateProduct() {
                 </svg>
               </div>
             ) : (
-              <button className="pink">Registrar</button>
+              <button className="buttonsAll">Registrar</button>
             )}
+            </div>
           </Form>
         </Formik>
       </div>
