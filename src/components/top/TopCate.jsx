@@ -10,26 +10,29 @@ const TopCate = () => {
     <>
       <section className="TopCate background bg-white">
         <div className="container">
-        <div className="heading d_flex">
-            <div className="heading-left row  f_flex">
+          <div className="heading d_flex">
+            <div className="heading-left row flex items-center f_flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="30"
-                viewBox="0 0 32 32"
+                viewBox="0 0 24 24"
               >
                 <path
                   fill="gray"
-                  d="M11.61 29.92a1 1 0 0 1-.6-1.07L12.83 17H8a1 1 0 0 1-1-1.23l3-13A1 1 0 0 1 11 2h10a1 1 0 0 1 .78.37a1 1 0 0 1 .2.85L20.25 11H25a1 1 0 0 1 .9.56a1 1 0 0 1-.11 1l-13 17A1 1 0 0 1 12 30a1.09 1.09 0 0 1-.39-.08Z"
+                  d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"
                 />
               </svg>
               <h2>Tiendas Oficiales</h2>
             </div>
-            <div className="container-see " onClick={()=>{
-  window.location.href = "/AllStores"
-            }}>
+            <div
+              className="container-see "
+              onClick={() => {
+                window.location.href = "/AllStores";
+              }}
+            >
               {/* <NavLink to="/AllStore"> */}
-                <span>Ver Todas </span>
+              <span>Ver Todas </span>
               {/* </NavLink> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"

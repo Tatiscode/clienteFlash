@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FilterCategory from "../FilterCtegory/FilterCategory";
-import CardOffer from "../CardOffer/CardOffer";
 import Header from "../../common/header/Header";
-import Footer from "../../common/footer/Footer";
-import Pagination from "../Pagination/Pagination";
 import { TodoGetApis } from "../../Apis/Apis";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContextShopCar } from "../../Hook/UseContextShop";
@@ -55,10 +51,8 @@ function CategoryUnitarie() {
     (async () => {
       let response = await TodoGetApis.GetProductCategory(code);
       setCategory(response.data.rows);
-      // console.log("respuesta", response);
     })();
   }, [code]);
-  console.log("------------hj---", category);
   return (
     <>
       <ToastContainer />
@@ -155,7 +149,7 @@ function CategoryUnitarie() {
                                   (categoryProduct.price_product *
                                     categoryProduct.dicount) /
                                     100 -
-                                    categoryProduct.price_product *-1
+                                    categoryProduct.price_product * -1
                                 )}
                               </h3>
                             </div>

@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../../components/Login/user.css"
+import "../../components/Login/user.css";
+import { TodoGetApis } from "../../Apis/Apis";
 
 function MenuUserF() {
   const navigate = useNavigate();
+  const [customer, setCustomer] = useState([]);
+
   let handdleCloseAccount = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
     navigate("/");
   };
+  useEffect(() => {
+    (async () => {
+      const response = await TodoGetApis.GetAccountCustomer();
+      setCustomer(response.data.rows);
+      console.log(response);
+    })();
+  }, []);
   return (
     <div>
       <div class="">
@@ -22,19 +32,27 @@ function MenuUserF() {
             <div class=" scroll-beheavior flex-1 flex flex-col pt-5 pb-4 ">
               <div class="flex-1 px-3 bg-white divide-y space-y-1">
                 <div class="space-y-2 pb-2">
-                  <div class="mt-8 text-center">
-                    <img
-                      src="https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp"
-                      alt=""
-                      class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
-                    />
-                    <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">
-                     Pedro Bermudez
-                    </h5>
-                    <span class="hidden text-gray-400 lg:block">Usuario</span>
-                  </div>
+                  {customer.length > 0 ? (
+                    customer.map((items) => (
+                      <div class="mt-8 text-center">
+                        <img
+                          src={items.img_customer}
+                          alt=""
+                          class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
+                        />
+                        <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">
+                          {items.name_customer}
+                        </h5>
+                        <span class="hidden text-gray-400 lg:block">
+                          Usuario
+                        </span>
+                      </div>
+                    ))
+                  ) : (
+                    <h1>No hay data</h1>
+                  )}
                   <li>
-                    <Link 
+                    <Link
                       className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
                       hover:text-white 
                       hover:rounded-full duration-300
@@ -85,13 +103,6 @@ function MenuUserF() {
                       <span className="pl-4">Compras</span>
                     </Link>
                   </li>
-
-                 
-
-                 
-
-              
-
 
                   <div class="space-y-2 pt-2  h-[600px]  flex items-end">
                     <button class="px-4 py-3 flex items-center space-x-4 rounded-md text-white-600 group h-[50px]">

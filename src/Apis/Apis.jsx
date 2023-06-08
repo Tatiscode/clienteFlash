@@ -83,23 +83,19 @@ export const TodoGetApis = {
     });
   },
 
-  GetCar: async () =>{
-   try {
-    const response =  await axios.get(`${urlServerCard}/getCard`, {
-      headers: {
-        token,
-      },
-      
-    })
-    return response
-   } catch (error) {
-    localStorage.removeItem("token")
-        localStorage.removeItem("rol")
-       
-    
-   }
+  GetCar: async () => {
+    try {
+      const response = await axios.get(`${urlServerCard}/getCard`, {
+        headers: {
+          token,
+        },
+      });
+      return response;
+    } catch (error) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("rol");
+    }
   },
-
 
   GetAccountCustomer: async () =>
     await axios.get(`${urlServerUser}/gatDataCustomer`, {
@@ -362,9 +358,20 @@ export const TodoGetApis = {
         token,
       },
     }),
-  GetEmployee: async () => await axios.get(`${urlServerUser}/getEmployee`, {
-    headers: {
-      token,
+  GetEmployee: async () =>
+    await axios.get(`${urlServerUser}/getEmployee`, {
+      headers: {
+        token,
+      },
+    }),
+  GetOrder: async (code, x) => await axios.get(`${urlServerStores}/getBuysStore/${code}/${x}`,{
+    headers:{
+      token
+    }
+  }),
+  checkBuy : async(code) => await axios.put(`${urlServerStores}/updateCheck/${code}`,{
+    headers:{
+      token
     }
   }),
 };

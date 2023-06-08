@@ -19,8 +19,6 @@ function CreateProduct() {
       setCategory(response.data.data);
     })();
   }, []);
-  console.log("categoria", id);
-  console.log(category);
 
   const handdleCategory = (evenet) => {
     setId(evenet.target.value);

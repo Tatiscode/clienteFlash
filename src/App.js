@@ -75,6 +75,7 @@ import PageBuy from "./pages/PageBuy"
 import PageAllStore from "./pages/PageAllStore"
 import PageAllMalls from "./pages/PageAllMalls"
 import FilterProduct from "./components/FilterProduct/FilterProduct"
+import PageOrders from "./pages/PageOrders"
 
 
 function App() {
@@ -189,6 +190,7 @@ function App() {
           <Route path="/RegistreSales" element={<PageBuy />} />
           <Route path="/Buy/:idP/:price/:amount" element={<Buy/>}/>
           <Route path="/AllMalls" element={<PageAllMalls />} />
+          <Route path="/MyOrders/:code" element={<PageOrders/>}/>
         </Routes>
       </UseContextShop>
 

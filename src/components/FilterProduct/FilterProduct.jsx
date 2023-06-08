@@ -65,7 +65,6 @@ export default function FilterProduct() {
    let searchValue = q
     const filterProduct= productFilter.filter((items)=>
      items.name_product.toLowerCase().includes(searchValue.toLowerCase()))
-     console.log("fffff",filterProduct);
 
 
   return (
