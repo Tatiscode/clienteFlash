@@ -1,12 +1,15 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-import "ag-grid-enterprise";
+
 import { AgGridReact } from "ag-grid-react";
 import swal from "sweetalert2";
-import { TodoGetApis } from "../Apis/Apis";
-import { useNavigate } from "react-router-dom";
+
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-enterprise";
+
 import MenuSuperAdmin from "../MenuSuperAmin/MenuSuperAdmin";
+import { TodoGetApis } from "../Apis/Apis";
+
 const ImageRenderer = (props) => {
   const handdleImg = () => {
     swal.fire({
@@ -24,12 +27,11 @@ const ImageRenderer = (props) => {
   return (
     <div className="h-[10rem]">
       <span onClick={handdleImg}>Ver imagen</span>
-      {/* <img src={props.value} className="   cover" alt="t" height={300} /> */}
     </div>
   );
 };
+
 function Options(e) {
-  const navigate = useNavigate();
   const handleDelete = () => {
     let data = JSON.stringify(e.data.id_store);
     swal
@@ -82,9 +84,8 @@ function DataTableMalls() {
       setMall(response.data.rows);
     })();
   }, []);
-  
 
-  const [column, setColumn] = useState([
+  const [column] = useState([
     {
       headerName: "Centro Comercial",
       field: "name_admin",
@@ -120,7 +121,7 @@ function DataTableMalls() {
   }, []);
   return (
     <>
-      <MenuSuperAdmin />  
+      <MenuSuperAdmin />
       <div>
         <div className="flex   max-w-5xl mx-auto mt-5 justify-between">
           <div className="g">
@@ -156,11 +157,10 @@ function DataTableMalls() {
           </div>
         </div>
 
-        {/* {data.length > 0 ? ( */}
         <div
-          className="ag-theme-alpine shadow-md mx-auto w-[50%] rounded-md overflow-hidden shadow-lg"
+          className="ag-theme-alpine shadow-md mx-auto w-[50%] rounded-md overflow-hidden "
           id="myGrid"
-          style={{ height: '800px', width: '63%' }}
+          style={{ height: "800px", width: "63%" }}
         >
           <AgGridReact
             ref={gridRef}

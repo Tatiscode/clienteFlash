@@ -1,14 +1,15 @@
+import {  useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+
 import MenuAdmin from "../components/MenuAdmin/MenuAdmin";
-import { useParams, useNavigate } from "react-router-dom";
-import { TodoGetApis } from "../Apis/Apis";
 import DataTableStore from "../Table/DataTableStore";
+import { TodoGetApis } from "../Apis/Apis";
 
 function PageStoreInfo() {
   const navigate = useNavigate();
   const [store, setStores] = useState([false]);
-  const [modalDelete, setModalIsDelete] = useState([]);
-  const [dataColumn, setDataColumn] = useState([]);
+  const [modalDelete] = useState([]);
+  const [dataColumn] = useState([]);
 
   if (modalDelete === true) {
     let codeStore = dataColumn.id_store;

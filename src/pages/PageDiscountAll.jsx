@@ -1,7 +1,8 @@
-import React from 'react'
-import Header from '../common/header/Header';
-import Footer from '../common/footer/Footer';
-import DiscountCard from '../components/DiscountCard/DiscountCard';
+import React from "react";
+
+import DiscountCard from "../components/DiscountCard/DiscountCard";
+import Header from "../common/header/Header";
+import Footer from "../common/footer/Footer";
 
 function PageDiscountAll() {
   return (
@@ -12,13 +13,12 @@ function PageDiscountAll() {
           <h1>Grandes Descuentos</h1>
         </div>
         <div className="pageOffersWith1">
-          <DiscountCard  />
+          <DiscountCard />
         </div>
-        {/* <Pagination/> */}
       </div>
       <Footer />
     </>
   );
 }
 
-export default PageDiscountAll
+export default PageDiscountAll;

@@ -1,24 +1,20 @@
-import { useContextShopCar } from "../../Hook/UseContextShop";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import swal from "sweetalert2";
-import Header from "../header/Header";
-// import { object } from "yup";
-import "../../components/Login/user.css";
+
+import { useContextShopCar } from "../../Hook/UseContextShop";
 import { TodoGetApis } from "../../Apis/Apis";
+import Header from "../header/Header";
+
+import "../../components/Login/user.css";
 
 function Cart() {
-  const [product, setProduct] = useState([]);
-  const { addCard, getProductCar, deleteProductCar, updateProductCar } =
-    useContextShopCar();
+  const [setProduct] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    (async () => {
-      const response = await getProductCar();
-      setProduct(response.data.rows);
-    })();
-  }, []);
+  const { addCard, getProductCar, deleteProductCar, updateProductCar } =
+    useContextShopCar();
 
   const money = new Intl.NumberFormat("en-CO", {
     style: "currency",
@@ -36,7 +32,7 @@ function Cart() {
       code: datas.id_store,
       type: typeDelete,
     };
-    console.log(id, amount, datas);
+
     const response = await updateProductCar(id, data, datas);
     window.location.reload(false);
   };
@@ -62,29 +58,12 @@ function Cart() {
     totalBuy += respons[x] * amount[x];
   }
 
-  // const handdleBuy = async (dataUser) => {
-  //   const responseApi = await TodoGetApis.PostBuy(dataUser, 0, totalBuy)
-
-  //   if (responseApi.status === 200) {
-  //     swal.fire({
-  //       icon: "success",
-  //       title: "Compra realizada con exito",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //     navigate("/");
-  //   } else {
-  //     swal.fire({
-  //       icon: "error",
-  //       title: "Oops...",
-  //       text: "Algo salio mal, intenta de nuevo",
-  //     });
-  //   }
-  // };
-  const handdleBuy = async (dataUser) => {
-    const responseApi = await TodoGetApis.PostBuy(dataUser, 0, totalBuy);
-    window.location.reload()
-  }
+  useEffect(() => {
+    (async () => {
+      const response = await getProductCar();
+      setProduct(response.data.rows);
+    })();
+  }, [getProductCar, setProduct]);
 
   return (
     <>
@@ -94,10 +73,8 @@ function Cart() {
         <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
           <div class="rounded-lg md:w-2/3">
             {addCard.map((i) => (
-          
               <>
                 <div class="justify-between mb-6 relative rounded-lg  p-6 shadow-2xl border sm:flex sm:justify-start">
-                 
                   <img
                     className="w-32 rounded-md"
                     src={i.img_producto}
@@ -105,65 +82,67 @@ function Cart() {
                   />
                   <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                     <div class="mt-5 sm:mt-0">
-                     <div className="flex items-center gap-3" >
-                     <h2 class="text-lg font-bold text-gray-900">
-                        {i.name_product}
-                      </h2>
-                      {i.discount > 0 ? (
-                    <p className="font-bold  text-red-500 text-sm pt-1 ">{i.discount} % Off</p>
-                  ) : null}
-                     </div>
+                      <div className="flex items-center gap-3">
+                        <h2 class="text-lg font-bold text-gray-900">
+                          {i.name_product}
+                        </h2>
+                        {i.discount > 0 ? (
+                          <p className="font-bold  text-red-500 text-sm pt-1 ">
+                            {i.discount} % Off
+                          </p>
+                        ) : null}
+                      </div>
                       <p class="mt-1 text-xs text-gray-700">
                         {i.description_product}
                       </p>
                     </div>
                     <div class="mt-4 flex justify-between im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                     
                       <div class="flex items-center space-x-4 flex-col mt-8">
-                      <div class="flex items-center mt-2 border-gray-100">
-                        <span
-                          class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500
-                         hover:text-blue-50"
-                          onClick={() =>
-                            UpdateProductCar(i.id_product, 1, i, "delete")
-                          }
-                        >
-                          {" "}
-                          -{" "}
-                        </span>
-                        <div className="h-8 w-8 border bg-white text-center text-xs outline-none  my-5">
-                          <span className="mt-2 block">{i.amount_Product}</span>
-                        </div>
+                        <div class="flex items-center mt-2 border-gray-100">
+                          <span
+                            class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                            onClick={() =>
+                              UpdateProductCar(i.id_product, 1, i, "delete")
+                            }
+                          >
+                            {" "}
+                            -{" "}
+                          </span>
+                          <div className="h-8 w-8 border bg-white text-center text-xs outline-none  my-5">
+                            <span className="mt-2 block">
+                              {i.amount_Product}
+                            </span>
+                          </div>
 
-                        <span
-                          class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                          onClick={() =>
-                            UpdateProductCar(i.id_product, 1, i, "add")
-                          }
-                        >
-                          {" "}
-                          +{" "}
-                        </span>
-                      </div>
-                      <div className="di">
-                        <p class="text-sm">
-                          {i.discount > 0 ? (
-                            <div className="flex flex-col">
-                              <p className="font-bold line-through text-red-600">
-                                {money.format(i.price_product)}
-                              </p>
-                              <p className="text-black bg-red font-bold">
-                                {money.format(
-                                  ((i.price_product * i.discount) / 100 -
-                                    i.price_product) *
-                                    -1
-                                )}
-                              </p>
-                            </div>
-                          ) : (
-                            <p>{money.format(i.price_product)}</p>
-                          )}
-                        </p>
+                          <span
+                            class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                            onClick={() =>
+                              UpdateProductCar(i.id_product, 1, i, "add")
+                            }
+                          >
+                            {" "}
+                            +{" "}
+                          </span>
+                        </div>
+                        <div className="di">
+                          <p class="text-sm">
+                            {i.discount > 0 ? (
+                              <div className="flex flex-col">
+                                <p className="font-bold line-through text-red-600">
+                                  {money.format(i.price_product)}
+                                </p>
+                                <p className="text-black bg-red font-bold">
+                                  {money.format(
+                                    ((i.price_product * i.discount) / 100 -
+                                      i.price_product) *
+                                      -1
+                                  )}
+                                </p>
+                              </div>
+                            ) : (
+                              <p>{money.format(i.price_product)}</p>
+                            )}
+                          </p>
                         </div>
                         <div
                           className="absolute top-2 right-3 bg-gray-100 rounded-full p-1"
@@ -173,13 +152,13 @@ function Cart() {
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
                             class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
                           >
                             <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                               d="M6 18L18 6M6 6l12 12"
                             />
                           </svg>
@@ -208,7 +187,7 @@ function Cart() {
             <hr class="my-4" />
             <div class="flex justify-between">
               <p class="text-lg font-bold">Total</p>
-              <div class="">
+              <div>
                 <p class="mb-1 text-lg font-bold">{money.format(totalBuy)}</p>
               </div>
             </div>
@@ -269,9 +248,9 @@ function Cart() {
               >
                 <path
                   fill="gray"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M0 3.5A1.5 1.5 0 0 1 1.5 2h12A1.5 1.5 0 0 1 15 3.5v8a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 0 11.5v-8ZM3 6a2 2 0 1 1 4 0a2 2 0 0 1-4 0Zm9 0H9V5h3v1Zm0 3H9V8h3v1ZM5 9a2.927 2.927 0 0 0-2.618 1.618l-.33.658A.5.5 0 0 0 2.5 12h5a.5.5 0 0 0 .447-.724l-.329-.658A2.927 2.927 0 0 0 5 9Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
               <input
@@ -295,29 +274,14 @@ function Cart() {
                       adress: document.getElementsByName("adress")[0].value,
                       phone: document.getElementsByName("phone")[0].value,
                       id: document.getElementsByName("id")[0].value,
-                      venta: "virtual"
+                      venta: "virtual",
                     };
                     const responseApi = await TodoGetApis.PostBuy(
                       data,
                       0,
                       totalBuy
                     );
-                      navigate("/");
-                    console.log(responseApi);
-                    // if (responseApi.status === 200) {
-                    //   swal.fire({
-                    //     icon: "success",
-                    //     title: "Compra realizada con exito",
-                    //     showConfirmButton: false,
-                    //     timer: 1500,
-                    //   });
-                    // } else {
-                    //   swal.fire({
-                    //     icon: "error",
-                    //     title: "Oops...",
-                    //     text: "Algo salio mal, intenta de nuevo",
-                    //   });
-                    // }
+                    navigate("/");
                   },
                 });
               }}

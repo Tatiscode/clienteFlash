@@ -3,7 +3,6 @@ import React from "react";
 import MenuSuperAdmin from "../MenuSuperAmin/MenuSuperAdmin";
 import DataTableMalls from "../Table/DataTableMalls";
 
-
 function PageViewOverAdmin() {
   return (
     <>

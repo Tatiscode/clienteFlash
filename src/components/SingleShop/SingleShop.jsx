@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
+
 import { TodoGetApis } from "../../Apis/Apis";
 
 function SingleShop() {
   const [store, setStore] = useState([]);
-
   const [products, setProducts] = useState([]);
+
+  const money = new Intl.NumberFormat("en-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 2,
+  });
 
   useEffect(() => {
     (async () => {
@@ -15,11 +21,6 @@ function SingleShop() {
     })();
   }, []);
 
-  const money = new Intl.NumberFormat("en-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 2,
-  });
   return (
     <>
       {store.length > 0 ? (
@@ -59,7 +60,7 @@ function SingleShop() {
               </div>
 
               <p className="text-gray-700 text-xl">{item.description_store}</p>
-              <p className="text-sm text-gray-500 text-xl">
+              <p className="text-gray-500 text-xl">
                 {item.location_store}
               </p>
               <div></div>
@@ -69,59 +70,50 @@ function SingleShop() {
       ) : (
         <h1>No hay información</h1>
       )}
-      
 
       <div>
         {products.length > 0 ? (
           <div className="flex flex-wrap justify-center">
-            {
-              products.map((productItems) => (
-                <div className=" flex  ">
-                  <div className="product border m-1  ">
-                    <div className="">
-                      <p className="disponible">
-                        {productItems.availability_product === "available"
-                          ? "Disponible"
-                          : "No Disponible"}
+            {products.map((productItems) => (
+              <div className=" flex  ">
+                <div className="product border m-1  ">
+                  <div className="">
+                    <p className="disponible">
+                      {productItems.availability_product === "available"
+                        ? "Disponible"
+                        : "No Disponible"}
+                    </p>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <img
+                      className=" w-[200px] object-cover"
+                      src={productItems.img_product}
+                      alt=""
+                    />
+                  </div>
+                  <div className="product-details p-4">
+                    <div className="info">
+                      <h3>{productItems.name_product}</h3>
+                      <p>
+                        {("" + productItems.amount_poduct).replace(
+                          /(\d)(?=(\d\d\d)+(?!\d))/g,
+                          "$1."
+                        )}{" "}
+                        Unidades
                       </p>
                     </div>
-                    <div className="flex justify-center items-center">
-                      <img
-                        className=" w-[200px] object-cover"
-                        src={productItems.img_product}
-                        alt=""
-                      />
-                    </div>
-                    <div className="product-details p-4">
-                      <div className="info">
-                        <h3>{productItems.name_product}</h3>
-                        <p>
-                          {("" + productItems.amount_poduct).replace(
-                            /(\d)(?=(\d\d\d)+(?!\d))/g,
-                            "$1."
-                          )}{" "}
-                          Unidades
-                        </p>
-                      </div>
-                      <p className="truncate">{productItems.description_product}</p>
-                      <div className="price">
-                        <h4 className="text-black font-bold">
-                          {money.format(productItems.price_product)}{" "}
-                        </h4>
-    
-                        {/* step : 3  
-                         if hami le button ma click garryo bahne 
-                        */}
-                      </div>
-    
-                      
+                    <p className="truncate">
+                      {productItems.description_product}
+                    </p>
+                    <div className="price">
+                      <h4 className="text-black font-bold">
+                        {money.format(productItems.price_product)}{" "}
+                      </h4>
                     </div>
                   </div>
                 </div>
-              ))
-
-            }
-
+              </div>
+            ))}
           </div>
         ) : (
           <h1>No hay produtos</h1>

@@ -1,12 +1,14 @@
-import React from "react";
-import Catg from "./Catg";
-import ShopCart from "./ShopCart";
-import "./style.css";
-import Pagination from "../Pagination/Pagination";
 import { useParams } from "react-router-dom";
+import React from "react";
+
+import ShopCart from "./ShopCart";
+import Catg from "./Catg";
+
+import "./style.css";
 
 const Shop = () => {
-  const {name}=useParams()
+  const { name } = useParams();
+
   return (
     <>
       <section className="shop background pt-10">
@@ -22,7 +24,6 @@ const Shop = () => {
             <div className="product-content ">
               <ShopCart />
             </div>
-            
           </div>
         </div>
       </section>

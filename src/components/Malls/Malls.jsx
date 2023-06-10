@@ -1,9 +1,11 @@
 import { React, useState, useEffect } from "react";
-import "../../App.css";
+import { useNavigate } from "react-router-dom";
 import { TodoGetApis } from "../../Apis/Apis";
-import { NavLink, useNavigate } from "react-router-dom";
+
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+
+import "../../App.css";
 
 function Malls() {
   const [malls, setMalls] = useState([]);
@@ -43,9 +45,7 @@ function Malls() {
               window.location.href = "/AllMalls";
             }}
           >
-            {/* <NavLink to="/AllStore"> */}
             <span>Ver Todas </span>
-            {/* </NavLink> */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="40"
@@ -110,7 +110,10 @@ function Malls() {
           {malls.length > 0 ? (
             <div className="mallsResponsive  flex justify-center items-center gap-6 my-10">
               {malls.map((x) => (
-                <div className="boxMalls flex flex-col items-center ">
+                <div
+                  className="boxMalls flex flex-col items-center "
+                  key={x.email_admin}
+                >
                   <div
                     className="imgMalls object-cover"
                     onClick={() => {

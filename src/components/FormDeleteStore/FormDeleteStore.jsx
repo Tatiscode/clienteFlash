@@ -1,12 +1,14 @@
+import { useParams } from "react-router-dom";
 import React from "react";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Link, json, useNavigate, useParams } from "react-router-dom";
+
 import { TodoGetApis } from "../../Apis/Apis";
 
 function FormDeleteStore() {
-  let {code} = useParams();
-  
+  let { code } = useParams();
+
   return (
     <>
       <Formik
@@ -18,8 +20,6 @@ function FormDeleteStore() {
         })}
         onSubmit={async (values) => {
           const response = await TodoGetApis.DeleteStore(values, code);
-          
-
         }}
       >
         <Form>

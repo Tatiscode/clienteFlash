@@ -3,7 +3,6 @@ import { ToastContainer, toast } from "react-toastify";
 import swal from "sweetalert2";
 
 import MenuEmployed from "../components/MenuEmployed/MenuEmployed";
-import DataTableBuy from "../Table/DataTableBuy";
 import { TodoGetApis } from "../Apis/Apis";
 import "../components/Login/user.css";
 
@@ -157,9 +156,9 @@ function PageBuy() {
               >
                 <path
                   fill="gray"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M0 3.5A1.5 1.5 0 0 1 1.5 2h12A1.5 1.5 0 0 1 15 3.5v8a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 0 11.5v-8ZM3 6a2 2 0 1 1 4 0a2 2 0 0 1-4 0Zm9 0H9V5h3v1Zm0 3H9V8h3v1ZM5 9a2.927 2.927 0 0 0-2.618 1.618l-.33.658A.5.5 0 0 0 2.5 12h5a.5.5 0 0 0 .447-.724l-.329-.658A2.927 2.927 0 0 0 5 9Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
               <input
@@ -239,7 +238,7 @@ function PageBuy() {
       setSubTotal(total);
       setBack(back);
     })();
-  }, []);
+  }, [back, total]);
 
   return (
     <>
@@ -407,9 +406,9 @@ function PageBuy() {
                                         stroke="currentColor"
                                       >
                                         <path
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          stroke-width="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth="2"
                                           d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                         />
                                       </svg>
@@ -454,9 +453,9 @@ function PageBuy() {
                                     stroke="currentColor"
                                   >
                                     <path
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      stroke-width="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth="2"
                                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                     />
                                   </svg>
@@ -492,6 +491,7 @@ function PageBuy() {
               </div>
             </div>
             <div className="flex justify-center items-center">
+
               {subTotal - back ? (
                 <>
                   <label className="text-base">Cambio:</label>

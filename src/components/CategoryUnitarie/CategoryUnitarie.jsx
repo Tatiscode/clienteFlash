@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from "react";
-import Header from "../../common/header/Header";
-import { TodoGetApis } from "../../Apis/Apis";
 import { useNavigate, useParams } from "react-router-dom";
-import { useContextShopCar } from "../../Hook/UseContextShop";
+import React, { useEffect, useState } from "react";
+
 import { toast, ToastContainer } from "react-toastify";
 import Skeleton from "react-loading-skeleton";
 
+import { useContextShopCar } from "../../Hook/UseContextShop";
+
+import Header from "../../common/header/Header";
+import { TodoGetApis } from "../../Apis/Apis";
+
 function CategoryUnitarie() {
   const [category, setCategory] = useState([]);
-  const { postProductCar } = useContextShopCar();
   const [load, setLoad] = useState(false);
-  let token = localStorage.getItem("token");
-  const navigate = useNavigate();
   let { code, name } = useParams();
+
+  const navigate = useNavigate();
+  let token = localStorage.getItem("token");
+
+  const { postProductCar } = useContextShopCar();
 
   const handdleCarShop = async (data) => {
     if (token === null) {
@@ -53,6 +58,7 @@ function CategoryUnitarie() {
       setCategory(response.data.rows);
     })();
   }, [code]);
+
   return (
     <>
       <ToastContainer />
@@ -181,14 +187,10 @@ function CategoryUnitarie() {
                                 height="30"
                                 viewBox="0 0 48 48"
                               >
-                                <g
-                                  fill="none"
-                                  stroke="#475569"
-                                  stroke-width="4"
-                                >
+                                <g fill="none" stroke="#475569" strokeWidth="4">
                                   <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                     d="M5 7h6l7 17h17.5L43 10m-22 2h12m-6-6v12m-9 6l-4 6h26"
                                   />
                                   <circle cx="19" cy="39" r="3" />

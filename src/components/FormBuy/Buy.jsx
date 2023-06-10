@@ -18,11 +18,12 @@ function Buy() {
       id: form.id,
       venta: "virtual",
     };
-    const response = await TodoGetApis.PostBuy(datas, idP, 0)
-    // if (response.status === 200) {
-      
-    // }
+    const response = await TodoGetApis.PostBuy(datas, idP, 0);
+    if (response.status === 200) {
+      window.location.href = "/";
+    }
   };
+
   return (
     <>
       <div className=" ">
@@ -82,9 +83,9 @@ function Buy() {
               >
                 <path
                   fill="gray"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M0 3.5A1.5 1.5 0 0 1 1.5 2h12A1.5 1.5 0 0 1 15 3.5v8a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 0 11.5v-8ZM3 6a2 2 0 1 1 4 0a2 2 0 0 1-4 0Zm9 0H9V5h3v1Zm0 3H9V8h3v1ZM5 9a2.927 2.927 0 0 0-2.618 1.618l-.33.658A.5.5 0 0 0 2.5 12h5a.5.5 0 0 0 .447-.724l-.329-.658A2.927 2.927 0 0 0 5 9Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
               <input

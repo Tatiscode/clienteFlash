@@ -1,13 +1,15 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import React from "react";
 
 function MenuSuperAdmin() {
   const navigate = useNavigate();
+  
   let handdleCloseAccount = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
     navigate("/");
   };
+
   return (
     <div>
       <div>
@@ -62,8 +64,8 @@ function MenuSuperAdmin() {
                     <path
                       fill="currentColor"
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M7 .54v13M.5 7h13"
                     />
                   </svg>
@@ -86,9 +88,9 @@ function MenuSuperAdmin() {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                   />
                 </svg>

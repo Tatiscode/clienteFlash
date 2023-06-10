@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
-import { TodoGetApis } from "../../Apis/Apis";
 import swal from "sweetalert2";
+import * as Yup from "yup";
+
+import { TodoGetApis } from "../../Apis/Apis";
 
 function AccountAdmin() {
   const [account, setAccount] = useState([]);
@@ -17,7 +19,6 @@ function AccountAdmin() {
         setStop(false);
       }
     };
-
     fetchData();
   }, [stop]);
 
@@ -48,10 +49,7 @@ function AccountAdmin() {
                             alt=""
                             className="w-44 rounded-full h-44 object-cover"
                           />
-                          <div
-                            className="campus bg-gray-100
-            cursor-pointer mt-2"
-                          >
+                          <div className="campus bg-gray-100cursor-pointer mt-2">
                             <div className="relative w-full ">
                               <div className="">
                                 <input
@@ -72,8 +70,8 @@ function AccountAdmin() {
                                   <g
                                     fill="none"
                                     stroke="gray"
-                                    stroke-linecap="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeWidth="2"
                                   >
                                     <path
                                       stroke-dasharray="2 4"
@@ -136,10 +134,7 @@ function AccountAdmin() {
                       ) : (
                         <div className=" flex flex-col items-center">
                           <div className="   flex flex-col justify-center items-center relative rounded-full cursor-pointer overflow-hidden ">
-                            <div
-                              className="icon-img relative
-                         "
-                            >
+                            <div className="icon-img relative">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="150"
@@ -172,9 +167,9 @@ function AccountAdmin() {
                                 >
                                   <g
                                     stroke="correntColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
                                   >
                                     <path
                                       fill="none"

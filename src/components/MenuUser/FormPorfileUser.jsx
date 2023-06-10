@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
-import { TodoGetApis } from "../../Apis/Apis";
-import swal from "sweetalert2";
-import moment from "moment-with-locales-es6";
- moment.locale("es")
 
+import moment from "moment-with-locales-es6";
+import { Formik, Form } from "formik";
+import swal from "sweetalert2";
+import * as Yup from "yup";
+
+import { TodoGetApis } from "../../Apis/Apis";
+
+moment.locale("es");
 
 function FormPorfileUser() {
-  const navigate = useNavigate();
   const [customer, setCustomer] = useState([]);
   const [image, setImage] = useState([]);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       const response = await TodoGetApis.GetAccountCustomer();
       setCustomer(response.data.rows);
-    })()
-
+    })();
   }, []);
 
   return (
@@ -48,10 +47,7 @@ function FormPorfileUser() {
                             alt=""
                             className="w-36 rounded-full h-36 object-cover"
                           />
-                          <div
-                            className="campus bg-gray-100
-            cursor-pointer mt-2"
-                          >
+                          <div className="campus bg-gray-100 cursor-pointer mt-2">
                             <div className="relative w-full ">
                               <div className="">
                                 <input
@@ -72,8 +68,8 @@ function FormPorfileUser() {
                                   <g
                                     fill="none"
                                     stroke="gray"
-                                    stroke-linecap="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeWidth="2"
                                   >
                                     <path
                                       stroke-dasharray="2 4"
@@ -136,10 +132,7 @@ function FormPorfileUser() {
                       ) : (
                         <div className=" flex flex-col items-center">
                           <div className="   flex flex-col justify-center items-center relative rounded-full cursor-pointer overflow-hidden ">
-                            <div
-                              className="icon-img relative
-                         "
-                            >
+                            <div className="icon-img relative">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="120"
@@ -193,27 +186,6 @@ function FormPorfileUser() {
               ) : (
                 <h1>No hay data</h1>
               )}
-
-              {/* <div className="boxAccount2">
-              {account.length > 0 ? (
-                <div className="imagen">
-                  {account.map((data) => (
-                    <img
-                      key={data.id}
-                      src={data.img_admin || "https://via.placeholder.com/150"}
-                      alt=""
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div>No tiene imagen</div>
-              )}
-            </div>
-
-          </div>
-        ) : (
-          <div>No hay datos disponibles</div>
-        )} */}
             </div>
             <div className="tittleAccount  ">
               <h1>
@@ -475,27 +447,6 @@ function FormPorfileUser() {
             ) : (
               <h1>No hay data</h1>
             )}
-
-            {/* <div className="boxAccount2">
-              {account.length > 0 ? (
-                <div className="imagen">
-                  {account.map((data) => (
-                    <img
-                      key={data.id}
-                      src={data.img_admin || "https://via.placeholder.com/150"}
-                      alt=""
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div>No tiene imagen</div>
-              )}
-            </div>
-
-          </div>
-        ) : (
-          <div>No hay datos disponibles</div>
-        )} */}
           </div>
         </Form>
       </div>
@@ -503,4 +454,4 @@ function FormPorfileUser() {
   );
 }
 
-export default FormPorfileUser
+export default FormPorfileUser;

@@ -1,30 +1,33 @@
-import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../../components/Login/user.css";
+import React, { useEffect, useState } from "react";
+
 import { TodoGetApis } from "../../Apis/Apis";
 
+import "../../components/Login/user.css";
+
 function MenuUserF() {
-  const navigate = useNavigate();
   const [customer, setCustomer] = useState([]);
+  const navigate = useNavigate();
 
   let handdleCloseAccount = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
     navigate("/");
   };
+
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetAccountCustomer();
       setCustomer(response.data.rows);
-      console.log(response);
     })();
   }, []);
+
   return (
     <div>
-      <div class="">
+      <div>
         <aside
           id="sidebar"
-          class="fixed hidden z-20 h-full top-0 left-0 pt-1 flex lg:flex
+          class="fixed z-20 h-full top-0 left-0 pt-1 flex lg:flex
              flex-shrink-0 flex-col w-64 transition-width duration-75 "
           aria-label="Sidebar"
         >
@@ -53,10 +56,7 @@ function MenuUserF() {
                   )}
                   <li>
                     <Link
-                      className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+                      className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white  hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md  p-2"
                       to="/PageUser"
                     >
                       <svg
@@ -77,10 +77,7 @@ function MenuUserF() {
                   <li>
                     <Link
                       to="/DataTableBuysUser"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md  p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -114,9 +111,9 @@ function MenuUserF() {
                         stroke="currentColor"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                         />
                       </svg>

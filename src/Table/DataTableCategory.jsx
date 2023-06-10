@@ -1,94 +1,96 @@
-import React, { useRef,
-  useState,
-  useCallback,
-  useEffect, } from "react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-import "ag-grid-enterprise";
+import React, { useRef, useState, useCallback } from "react";
+
 import { AgGridReact } from "ag-grid-react";
 import swal from "sweetalert2";
-import { TodoGetApis } from "../Apis/Apis";
-import { useNavigate } from "react-router-dom";
-import EditProduct from "../components/FormsEmployed/EditProduct/EditProduct";
 
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-enterprise";
+
+import { TodoGetApis } from "../Apis/Apis";
 
 const ImageRenderer = (props) => {
   const handdelImg = () => {
     swal.fire({
-      title: 'Imagen de la categoria',
-      html:`<img src=${props.value} className="  cover" alt="t" style="width: 190px; heigth:190px; border-radius:8px; text-align:center ; display:block; margin:auto;" /> `,
+      title: "Imagen de la categoria",
+      html: `<img src=${props.value} className="  cover" alt="t" style="width: 190px; heigth:190px; border-radius:8px; text-align:center ; display:block; margin:auto;" /> `,
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: "animate__animated animate__fadeInDown",
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
+        popup: "animate__animated animate__fadeOutUp",
       },
       showConfirmButton: false,
-    })
-  }
+    });
+  };
   return (
     <div className="h-[10rem]">
       <span onClick={handdelImg}>Ver Imagen</span>
-      {/* <img src={props.value} className="   cover" alt="t" height={300} /> */}
     </div>
   );
 };
 
 function Options(e) {
-  const navigate = useNavigate();
-  let idCategory = e.data.id_category
+  let idCategory = e.data.id_category;
+
   const handleUpdate = () => {
-    swal.fire({
-      title: "Editar Categoria",
+    swal
+      .fire({
+        title: "Editar Categoria",
         html: `
         <input type="text" id="nameCategory" class="swal2-input" placeholder="Username" value="${e.data.name_category}" name="nameCategory">
         `,
-      focusConfirm: false,
-      focusCancel: false,
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "Guardar",
-      cancelButtonText: "Cancelar",
-      preConfirm: async () => {
-        let nameCategory = document.getElementById("nameCategory").value;
-        let data = {
+        focusConfirm: false,
+        focusCancel: false,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: "Guardar",
+        cancelButtonText: "Cancelar",
+        preConfirm: async () => {
+          let nameCategory = document.getElementById("nameCategory").value;
+          let data = {
+            name: nameCategory,
+          };
 
-          name: nameCategory,
-        };
-        
-        const response = await TodoGetApis.UpdateCategory(data, idCategory);
-        
-      }
-
-    }).then((values) => {
-      window.location.reload(true);
-      swal.fire("Categoria actualizada", {
+          const response = await TodoGetApis.UpdateCategory(data, idCategory);
+          if (response.status === 200) {
+            swal.fire("Categoria actualizada", {
+              icon: "success",
+            });
+          }
+        },
+      })
+      .then(() => {
+        window.location.reload(true);
+        swal.fire("Categoria actualizada", {
           icon: "success",
         });
-      
-    });
+      });
   };
-  
+
   const handleDelete = () => {
     let data = JSON.stringify(e.data.id_category);
-    swal.fire({
-      text: "¿Estas seguro de eliminar el producto?",
-      buttons: {
-        cancel: true,
-        confirm: true,
-      },
-    }).then(async (value) => {
-      if (value) {
-        const response = await TodoGetApis.DeleteCategory(data);
-        window.location.reload(true);
-        if (response.status === 200) {
-          swal.fire("Producto eliminado", {
-            icon: "success",
-          });
+    swal
+      .fire({
+        text: "¿Estas seguro de eliminar el producto?",
+        buttons: {
+          cancel: true,
+          confirm: true,
+        },
+      })
+      .then(async (value) => {
+        if (value) {
+          const response = await TodoGetApis.DeleteCategory(data);
+          window.location.reload(true);
+          if (response.status === 200) {
+            swal.fire("Producto eliminado", {
+              icon: "success",
+            });
+          }
         }
-      }
-    });
+      });
   };
+
   return (
     <>
       <button onClick={handleUpdate}>
@@ -123,7 +125,7 @@ function Options(e) {
 }
 
 function DataTableCategory({ data }) {
-  const [column, setColumn] = useState([
+  const [column] = useState([
     {
       headerName: "Codigo",
       field: "id_category",
@@ -152,24 +154,35 @@ function DataTableCategory({ data }) {
   const gridRef = useRef();
   const onFilterTextBoxChanged = useCallback(() => {
     gridRef.current.api.setQuickFilter(
-      document.getElementById('filter-text-box').value
+      document.getElementById("filter-text-box").value
     );
   }, []);
   return (
     <div>
-       <div className="flex justify-between  max-w-4xl mx-auto">
+      <div className="flex justify-between  max-w-4xl mx-auto">
         <div className="g">
-
-       <h1 className="text-center block p-2 text-3xl text-gray-700 font-bold">Categorias</h1>
+          <h1 className="text-center block p-2 text-3xl text-gray-700 font-bold">
+            Categorias
+          </h1>
         </div>
-      <div className="p-2 bg-white  flex items-center mb-4 rounded-md border  w-auto ">
-          
+        <div className="p-2 bg-white  flex items-center mb-4 rounded-md border  w-auto ">
           <div className="icon_search mx-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 16 16"><g transform="translate(16 0) scale(-1 1)">
-            <path fill="#ABB2B9" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0z"/></g></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="21"
+              height="21"
+              viewBox="0 0 16 16"
+            >
+              <g transform="translate(16 0) scale(-1 1)">
+                <path
+                  fill="#ABB2B9"
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0z"
+                />
+              </g>
+            </svg>
           </div>
           <div className="input_panel">
-          <input
+            <input
               type="text"
               id="filter-text-box"
               placeholder="Buscar..."
@@ -177,15 +190,15 @@ function DataTableCategory({ data }) {
               className="outline-none w-full"
             />
           </div>
-         </div>
-       </div>
+        </div>
+      </div>
       <div
         className="ag-theme-alpine mx-auto w-[50%] rounded-md overflow-hidden shadow-lg"
         id="myGrid"
         style={{ height: 500, width: "62%" }}
       >
         <AgGridReact
-              ref={gridRef}
+          ref={gridRef}
           columnDefs={column}
           rowData={data.map((item) => {
             return {

@@ -51,9 +51,9 @@ function SearchProduct() {
                       <g
                         fill="none"
                         stroke="#777777"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                       >
                         <circle cx="14" cy="14" r="12" />
                         <path d="m23 23l7 7" />
@@ -85,9 +85,9 @@ function SearchProduct() {
                         <path
                           fill="none"
                           stroke="#777777"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M2 30L30 2m0 28L2 2"
                         />
                       </svg>
@@ -109,6 +109,7 @@ function SearchProduct() {
             <>
               {filterProduct.map((i) => (
                 <div
+                  key={i.id_product}
                   className="flex items-center my-2  hover:bg-gray-100 cursor-pointer p-1"
                   onClick={() => handleClickSearch(i.name_product)}
                 >

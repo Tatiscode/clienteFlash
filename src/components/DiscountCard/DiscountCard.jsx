@@ -1,18 +1,22 @@
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
 
 import { useContextShopCar } from "../../Hook/UseContextShop";
 import { TodoGetApis } from "../../Apis/Apis";
-import "../flashDeals/style.css";
-import Skeleton from "react-loading-skeleton";
+
 import "react-loading-skeleton/dist/skeleton.css";
+import "../flashDeals/style.css";
 
 function DiscountCard() {
   const [product, setProduct] = useState([]);
-  const { postProductCar } = useContextShopCar();
   const [load, setLoad] = useState(false);
+
+  const { postProductCar } = useContextShopCar();
   const navigate = useNavigate();
+  
   let token = localStorage.getItem("token");
 
   const money = new Intl.NumberFormat("en-CO", {
@@ -45,6 +49,17 @@ function DiscountCard() {
         discount: data.dicount,
       };
       const response = await postProductCar(carrito);
+      if (response.status === 200)  {
+        toast.success("Producto agregado al carrito!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      }
     }
   };
 
@@ -166,7 +181,6 @@ function DiscountCard() {
                             >
                               Ver más
                             </span>
-                            {/* </NavLink> */}
                           </div>
                           <div className="">
                             <button
@@ -179,14 +193,10 @@ function DiscountCard() {
                                 height="30"
                                 viewBox="0 0 48 48"
                               >
-                                <g
-                                  fill="none"
-                                  stroke="#475569"
-                                  stroke-width="4"
-                                >
+                                <g fill="none" stroke="#475569" strokeWidth="4">
                                   <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                     d="M5 7h6l7 17h17.5L43 10m-22 2h12m-6-6v12m-9 6l-4 6h26"
                                   />
                                   <circle cx="19" cy="39" r="3" />

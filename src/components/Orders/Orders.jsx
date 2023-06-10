@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { TodoGetApis } from "../../Apis/Apis";
 import { useParams } from "react-router-dom";
+
+import { TodoGetApis } from "../../Apis/Apis";
 
 function Orders() {
   const [storeBuy, setStoreBuy] = useState([]);
@@ -10,7 +11,6 @@ function Orders() {
     (async () => {
       const response = await TodoGetApis.GetOrder(code, 0);
       setStoreBuy(response.data.data);
-      
     })();
   }, [code]);
 
@@ -21,8 +21,6 @@ function Orders() {
       </div>
 
       <div className="w-[100%]">
-        {/* <DataTableBuy data={dataTable} /> */}
-
         <div class="overflow-x-auto">
           <div class="flex justify-center">
             <div class="w-[1260px]  ">
@@ -85,7 +83,9 @@ function Orders() {
                                   onClick={async () => {
                                     const responseBuy =
                                       await TodoGetApis.checkBuy(items.id_buys);
-                                      window.location.reload()
+                                    if (responseBuy.status === 200) {
+                                      window.location.reload();
+                                    }
                                   }}
                                 >
                                   <svg

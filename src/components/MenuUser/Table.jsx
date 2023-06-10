@@ -1,15 +1,13 @@
-import React from 'react'
-import MenuUserF from './MenuUserF'
+import React from "react";
 
-import DataTableMBuysUser from './DataTableBuysUser'
+import DataTableMBuysUser from "./DataTableBuysUser";
 
 function Table() {
   return (
     <>
-    
-    <DataTableMBuysUser/>
+      <DataTableMBuysUser />
     </>
-  )
+  );
 }
 
-export default Table
+export default Table;

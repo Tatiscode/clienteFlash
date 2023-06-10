@@ -1,17 +1,17 @@
-import React from 'react'
+import React from "react";
 
-import MenuUserF from './MenuUserF'
-import FormPorfileUser from './FormPorfileUser'
-import Header from '../../common/header/Header'
+import FormPorfileUser from "./FormPorfileUser";
+import Header from "../../common/header/Header";
+import MenuUserF from "./MenuUserF";
 
 export default function DasboharUser() {
   return (
     <>
-    <Header/>
-   <div className="g">
-    <MenuUserF/>
-    <FormPorfileUser/>
-   </div>
+      <Header />
+      <div className="g">
+        <MenuUserF />
+        <FormPorfileUser />
+      </div>
     </>
-  )
+  );
 }

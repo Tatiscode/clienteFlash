@@ -1,22 +1,25 @@
-import React,{useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
 import { TodoGetApis } from "../../Apis/Apis";
 
 function MenuAdmin() {
+  const [account, setAccount] = useState([]);
   const navigate = useNavigate();
-  const [account,setAccount]=useState([]);
-  const [stop, setStop]= useState(true)
+
   let handdleCloseAccount = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
     navigate("/");
   };
-   useEffect(() => {
+
+  useEffect(() => {
     (async () => {
-         const response = await TodoGetApis.GetAccountAdmin();
-         setAccount(response.data.rows);
-    })()
-   }, []);
+      const response = await TodoGetApis.GetAccountAdmin();
+      setAccount(response.data.rows);
+    })();
+  }, []);
+
   return (
     <>
       <div>
@@ -25,11 +28,11 @@ function MenuAdmin() {
             <div class="mt-8 text-center">
               <img
                 src={Items.img_admin}
-                alt=""
+                alt="Imagen de perfil"
                 class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
               />
               <h5 class="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">
-               {Items.name_admin}
+                {Items.name_admin}
               </h5>
               <span class="hidden text-gray-400 lg:block">Administrador</span>
             </div>
@@ -41,11 +44,7 @@ function MenuAdmin() {
         <ul class="space-y-2 tracking-wide mt-8">
           <Link
             to="/AccountAdmin"
-            className="
-          hover:bg-gradient-to-r from-orange-600 to-pink-500 
-          hover:text-white 
-          hover:rounded-full duration-300
-           px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+            className="hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md p-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,11 +62,7 @@ function MenuAdmin() {
 
           <Link
             to="/StoresInfo"
-            className="
-          hover:bg-gradient-to-r from-orange-600 to-pink-500 
-          hover:text-white 
-          hover:rounded-full duration-300
-           px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+            className="hover:bg-gradient-to-r from-orange-600 to-pink-500hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md p-2"
           >
             {" "}
             <svg
@@ -81,22 +76,12 @@ function MenuAdmin() {
                 d="M5 6q-.425 0-.713-.288T4 5q0-.425.288-.713T5 4h14q.425 0 .713.288T20 5q0 .425-.288.713T19 6H5Zm0 14q-.425 0-.713-.288T4 19v-5h-.175q-.475 0-.775-.363t-.2-.837l1-5q.075-.35.35-.575T4.825 7h14.35q.35 0 .625.225t.35.575l1 5q.1.475-.2.837t-.775.363H20v5q0 .425-.288.713T19 20q-.425 0-.713-.288T18 19v-5h-4v5q0 .425-.288.713T13 20H5Zm1-2h6v-4H6v4Z"
               />
             </svg>
-            <span
-              className="pl-4 mr-1 block 
-          
-         "
-            >
-              Tiendas
-            </span>
+            <span className="pl-4 mr-1 block ">Tiendas</span>
           </Link>
 
           <Link
             to="/CreateStore"
-            className="
-          hover:bg-gradient-to-r from-orange-600 to-pink-500 
-          hover:text-white 
-          hover:rounded-full duration-300
-           px-4 my-2 flex bg-gray-100 rounded-md block p-2"
+            className="hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md p-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -107,8 +92,8 @@ function MenuAdmin() {
               <path
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M7 .54v13M.5 7h13"
               />
             </svg>
@@ -122,7 +107,7 @@ function MenuAdmin() {
               class=" hover:bg-gradient-to-r from-orange-600 to-pink-500 
               hover:text-white 
               hover:rounded-full duration-300
-               px-4 my-2 flex bg-gray-100 rounded-md block p-2
+               px-4 my-2 flex bg-gray-100 rounded-md p-2
               "
             >
               <svg
@@ -151,9 +136,9 @@ function MenuAdmin() {
             stroke="currentColor"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidthh="2"
               d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
             />
           </svg>

@@ -1,30 +1,36 @@
+import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+
 import { TodoGetApis } from "../../Apis/Apis";
 
 const Catg = () => {
-  const { code } = useParams();
-  const [stores, setStores] = useState([]);
   const [idStore, setIdStore] = useState(0);
-  const [name, setName] = useState ()
+  const [stores, setStores] = useState([]);
+  const [name, setName] = useState();
+  const [stop, setStop] = useState(true);
+
+  const { code } = useParams();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      let response = await TodoGetApis.GetStoresMall(code, idStore);
-      setStores(response.data.data);
+      if (stop) {
+        let response = await TodoGetApis.GetStoresMall(code, idStore);
+        setStores(response.data.data);
+        setStop(false);
+      }
     })();
-  }, [code]);
+  }, [code, idStore, stop]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (idStore !== 0) {
-        navigate(`/OfficialStores/${code}/${idStore}/${name}`);
+        window.location.href = `/OfficialStores/${code}/${idStore}/${name}`;
       }
     };
     fetchData();
-  }, [idStore, navigate, code]);
+  }, [idStore, navigate, name, code]);
 
   return (
     <>
@@ -40,9 +46,7 @@ const Catg = () => {
                   className="flex w-[100%] items-center"
                   onClick={() => {
                     setIdStore(y.id_store);
-                    setName(y.name_store)
-                    
-
+                    setName(y.name_store);
                   }}
                 >
                   <div className="w-[70px] my-3">

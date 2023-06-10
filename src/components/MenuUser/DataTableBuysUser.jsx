@@ -1,78 +1,13 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-import "ag-grid-enterprise";
-import { AgGridReact } from "ag-grid-react";
-import swal from "sweetalert2";
-import { TodoGetApis } from "../../Apis/Apis";
-import { useNavigate } from "react-router-dom";
-import MenuSuperAdmin from "../MenuAdmin/MenuAdmin";
-import MenuUserF from "./MenuUserF";
-const ImageRenderer = (props) => {
-  const handdleImg = () => {
-    swal.fire({
-      title: "Imagen del producto",
-      html: `<img src=${props.value} className="   cover" alt="t" style="width: 190px; heigth:190px; border-radius:8px; text-align:center ; display:block; margin:auto;" />`,
-      showClass: {
-        popup: "animate__animated animate__fadeInDown",
-      },
-      hideClass: {
-        popup: "animate__animated animate__fadeOutUp",
-      },
-      showConfirmButton: false,
-    });
-  };
-  return (
-    <div className="h-[10rem]">
-      <span onClick={handdleImg}>Ver imagen</span>
-      {/* <img src={props.value} className="   cover" alt="t" height={300} /> */}
-    </div>
-  );
-};
-function Options(e) {
-  const navigate = useNavigate();
-  const handleDelete = () => {
-    let data = JSON.stringify(e.data.id_store);
-    swal
-      .fire({
-        text: "¿Estas seguro de eliminar la tienda?",
-        buttons: {
-          cancel: true,
-          confirm: true,
-        },
-      })
-      .then(async (value) => {
-        if (value) {
-          const response = await TodoGetApis.DeleteStore(data);
-          window.location.reload(true);
-          if (response.status === 200) {
-            swal.fire("Tienda eliminada", {
-              icon: "success",
-            });
-            e.data.delete();
-          }
-        }
-      });
-  };
 
-  return (
-    <>
-      <button onClick={handleDelete}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="#ea4335"
-            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-          />
-        </svg>
-      </button>
-    </>
-  );
-}
+import { AgGridReact } from "ag-grid-react";
+
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-enterprise";
+
+import { TodoGetApis } from "../../Apis/Apis";
+import MenuUserF from "./MenuUserF";
 
 function DataTableMBuysUser() {
   const [mall, setMall] = useState([]);
@@ -83,9 +18,8 @@ function DataTableMBuysUser() {
       setMall(response.data.rows);
     })();
   }, []);
-  
 
-  const [column, setColumn] = useState([
+  const [column] = useState([
     {
       headerName: "Codigo",
       field: "id_buys",
@@ -103,7 +37,6 @@ function DataTableMBuysUser() {
     {
       headerName: "Codigo Producto",
       field: "id_product",
-     
     },
     {
       headerName: "Codigo Tienda",
@@ -121,8 +54,6 @@ function DataTableMBuysUser() {
       headerName: "Total",
       field: "total",
     },
-
-    
   ]);
   const gridRef = useRef();
   const onFilterTextBoxChanged = useCallback(() => {
@@ -132,10 +63,10 @@ function DataTableMBuysUser() {
   }, []);
   return (
     <>
-    <MenuUserF/>
-    
+      <MenuUserF />
+
       <div className="ml-[17%]">
-        <div className="flex justify-between  max-w-4xl mx-auto mt-5 w-[70%] mx-auto">
+        <div className="flex justify-between  max-w-4xl mx-auto mt-5 w-[70%]">
           <div className="g">
             <h1 className="text-center block p-2 text-3xl text-gray-700 font-bold">
               Mis Compras
@@ -168,10 +99,8 @@ function DataTableMBuysUser() {
             </div>
           </div>
         </div>
-
-        {/* {data.length > 0 ? ( */}
         <div
-          className="ag-theme-alpine shadow-md mx-auto w-[30%] rounded-md overflow-hidden shadow-lg"
+          className="ag-theme-alpine shadow-md mx-auto w-[30%] rounded-md overflow-hidden"
           id="myGrid"
           style={{ height: 500, width: "92%" }}
         >

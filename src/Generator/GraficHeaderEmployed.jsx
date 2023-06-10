@@ -1,11 +1,58 @@
 import React, { useEffect, useState } from "react";
-import Chart from "react-apexcharts";
-import { TodoGetApis } from "../Apis/Apis";
+
 import moment from "moment-with-locales-es6";
+import Chart from "react-apexcharts";
+
+import { TodoGetApis } from "../Apis/Apis";
+
 moment.locale("es");
 
 function GraficHeaderEmployed() {
   const [buys, setBuys] = useState([]);
+
+  const getPrices = buys.map((i) => i.total);
+
+  const getDate = buys.map((i) => moment(i.date_buys).format("L"));
+
+  const options = {
+    series: [
+      {
+        name: "Total",
+        data: getPrices,
+      },
+    ],
+    chart: {
+      type: "area",
+      height: 350,
+      zoom: {
+        enabled: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "straight",
+    },
+    title: {
+      text: "Reporte de Ventas Diarias",
+      align: "left",
+    },
+    subtitle: {
+      text: "Movimientos de ventas",
+      align: "left",
+    },
+    labels: getDate,
+    xaxis: {
+      type: "date",
+    },
+    yaxis: {
+      opposite: true,
+    },
+    legend: {
+      horizontalAlign: "left",
+    },
+  };
 
   useEffect(() => {
     (async () => {
@@ -14,65 +61,20 @@ function GraficHeaderEmployed() {
     })();
   }, []);
 
-
-  const getPrices = buys.map(i => i.total)
-  console.log("total",getPrices);
-
-  const getDate = buys.map(i => moment(i.date_buys).format('L'))
-  console.log("fecha",getDate);
- 
-
-  const options = {
-    series: [{
-      name: "Total",
-      data: getPrices
-    }],
-    chart: {
-      type: 'area',
-      height: 350,
-      zoom: {
-        enabled: false
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'straight'
-    },
-    title: {
-      text: 'Reporte de Ventas Diarias',
-      align: 'left',
-    },
-    subtitle: {
-      text: 'Movimientos de ventas',
-      align: 'left'
-    },
-    labels: getDate,
-    xaxis: {
-      type: 'date',
-    },
-    yaxis: {
-      opposite: true
-    },
-    legend: {
-      horizontalAlign: 'left'
-    }
-   
-   
-     
-    }
-    
   return (
     <>
-    <h1 className="my-5 ml-2 block text-3xl font-bold text-gray-700">Estadisticas</h1>
+      <h1 className="my-5 ml-2 block text-3xl font-bold text-gray-700">
+        Estadisticas
+      </h1>
       <div className="flex justify-between items   items-center">
-        <div id="chart " className="border bg-white shadow-md p-5 rounded-xl w-[40rem]" >
+        <div
+          id="chart "
+          className="border bg-white shadow-md p-5 rounded-xl w-[40rem]"
+        >
           <Chart
             options={options}
             series={options.series}
             type="area"
-           
             height={420}
           />
         </div>
@@ -115,41 +117,32 @@ function GraficHeaderEmployed() {
                       </tr>
                     </thead>
                     <tbody class="bg-white ">
-
-                      {
-                        buys.length > 0 ? (
-                          
-                          <>
-                          
-                            {
-                              buys.map((i)=>(
-                                <>
-                                <tr>
+                      {buys.length > 0 ? (
+                        <>
+                          {buys.map((i) => (
+                            <>
+                              <tr>
                                 <td className="p-1 border">
                                   {i.email_customer}
                                 </td>
                                 <td className="p-1 border">
-                                  {moment(i.date_buys).startOf('hour').fromNow()}
+                                  {moment(i.date_buys)
+                                    .startOf("hour")
+                                    .fromNow()}
                                 </td>
                                 <td className="p-1 border">
                                   {("$ " + i.total).replace(
-                /(\d)(?=(\d\d\d)+(?!\d))/g,
-                "$1,"
-              )}
+                                    /(\d)(?=(\d\d\d)+(?!\d))/g,
+                                    "$1,"
+                                  )}
                                 </td>
-                          </tr>
-                                </>
-                              ))
-                            }
-                          
-                          </>
-
-                        ):(
-                          <h1> No tienes ventas registradas en el sistema</h1>
-                        )
-
-                      }
-                     
+                              </tr>
+                            </>
+                          ))}
+                        </>
+                      ) : (
+                        <h1> No tienes ventas registradas en el sistema</h1>
+                      )}
                     </tbody>
                   </table>
                 </div>

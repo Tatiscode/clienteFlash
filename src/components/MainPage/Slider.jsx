@@ -1,12 +1,13 @@
 import React from "react"
+
 import SlideCard from "./SlideCard"
 
 const Slider = () => {
   
   return (
     <>
-      <section className=''>
-        <div className=''>
+      <section>
+        <div>
           <SlideCard />
         </div>
       </section>

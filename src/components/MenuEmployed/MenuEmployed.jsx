@@ -1,37 +1,34 @@
-import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../../components/Login/user.css";
+import React, { useEffect, useState } from "react";
+
 import { TodoGetApis } from "../../Apis/Apis";
 
+import "../../components/Login/user.css";
+
 function MenuEmployed() {
-  const navigate = useNavigate();
   const [store, setStore] = useState([]);
-  const [id, setId] = useState();
-  const [orders, setOrders]= useState([])
- 
+
+  const navigate = useNavigate();
+
   let handdleCloseAccount = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
-
     navigate("/");
   };
+  
   useEffect(() => {
     (async () => {
       const response = await TodoGetApis.GetStore();
       setStore(response.data.data);
-      setId(store[0].id_store);
-      // const responseOrders = await TodoGetApis.GetOrder(store[0].id_store,);
-      // setOrders(responseOrders.data.data)
-      // console.log(responseOrders);
     })();
   }, []);
+
   return (
     <div>
       <div class="">
         <aside
           id="sidebar"
-          class="fixed overflow-y-auto z-20 h-full top-0 left-0 pt-1 flex lg:flex
-             flex-shrink-0 flex-col w-64 transition-width duration-75 "
+          class="fixed overflow-y-auto z-20 h-full top-0 left-0 pt-1 flex lg:flex flex-shrink-0 flex-col w-64 transition-width duration-75 "
           aria-label="Sidebar"
         >
           <div class="relative flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white pt-0">
@@ -57,10 +54,7 @@ function MenuEmployed() {
                   )}
                   <li>
                     <Link
-                      className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md p-2"
+                      className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md p-2"
                       to="/EditPorfileEmployed"
                     >
                       <svg
@@ -81,10 +75,7 @@ function MenuEmployed() {
                   <li>
                     <Link
                       to="/MyStore"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md p-2"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -109,10 +100,7 @@ function MenuEmployed() {
                   </li>
                   <div className="relative  mt-5">
                     <li
-                      className=" relative mt-3 hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md  p-2"
+                      className=" relative mt-3 hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md  p-2"
                       onClick={() => {
                         window.location.href = "/MyOrders/" + store[0].id_store;
                       }}
@@ -126,9 +114,9 @@ function MenuEmployed() {
                         <mask id="ipSFolder0">
                           <g
                             fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="4"
                           >
                             <path
                               fill="#fff"
@@ -177,10 +165,7 @@ function MenuEmployed() {
                   <li>
                     <Link
                       to="/RegistreSales"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md  p-2"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500  hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md  p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -208,10 +193,7 @@ function MenuEmployed() {
                   <li>
                     <Link
                       to="/Categorys"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md  p-2"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md  p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -231,11 +213,7 @@ function MenuEmployed() {
                   <li>
                     <Link
                       to="/CreateSubcategory"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md p-2
-              "
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -246,8 +224,8 @@ function MenuEmployed() {
                         <path
                           fill="currentColor"
                           stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M7 .54v13M.5 7h13"
                         />
                       </svg>
@@ -257,10 +235,7 @@ function MenuEmployed() {
 
                   <li>
                     <Link
-                      className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md p-2"
+                      className="  hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md p-2"
                       to="/Products"
                     >
                       <svg
@@ -281,10 +256,7 @@ function MenuEmployed() {
                   <li>
                     <Link
                       to="/CreateProduct"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md  p-2"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md  p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -295,8 +267,8 @@ function MenuEmployed() {
                         <path
                           fill="none"
                           stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M7 .54v13M.5 7h13"
                         />
                       </svg>
@@ -307,10 +279,7 @@ function MenuEmployed() {
                   <li>
                     <Link
                       to="/Estaditicas"
-                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 
-                      hover:text-white 
-                      hover:rounded-full duration-300
-                       px-4 my-2 flex bg-gray-100 rounded-md  p-2"
+                      className="hover:bg-gradient-to-r from-orange-600 to-pink-500 hover:text-white hover:rounded-full duration-300 px-4 my-2 flex bg-gray-100 rounded-md  p-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -336,9 +305,9 @@ function MenuEmployed() {
                         stroke="currentColor"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                         />
                       </svg>

@@ -1,11 +1,11 @@
-import React from "react"
-import "./style.css"
-import '../../App.css'
-import TopCart from "./TopCart"
-import { NavLink, useNavigate } from "react-router-dom"
+import React from "react";
+
+import TopCart from "./TopCart";
+
+import "../../App.css";
+import "./style.css";
 
 const TopCate = () => {
-  const navigate = useNavigate()
   return (
     <>
       <section className="TopCate background bg-white">
@@ -26,14 +26,12 @@ const TopCate = () => {
               <h2>Tiendas Oficiales</h2>
             </div>
             <div
-              className="container-see "
+              className="container-see cursor-pointer"
               onClick={() => {
                 window.location.href = "/AllStores";
               }}
             >
-              {/* <NavLink to="/AllStore"> */}
               <span>Ver Todas </span>
-              {/* </NavLink> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
@@ -54,6 +52,6 @@ const TopCate = () => {
       </section>
     </>
   );
-}
+};
 
-export default TopCate
+export default TopCate;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Products from "./../SubCategorys/Products";
+
 import { TodoGetApis } from "../../Apis/Apis";
 
 function CartProducts() {
@@ -10,10 +10,9 @@ function CartProducts() {
     (async () => {
       const response = await TodoGetApis.GetProductsStore();
       setProducts(response.data.rows);
-      
     })();
   }, []);
-  
+
   return (
     <>
       {Products.map((e) => (

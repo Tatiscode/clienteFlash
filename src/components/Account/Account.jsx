@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import "./account.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+
+import { Formik, Form} from "formik";
 import * as Yup from "yup";
-import { Link, json } from "react-router-dom";
+
 import { TodoGetApis } from "../../Apis/Apis";
 import PageNotFound from "../../pages/PageNotFound";
+
+import "./account.css";
+
 function Account() {
   const [stop, setStop] = useState(true);
-  const [data, setData] = useState([]);
   const [image, setImage] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -100,7 +103,9 @@ function Account() {
             <button
               onClick={async () => {
                 const response = await TodoGetApis.UpdateCustomer(image);
-
+                if (response.status === 200) {
+                  alert("Actualizado");
+                }
               }}
             >
               Editar
